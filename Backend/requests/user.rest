@@ -1,0 +1,16 @@
+POST http://localhost:5120/user
+Content-Type: application/json
+
+{
+    "name": "User2",
+    "username": "user22",
+    "email":"user1@gmail.com",
+    "rollNo":"22bd1a051a",
+    "mentorId":"mentor134",
+    "universityId":"kmitn",
+    "projectNo":6
+}
+
+###
+
+GET http://localhost:5120/user

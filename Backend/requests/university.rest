@@ -1,0 +1,15 @@
+POST http://localhost:5120/universities
+Content-Type: application/json
+
+{
+    "username":"iitmadras",
+    "name": "Indian Institute of Technology",
+    "email":"iitm@gmail.com",
+    "location":"Madras",
+    "studentCount":"0",
+    "mentorCount":"0"
+}
+
+###
+
+GET http://localhost:5120/universities
