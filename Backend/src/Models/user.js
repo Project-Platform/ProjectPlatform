@@ -30,14 +30,14 @@ const userSchema = new mongoose.Schema({
     // Mentor's ID, a reference to the 'mentor' collection
     mentorId: {
         type: String,
-        ref: "mentor",
+        ref: "mentors",
         required: true
     },
 
     // University's ID, a reference to the 'univ' collection
     universityId: {
         type: String,
-        ref: "univ",
+        ref: "univs",
         required: true
     },
 
@@ -50,4 +50,4 @@ const userSchema = new mongoose.Schema({
 });
 
 // Export the user schema for use in creating a model
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('users', userSchema);

@@ -29,10 +29,10 @@ const mentorSchema = new mongoose.Schema({
     // University's ID, a reference to the 'univ' collection, a required string field
     universityId: {
         type: String,
-        ref: "univ",
+        ref: "univs",
         required: true
     },
 });
 
 // Export the mentor schema for use in creating a model
-module.exports = mongoose.model('mentor', mentorSchema);
+module.exports = mongoose.model('mentors', mentorSchema);

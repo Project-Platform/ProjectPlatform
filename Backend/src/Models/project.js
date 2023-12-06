@@ -23,20 +23,21 @@ const projectSchema = new mongoose.Schema({
   // Mentor's ID, a reference to the 'mentors' collection
   mentorId: {
     type: String,
-    ref: "mentor",
+    ref: "mentors",
     required: true
   },
 
   // University's ID, a reference to the 'univ' collection
   universityId: {
     type: String,
-    ref: "univ",
+    ref: "univs",
     required: true
   },
 
-  // Author(s) of the project, an array of strings, required
+  // Author(s) of the project, an array of strings, a reference to the 'users' collection
   author: {
     type: [String],
+    ref:"users",
     required: true
   },
 
@@ -62,4 +63,4 @@ const projectSchema = new mongoose.Schema({
 });
 
 // Export the project schema for use in creating a model
-module.exports = projectSchema;
+module.exports = mongoose.model("projects", projectSchema);

@@ -43,4 +43,4 @@ const univSchema = new mongoose.Schema({
 });
 
 // Export the university schema for use in creating a model
-module.exports = mongoose.model('univ', univSchema);
+module.exports = mongoose.model('univs', univSchema);
