@@ -2,13 +2,12 @@ POST http://localhost:5120/project
 Content-Type: application/json
 
 {
-  "title": "Online Integrated Platform for projects",
-  "projectId":"5",
-  "field": "CSE",
-  "domain": ["Full-Stack", "Machine Learning"],
-  "mentorId": "mentor134",
-  "universityId": "kmitn",
-  "author": ["user22"],
-  "abstract": "This is the first project document",
-  "docs": "6554a011afa203ac03b1ed5a"
+  "title": "Unified Platform for Student Projects Across Universities",
+  "field": "Computer Science",
+  "domain": ["Full-Stack Development", "Machine Learning"],
+  "mentorId": "mentor209",
+  "universityId": "citk",
+  "author": ["user44"],
+  "abstract": "Encouraging creativity is vital for advancing education, and students in Indian educational institutions dedicate significant effort to academic projects. Establishing a cohesive knowledge-sharing platform, enhanced with plagiarism detection, could consolidate project works from students across Technical and Higher Educational Institutes. This platform aims to serve as a valuable knowledge hub, fostering peer learning and cross-functional research among universities and colleges nationwide. Summary: The initiative proposes the creation of an integrated platform where educational institutions share information about student projects. The platform's goal is to promote peer learning and facilitate cross-disciplinary research among institutions. Objective: Develop an online integrated platform for documenting student projects from diverse educational institutions.",
+  "docs": "6124a011afa203ac03b1ed5b"
 }

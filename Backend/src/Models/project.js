@@ -23,21 +23,21 @@ const projectSchema = new mongoose.Schema({
   // Mentor's ID, a reference to the 'mentors' collection
   mentorId: {
     type: String,
-    ref: "mentors",
+    ref: "mentors",   // Reference to the 'mentors' collection
     required: true
   },
 
-  // University's ID, a reference to the 'univ' collection
+  // University's ID, a reference to the 'univs' collection
   universityId: {
     type: String,
-    ref: "univs",
+    ref: "univs",     // Reference to the 'univs' collection
     required: true
   },
 
-  // Author(s) of the project, an array of strings, a reference to the 'users' collection
+  // Author(s) of the project, an array of strings, a reference to the 'students' collection
   author: {
     type: [String],
-    ref:"users",
+    ref:"students",      // Reference to the 'students' collection
     required: true
   },
 
@@ -50,7 +50,7 @@ const projectSchema = new mongoose.Schema({
   // Document's ID, a reference to the 'docs' collection
   docs: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "docs",
+    ref: "docs",      // Reference to the 'docs' collection
     required: true
   },
 
@@ -58,7 +58,13 @@ const projectSchema = new mongoose.Schema({
   date: {
     type: String,
     required: false,
-    default: new Date().getFullYear()
+    default: new Date().getFullYear()  // Default value set to the current year
+  },
+
+  // Embeddings of the project, an array of numbers, required
+  embeddings: {
+    type: [Number],
+    required: true
   }
 });
 

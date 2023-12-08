@@ -1,27 +1,27 @@
 const mongoose = require('mongoose');
 
-// Define a Mongoose schema for the 'users' collection
-const userSchema = new mongoose.Schema({
-    // Full name of the user, a required string field
+// Define a Mongoose schema for the 'students' collection
+const studentSchema = new mongoose.Schema({
+    // Full name of the student, a required string field
     name: {
         type: String,
         required: true
     },
 
-    // Unique username for the user, a required string field
+    // Unique username for the student, a required string field
     username: {
         type: String,
         unique: true,
         required: true
     },
 
-    // Email of the user, a required string field
+    // Email of the student, a required string field
     email: {
         type: String,
         required: true
     },
 
-    // Roll number of the user, a required string field
+    // Roll number of the student, a required string field
     rollNo: {
         type: String,
         required: true
@@ -41,7 +41,7 @@ const userSchema = new mongoose.Schema({
         required: true
     },
 
-    // Number of projects associated with the user, a required number field with a default of 0
+    // Number of projects associated with the student, a required number field with a default of 0
     projectNo: {
         type: Number,
         required: true,
@@ -49,5 +49,5 @@ const userSchema = new mongoose.Schema({
     },
 });
 
-// Export the user schema for use in creating a model
-module.exports = mongoose.model('users', userSchema);
+// Export the student schema for use in creating a model
+module.exports = mongoose.model('students', studentSchema);
