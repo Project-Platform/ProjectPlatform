@@ -21,6 +21,12 @@ const mentorSchema = new mongoose.Schema({
         required: true
     },
 
+    // Password of the mentor, a required string field
+    password: {
+        type: String,
+        required: true
+    },
+
     // Major or specialization of the mentor, a string field
     major: {
         type: String,
@@ -30,7 +36,8 @@ const mentorSchema = new mongoose.Schema({
     universityId: {
         type: String,
         ref: "univs",
-        required: true
+        required: true,
+        default: "tempUnivesity"
     },
 });
 

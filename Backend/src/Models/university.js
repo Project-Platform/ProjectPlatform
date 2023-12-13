@@ -21,6 +21,12 @@ const univSchema = new mongoose.Schema({
         required: true
     },
 
+    // Password of the university, a required string field
+    password: {
+        type: String,
+        required: true
+    },
+
     // Location of the university, a required string field
     location: {
         type: String,

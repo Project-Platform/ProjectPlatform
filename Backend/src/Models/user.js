@@ -21,6 +21,12 @@ const studentSchema = new mongoose.Schema({
         required: true
     },
 
+    // Password of the mentor, a required string field
+    password: {
+        type: String,
+        required: true
+    },
+
     // Roll number of the student, a required string field
     rollNo: {
         type: String,
@@ -31,14 +37,16 @@ const studentSchema = new mongoose.Schema({
     mentorId: {
         type: String,
         ref: "mentors",
-        required: true
+        required: true,
+        default: "tempMentor"
     },
 
     // University's ID, a reference to the 'univ' collection
     universityId: {
         type: String,
         ref: "univs",
-        required: true
+        required: true,
+        default: "tempUnivesity"
     },
 
     // Number of projects associated with the student, a required number field with a default of 0

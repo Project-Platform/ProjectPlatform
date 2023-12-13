@@ -11,7 +11,8 @@ const projectSchema = new mongoose.Schema({
   // Field of study for the project, a required string field
   field: {
     type: String,
-    required: true
+    required: true,
+    default: "Computer Science"
   },
 
   // Domain(s) of the project, an array of strings, required
@@ -24,14 +25,16 @@ const projectSchema = new mongoose.Schema({
   mentorId: {
     type: String,
     ref: "mentors",   // Reference to the 'mentors' collection
-    required: true
+    required: true,
+    default: "tempMentor"
   },
 
   // University's ID, a reference to the 'univs' collection
   universityId: {
     type: String,
     ref: "univs",     // Reference to the 'univs' collection
-    required: true
+    required: true,
+    default: "tempUnivesity"
   },
 
   // Author(s) of the project, an array of strings, a reference to the 'students' collection
@@ -51,7 +54,8 @@ const projectSchema = new mongoose.Schema({
   docs: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "docs",      // Reference to the 'docs' collection
-    required: true
+    required: true,
+    default: "6124a011afa203ac03b1ed5b"
   },
 
   // Date of the project, a string field with a default value
