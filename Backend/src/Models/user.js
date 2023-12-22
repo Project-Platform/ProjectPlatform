@@ -1,27 +1,34 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-// Define a Mongoose schema for the 'users' collection
-const userSchema = new mongoose.Schema({
-    // Full name of the user, a required string field
+
+// Define a Mongoose schema for the 'students' collection
+const studentSchema = new mongoose.Schema({
+    // Full name of the student, a required string field
     name: {
         type: String,
         required: true
     },
 
-    // Unique username for the user, a required string field
+    // Unique username for the student, a required string field
     username: {
         type: String,
         unique: true,
         required: true
     },
 
-    // Email of the user, a required string field
+    // Email of the student, a required string field
     email: {
         type: String,
         required: true
     },
 
-    // Roll number of the user, a required string field
+    // Password of the mentor, a required string field
+    password: {
+        type: String,
+        required: true
+    },
+
+    // Roll number of the student, a required string field
     rollNo: {
         type: String,
         required: true
@@ -30,18 +37,20 @@ const userSchema = new mongoose.Schema({
     // Mentor's ID, a reference to the 'mentor' collection
     mentorId: {
         type: String,
-        ref: "mentor",
-        required: true
+        ref: "mentors",
+        required: true,
+        default: "tempMentor"
     },
 
     // University's ID, a reference to the 'univ' collection
     universityId: {
         type: String,
-        ref: "univ",
-        required: true
+        ref: "univs",
+        required: true,
+        default: "tempUnivesity"
     },
 
-    // Number of projects associated with the user, a required number field with a default of 0
+    // Number of projects associated with the student, a required number field with a default of 0
     projectNo: {
         type: Number,
         required: true,
@@ -49,5 +58,6 @@ const userSchema = new mongoose.Schema({
     },
 });
 
+
 // Export the user schema for use in creating a model
-module.exports = mongoose.model('User', userSchema);
+export default model('User', userSchema);

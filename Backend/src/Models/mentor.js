@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
 // Define a Mongoose schema for the 'mentors' collection
-const mentorSchema = new mongoose.Schema({
+const mentorSchema = new Schema({
     // Unique username for the mentor, a required string field
     username: {
         type: String,
@@ -21,6 +21,12 @@ const mentorSchema = new mongoose.Schema({
         required: true
     },
 
+    // Password of the mentor, a required string field
+    password: {
+        type: String,
+        required: true
+    },
+
     // Major or specialization of the mentor, a string field
     major: {
         type: String,
@@ -29,10 +35,11 @@ const mentorSchema = new mongoose.Schema({
     // University's ID, a reference to the 'univ' collection, a required string field
     universityId: {
         type: String,
-        ref: "univ",
-        required: true
+        ref: "univs",
+        required: true,
+        default: "tempUnivesity"
     },
 });
 
 // Export the mentor schema for use in creating a model
-module.exports = mongoose.model('mentor', mentorSchema);
+export default model('mentor', mentorSchema);

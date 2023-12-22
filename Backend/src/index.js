@@ -1,11 +1,14 @@
 // Import required modules and dependencies
-const express = require("express");
-const mongoose = require("mongoose");
-const User = require("./Models/user"); // Import User model
-const University = require("./Models/university"); // Import University model
-const Mentor = require("./Models/mentor"); // Import Mentor model
-const Project = require("./Models/createProjectModel"); // Import Project model
-require("dotenv").config(); // Load environment variables
+import dotenv from "dotenv"; // Load environment variables
+import express, { Router, json } from "express";
+import { connect } from "mongoose";
+import authRouter from "./Routes/authRouter.js";
+import projectRouter from "./Routes/projectRouter.js";
+import { authentication } from "./Middleware/auth.js";
+
+dotenv.config()
+
+const router = Router()
 
 // Create an Express application
 const app = express();
@@ -17,12 +20,17 @@ const url = process.env.MONGODB_URL;
 const PORT = process.env.PORT;
 
 // Connect to MongoDB using Mongoose
-mongoose.connect(url);
+connect(url);
 
 // Enable JSON parsing for incoming requests
-app.use(express.json());
+app.use(json());
+
+
+app.use('/api/auth', authRouter);
+
+app.use('/projects', projectRouter);
 
 // Start the server
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server is running on http://localhost:${PORT}`);   // Start the Express server and log a message on successful start
 });
