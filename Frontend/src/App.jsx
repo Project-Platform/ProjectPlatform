@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 // import LoginPage from './pages/loginPage';
 import HomePage from './pages/homePage';
 // import StudentRegistrationForm from './pages/signUp/student';
-
 
 function App() {
   return (

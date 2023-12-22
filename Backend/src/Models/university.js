@@ -21,6 +21,12 @@ const univSchema = new mongoose.Schema({
         required: true
     },
 
+    // Password of the university, a required string field
+    password: {
+        type: String,
+        required: true
+    },
+
     // Location of the university, a required string field
     location: {
         type: String,
@@ -43,4 +49,4 @@ const univSchema = new mongoose.Schema({
 });
 
 // Export the university schema for use in creating a model
-module.exports = mongoose.model('univ', univSchema);
+module.exports = mongoose.model('univs', univSchema);

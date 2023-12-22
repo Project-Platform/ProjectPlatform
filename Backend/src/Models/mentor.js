@@ -21,6 +21,12 @@ const mentorSchema = new mongoose.Schema({
         required: true
     },
 
+    // Password of the mentor, a required string field
+    password: {
+        type: String,
+        required: true
+    },
+
     // Major or specialization of the mentor, a string field
     major: {
         type: String,
@@ -29,10 +35,11 @@ const mentorSchema = new mongoose.Schema({
     // University's ID, a reference to the 'univ' collection, a required string field
     universityId: {
         type: String,
-        ref: "univ",
-        required: true
+        ref: "univs",
+        required: true,
+        default: "tempUnivesity"
     },
 });
 
 // Export the mentor schema for use in creating a model
-module.exports = mongoose.model('mentor', mentorSchema);
+module.exports = mongoose.model('mentors', mentorSchema);
