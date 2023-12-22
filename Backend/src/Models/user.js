@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
+
 
 // Define a Mongoose schema for the 'students' collection
 const studentSchema = new mongoose.Schema({
@@ -57,5 +58,6 @@ const studentSchema = new mongoose.Schema({
     },
 });
 
-// Export the student schema for use in creating a model
-module.exports = mongoose.model('students', studentSchema);
+
+// Export the user schema for use in creating a model
+export default model('User', userSchema);

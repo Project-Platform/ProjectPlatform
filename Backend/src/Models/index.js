@@ -1,9 +1,9 @@
-const University = require('./university');
-const Mentor = require('./mentor');
-const Student = require('./user');
-const Project = require('./project');
+import University from './university';
+import Mentor from './mentor';
+import Student from './user';
+import Project from './project';
 
-module.exports = {
+export default {
   University,
   Mentor,
   Student,

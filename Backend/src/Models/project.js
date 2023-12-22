@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
 // Define a Mongoose schema for the 'projects' collection
-const projectSchema = new mongoose.Schema({
+const projectSchema = new Schema({
   // Title of the project, a required string field
   title: {
     type: String,
@@ -50,12 +50,18 @@ const projectSchema = new mongoose.Schema({
     required: true
   },
 
+  githubLink: {
+    type: String
+},
+
+  youtubeLink: {
+    type: String
+  },
+
   // Document's ID, a reference to the 'docs' collection
   docs: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "docs",      // Reference to the 'docs' collection
-    required: true,
-    default: "6124a011afa203ac03b1ed5b"
+    type: Schema.Types.ObjectId,
+    ref: "docs",
   },
 
   // Date of the project, a string field with a default value
@@ -69,8 +75,13 @@ const projectSchema = new mongoose.Schema({
   embeddings: {
     type: [Number],
     required: true
+  },
+  views: {
+    type: Number,
+    required: true,
+    default: 0
   }
 });
 
 // Export the project schema for use in creating a model
-module.exports = mongoose.model("projects", projectSchema);
+export default model("projects", projectSchema);
