@@ -1,5 +1,5 @@
 // Import the Project model from the "../Models/project" module.
-const Project = require("../Models/project");
+import { aggregate } from "../Models/project";
 
 // Async function for semantic search using vector indexing.
 const semanticSearch = async (queryEmbedding) => {
@@ -33,11 +33,11 @@ const semanticSearch = async (queryEmbedding) => {
 
     // Execute the aggregation pipeline on the Project model.
     // The result is an array of documents matching the semantic search.
-    result = await Project.aggregate(aggregationPipeline);
+    result = await aggregate(aggregationPipeline);
 
     // Return the result of the semantic search.
     return result;
 }
 
 // Export the semanticSearch function as the module export.
-module.exports = semanticSearch;
+export default semanticSearch;
