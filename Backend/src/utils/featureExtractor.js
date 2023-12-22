@@ -25,4 +25,4 @@ class FeatureExtractor {
 }
 
 // Export the FeatureExtractor class as the default module.
-module.exports = FeatureExtractor;
+export default FeatureExtractor;

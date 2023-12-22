@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
 // Define a Mongoose schema for the 'mentors' collection
-const mentorSchema = new mongoose.Schema({
+const mentorSchema = new Schema({
     // Unique username for the mentor, a required string field
     username: {
         type: String,
@@ -42,4 +42,4 @@ const mentorSchema = new mongoose.Schema({
 });
 
 // Export the mentor schema for use in creating a model
-module.exports = mongoose.model('mentors', mentorSchema);
+export default model('mentor', mentorSchema);

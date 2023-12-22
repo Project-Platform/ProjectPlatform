@@ -1,5 +1,5 @@
 // Import the FeatureExtractor class from the 'featureExtractor' module.
-const FeatureExtractor = require('./featureExtractor');
+import FeatureExtractor from './featureExtractor.js';
 
 // Function to concatenate the title and abstract of a project for embeddings.
 // This assumes that projectData has 'title' and 'abstract' properties.
@@ -25,4 +25,4 @@ const generateEmbeddings = async (projectData) => {
 }
 
 // Export the generateEmbeddings function as the default module export.
-module.exports = generateEmbeddings;
+export default generateEmbeddings;

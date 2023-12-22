@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
 // Define a Mongoose schema for the 'univ' collection
-const univSchema = new mongoose.Schema({
+const univSchema = new Schema({
     // Unique username for the university, a required string field
     username: {
         type: String,
@@ -49,4 +49,4 @@ const univSchema = new mongoose.Schema({
 });
 
 // Export the university schema for use in creating a model
-module.exports = mongoose.model('univs', univSchema);
+export default model('univ', univSchema);
