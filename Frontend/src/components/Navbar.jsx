@@ -73,8 +73,10 @@ export function StickyNavbar() {
             as="a"
             href="#"
             className="ml-3 mr-4 cursor-pointer py-1.5 font-medium"
-          >
-            Project Platform 
+          ><Link to="/" >
+          Project Platform
+        </Link>
+             
           </Typography>
           <div className="flex items-center gap-4">
             <div className="mr-4 hidden lg:block">{navList}</div>

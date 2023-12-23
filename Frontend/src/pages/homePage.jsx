@@ -1,4 +1,4 @@
-import Navbar from "../components/Navbar";
+// import Navbar from "../components/Navbar";
 // import Card from "./Card";
 import Card2 from "../components/Card2";
 import Footer from "../components/Footer";
@@ -7,7 +7,7 @@ import Pagination from "../components/Pagination"
 
 function HomePage(){
   return (<div>
-    <Navbar/>
+    {/* <Navbar/> */}
     <br/>
     <div className="ml-28 flex flex-row flex-wrap">
 
