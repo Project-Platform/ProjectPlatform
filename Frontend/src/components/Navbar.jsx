@@ -1,4 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
+
 import {
   Navbar,
   MobileNav,
@@ -81,14 +84,16 @@ export function StickyNavbar() {
                 size="sm"
                 className="hidden lg:inline-block"
               >
-                <span>Log In</span>
+                <span><Link to="/login">Log In</Link></span>
+
+                {/* <Link to="/login">Log In</Link> */}
               </Button>
               <Button
                 variant="gradient"
                 size="sm"
                 className="hidden lg:inline-block"
               >
-                <span>Sign in</span>
+                <span><Link to="/student/register">Sign in</Link></span>
               </Button>
             </div>
             <IconButton

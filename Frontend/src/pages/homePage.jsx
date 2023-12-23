@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import Card2 from "../components/Card2";
 import Footer from "../components/Footer";
 import Pagination from "../components/Pagination"
+// import { Link } from "react-router-dom";
 
 function HomePage(){
   return (<div>
