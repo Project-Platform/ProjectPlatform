@@ -29,7 +29,9 @@ export function StickyNavbar() {
         className="p-1 font-normal"
       >
         <a href="#" className="flex items-center">
+          <Link to="/Search">
         Search
+        </Link>
         </a>
       </Typography>
       <Typography

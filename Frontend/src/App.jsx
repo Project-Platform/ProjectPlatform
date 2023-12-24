@@ -5,6 +5,7 @@ import LoginPage from './pages/loginPage';
 import HomePage from './pages/homePage';
 import StudentRegistrationForm from './pages/signUp/student';
 import AuthorProfilePage from './pages/AuthorProfilePage';
+import Search from './pages/Search';
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
           <Route path="/student/register" element={<StudentRegistrationForm />} />
           <Route path="/ProjectPage" element={<ProjectViewPage/>} />
           <Route path="/AuthorProfile" element={<AuthorProfilePage/>}/>
+          <Route path="/Search" element={<Search/>}/>
+
           </Route>
         </Routes>
       </Router>

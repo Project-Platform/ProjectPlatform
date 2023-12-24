@@ -9,7 +9,10 @@ export default function ProjectViewPage(){
         <div className=" ">
             <h1 className="font-bold text-6xl ml-80 mt-20 underline underline-offset-auto ">E-Portal for case management</h1>
             <div className="mx-80 mt-10">
-            <Link to="/AuthorProfile"> < AvatarCustomStyles/></Link>
+            <Link to="/AuthorProfile"> < AvatarCustomStyles
+            src="https://media.licdn.com/dms/image/D5603AQEtuQNXTpAocw/profile-displayphoto-shrink_200_200/0/1682246579147?e=2147483647&v=beta&t=whQ_rFU32x2UXTsyoDXZbCR8ktnopFy4kYRdLm5ssCM"
+            className="border border-green-500 shadow-xl shadow-green-900/20 ring-4 ring-green-500/30"
+            /></Link>
             
             <Link to="/AuthorProfile"> Author</Link>
             </div>
