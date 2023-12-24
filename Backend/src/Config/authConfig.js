@@ -16,5 +16,6 @@ export const authConfig = {
     },
     skipCSRFCheck: skipCSRFCheck,
     trustHost: true,
+    secret: "secret"
 };
 
