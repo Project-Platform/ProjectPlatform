@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import {
     Card,
     CardBody,
@@ -18,7 +20,7 @@ import {
           </Typography>
         </CardBody>
         <CardFooter className="pt-0">
-          <Button>Read More</Button>
+          <Button><Link to="/ProjectPage">Read More</Link></Button>
         </CardFooter>
       </Card>
     );
