@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-
 import {
   Navbar,
   MobileNav,
@@ -20,10 +19,10 @@ import {
   ChevronDownIcon,
   Cog6ToothIcon,
   PowerIcon,
-  FolderIcon
+  FolderIcon,
 } from "@heroicons/react/24/solid";
 
-import { useSession, signIn, signOut } from "next-auth/react"
+import { useSession, signIn, signOut } from "next-auth/react";
 
 const profileMenuItems = [
   {
@@ -46,9 +45,9 @@ const profileMenuItems = [
 
 function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
- 
+
   const closeMenu = () => setIsMenuOpen(false);
- 
+
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
       <MenuHandler>
@@ -78,7 +77,7 @@ function ProfileMenu() {
           return (
             <MenuItem
               key={label}
-              onClick={isLastItem?()=>signOut():closeMenu}
+              onClick={isLastItem ? () => signOut() : closeMenu}
               className={`flex items-center gap-2 rounded ${
                 isLastItem
                   ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
@@ -105,19 +104,18 @@ function ProfileMenu() {
   );
 }
 
-
 export function StickyNavbar() {
   const [openNav, setOpenNav] = React.useState(false);
-  const { data: session, status } = useSession()
-  console.log(session,status)
- 
+  const { data: session, status } = useSession();
+  console.log(session, status);
+
   React.useEffect(() => {
     window.addEventListener(
       "resize",
-      () => window.innerWidth >= 960 && setOpenNav(false),
+      () => window.innerWidth >= 960 && setOpenNav(false)
     );
   }, []);
- 
+
   const navList = (
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Typography
@@ -127,12 +125,12 @@ export function StickyNavbar() {
         className="p-1 font-normal"
       >
         <a href="#" className="flex items-center">
-        Search
+          Search
         </a>
       </Typography>
     </ul>
   );
- 
+
   return (
     <div className="-m-6 max-h-[768px] w-[calc(100%+24px)]">
       <Navbar className="mt-6 mr-0 sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
@@ -141,23 +139,26 @@ export function StickyNavbar() {
             as="a"
             href="#"
             className="ml-3 mr-4 cursor-pointer py-1.5 font-medium"
-          ><Link to="/" >
-          Project Platform
-        </Link>
-             
+          >
+            <Link to="/">Project Platform</Link>
           </Typography>
           <div className="flex items-center gap-4">
             <div className="mr-4 hidden lg:block">{navList}</div>
             <div className="flex items-center gap-x-1">
-              {status==="authenticated"?<ProfileMenu />:
-              <Button
-                variant="text"
-                size="sm"
-                className="hidden lg:inline-block"
-                onClick={()=>signIn({ callbackUrl: 'http://localhost:5173/' })}
-              >
-                <span>Log In</span>
-              </Button>}              
+              {status === "authenticated" ? (
+                <ProfileMenu />
+              ) : (
+                <Button
+                  variant="text"
+                  size="sm"
+                  className="hidden lg:inline-block"
+                  onClick={() =>
+                    signIn({ callbackUrl: "http://localhost:5173/" })
+                  }
+                >
+                  <span>Log In</span>
+                </Button>
+              )}
             </div>
             <IconButton
               variant="text"
@@ -210,7 +211,6 @@ export function StickyNavbar() {
           </div>
         </MobileNav>
       </Navbar>
-     
     </div>
   );
 }

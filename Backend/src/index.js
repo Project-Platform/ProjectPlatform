@@ -6,9 +6,9 @@ import authRouter from "./Routes/authRouter.js";
 import projectRouter from "./Routes/projectRouter.js";
 import { authentication } from "./Middleware/auth.js";
 
-dotenv.config()
+dotenv.config();
 
-const router = Router()
+const router = Router();
 
 // Create an Express application
 const app = express();
@@ -25,12 +25,11 @@ connect(url);
 // Enable JSON parsing for incoming requests
 app.use(json());
 
+app.use("/api/auth", authRouter);
 
-app.use('/api/auth', authRouter);
-
-app.use('/projects', projectRouter);
+app.use("/projects", projectRouter);
 
 // Start the server
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);   // Start the Express server and log a message on successful start
+  console.log(`Server is running on http://localhost:${PORT}`); // Start the Express server and log a message on successful start
 });
