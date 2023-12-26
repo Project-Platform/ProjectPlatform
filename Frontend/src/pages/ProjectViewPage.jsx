@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import AvatarCustomStyles from "../components/Avatar";
+
 export default function ProjectViewPage() {
-  useEffect(() => {}, []);
+  // useEffect(() => {}, []);
   return (
     <div className=" ">
       <h1 className="font-bold text-6xl ml-80 mt-20 underline underline-offset-auto ">
