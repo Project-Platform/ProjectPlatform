@@ -156,7 +156,7 @@ export function StickyNavbar() {
                 <Button
                   variant="text"
                   size="sm"
-                  className="hidden lg:inline-block"
+                  className="inline-block"
                   onClick={() =>
                     signIn({ callbackUrl: "http://localhost:5173/" })
                   }
