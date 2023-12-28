@@ -19,7 +19,8 @@ import {
   ChevronDownIcon,
   Cog6ToothIcon,
   PowerIcon,
-  FolderIcon,
+  FolderOpenIcon,
+  DocumentPlusIcon,
 } from "@heroicons/react/24/solid";
 
 import { useSession, signIn, signOut } from "next-auth/react";
@@ -35,7 +36,11 @@ const profileMenuItems = [
   },
   {
     label: "My Projects",
-    icon: FolderIcon,
+    icon: FolderOpenIcon,
+  },
+  {
+    label: "Upload Projects",
+    icon: DocumentPlusIcon,
   },
   {
     label: "Sign Out",
@@ -201,14 +206,6 @@ export function StickyNavbar() {
         </div>
         <Collapse open={openNav} className="ml-2">
           {navList}
-          <div className="flex items-center gap-x-1">
-            <Button fullWidth variant="text" size="sm" className="">
-              <span>Log In</span>
-            </Button>
-            <Button fullWidth variant="gradient" size="sm" className="">
-              <span>Sign in</span>
-            </Button>
-          </div>
         </Collapse>
       </Navbar>
     </div>
