@@ -6,7 +6,7 @@ import Pagination2 from "../components/Pagination2.jsx";
 import ProjectList from "../components/ProjectList.jsx";
 
 function HomePage() {
-  const [trendingProjects, setTrendingProjects] = useState([]);
+  const [trendingProjects, setTrendingProjects] = useState([]);//useState,set trendingProjects to an empty array.
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(9);
 
