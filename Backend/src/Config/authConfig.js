@@ -26,8 +26,7 @@ export const authConfig = {
       return baseUrl;
     },
   },
-  skipCSRFCheck: skipCSRFCheck,
   trustHost: true,
-  secret: "secret",
+  secret: process.env.NEXTAUTH_SECRET,
 };
 

@@ -12,10 +12,10 @@ import {
 export function SimpleCard(props) {
   const navigate = useNavigate();
 
-    const handleClick= async (id)=>{
-      const project = await getProjectById(id);
-      navigate(`/ProjectPage/${id}`, {state: project});
-    }
+  const handleClick = async (id) => {
+    const project = await getProjectById(id);
+    navigate(`/ProjectPage/${id}`, { state: project });
+  };
 
   return (
     <Card className="m-5 mt-6 w-[25vw] relative">
@@ -27,9 +27,7 @@ export function SimpleCard(props) {
       </CardBody>
       <CardFooter className="pt-0">
         <div className="absolute inset-x-6 bottom-2">
-        <Button onClick={()=> handleClick(props.id)}>
-          Read More
-        </Button>
+          <Button onClick={() => handleClick(props.id)}>Read More</Button>
         </div>
       </CardFooter>
     </Card>

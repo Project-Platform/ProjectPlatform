@@ -4,16 +4,19 @@ import { useState, useEffect } from "react";
 import ProjectList from "../components/ProjectList";
 
 function HomePage() {
-  const [trendingProjects, setTrendingProjects] = useState([]);//useState,set trendingProjects to an empty array.
+  const [trendingProjects, setTrendingProjects] = useState([]); //useState,set trendingProjects to an empty array.
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 6;
 
   useEffect(() => {
     // Define a function to fetch trending projects
+    let ignore = false;
     const TrendingProjects = async () => {
       try {
         const projects = await getTrendingProjects();
-        setTrendingProjects(projects); // Assuming the response is an array of projects
+        if (!ignore) {
+          setTrendingProjects(projects); // Assuming the response is an array of projects
+        }
       } catch (error) {
         console.error("Error fetching trending projects:", error);
       }
@@ -21,6 +24,10 @@ function HomePage() {
 
     // Call the function to fetch trending projects
     TrendingProjects();
+
+    return () => {
+      ignore = true;
+    };
   }, []); // The empty dependency array ensures that this effect runs only once on component mount
 
   console.log(trendingProjects);
@@ -32,9 +39,8 @@ function HomePage() {
   return (
     <div>
       <br />
-        <ProjectList trendingProjects={currentPosts} />
-        <Pagination setCurrentPage={setCurrentPage}
-          currentPage={currentPage}/>
+      <ProjectList trendingProjects={currentPosts} />
+      <Pagination setCurrentPage={setCurrentPage} currentPage={currentPage} />
     </div>
   );
 }

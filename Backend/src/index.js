@@ -2,6 +2,7 @@
 import dotenv from "dotenv"; // Load environment variables
 import express, { Router, json } from "express";
 import { connect } from "mongoose";
+import cookieParser from "cookie-parser";
 import authRouter from "./Routes/authRouter.js";
 import projectRouter from "./Routes/projectRouter.js";
 import { authentication } from "./Middleware/auth.js";
@@ -21,6 +22,10 @@ const PORT = process.env.PORT;
 
 // Connect to MongoDB using Mongoose
 connect(url);
+
+app.use(cookieParser());
+
+app.use(express.urlencoded({ extended: true }));
 
 // Enable JSON parsing for incoming requests
 app.use(json());
