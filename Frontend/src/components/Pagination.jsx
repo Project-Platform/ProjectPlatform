@@ -1,8 +1,7 @@
 import { IconButton, Typography } from "@material-tailwind/react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 
-function Pagination({currentPage, setCurrentPage}) {
-
+function Pagination({ currentPage, setCurrentPage }) {
   const next = () => {
     if (currentPage === 10) return;
 

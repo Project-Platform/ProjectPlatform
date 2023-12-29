@@ -7,9 +7,7 @@ export default function Layout() {
     <main>
       <Navbar />
       <Outlet />
-      {/* <div className="mt-[10vw]"> */}
       <Footer />
-      {/* </div> */}
-      </main>
+    </main>
   );
 }
