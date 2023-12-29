@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { getProjectById } from "../services/projectData";
 
 import {
   Card,
@@ -9,8 +10,15 @@ import {
 } from "@material-tailwind/react";
 
 export function SimpleCard(props) {
+  const navigate = useNavigate();
+
+    const handleClick= async (id)=>{
+      const project = await getProjectById(id);
+      navigate(`/ProjectPage/${id}`, {state: project});
+    }
+
   return (
-    <Card className="m-5 mt-6 w-80 lg:w-96 ">
+    <Card className="m-5 mt-6 w-[25vw] relative">
       <CardBody>
         <Typography variant="h5" color="blue-gray" className="mb-2">
           {props.name}
@@ -18,9 +26,11 @@ export function SimpleCard(props) {
         <Typography>{props.descp}</Typography>
       </CardBody>
       <CardFooter className="pt-0">
-        <Button>
-          <Link to="/ProjectPage">Read More</Link>
+        <div className="absolute inset-x-6 bottom-2">
+        <Button onClick={()=> handleClick(props.id)}>
+          Read More
         </Button>
+        </div>
       </CardFooter>
     </Card>
   );
