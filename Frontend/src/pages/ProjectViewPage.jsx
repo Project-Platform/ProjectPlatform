@@ -16,7 +16,6 @@ export default function ProjectViewPage() {
     author1={projectData.author[0]}
     author2= {projectData.author[1]}
     date={projectData.date}
-    field={projectData.field}
     domain1={projectData.domain[0]}
     domain2={projectData.domain[1]}
 

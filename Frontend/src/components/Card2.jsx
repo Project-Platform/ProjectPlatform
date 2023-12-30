@@ -13,12 +13,13 @@ export function SimpleCard(props) {
   const navigate = useNavigate();
 
     const handleClick= async (id)=>{
+      console.log(id);
       const project = await getProjectById(id);
       navigate(`/ProjectPage/${id}`, {state: project});
     }
 
   return (
-    <Card className="m-5 mt-6 w-[25vw] relative">
+    <Card className="m-5 mt-6 w-80 lg:w-96 ">
       <CardBody>
         <Typography variant="h5" color="blue-gray" className="mb-2">
           {props.name}

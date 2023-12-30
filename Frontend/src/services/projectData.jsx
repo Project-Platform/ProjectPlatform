@@ -3,6 +3,7 @@ import axios from "axios";
 const getProjectById = async (projectId) => {
   try {
     const response = await axios.get(`/projects/${projectId}`);
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching project:", error);
