@@ -4,10 +4,6 @@ import TextArea from '../components/TextArea';
 function ProjectUploadPage() {
     const [PCisMouseOver, PCsetMouse] = useState(false);
     const [UpisMouseOver, UpsetMouse] = useState(false);
-    const handleFileUpload = (files) => {
-        // Handle the uploaded files
-        console.log(files);
-      };
     function PChandleMouseOver(){
         PCsetMouse(true);
     }
@@ -43,7 +39,7 @@ function ProjectUploadPage() {
                     <TextArea label="Abstract" />
 
                     <div className="bg-palevioletred text-blanchedalmond p-10 rounded-4 text-18 font-bold text-xl">Document (PDF or word format, up to 10MB):</div>
-                    <input type="file" id="ideaTemplate" name="ideaTemplate" accept=".pdf" required /> 
+                    <input className="translate-y-500" type="file" id="ideaTemplate" name="ideaTemplate" accept=".pdf" required /> 
 
                     {/* <div className="bg-palevioletred text-blanchedalmond p-10 rounded-4 text-18 font-bold">Thumbnail (up to 5MB):</div>
                     <input type="file" id="thumbnail" name="thumbnail" accept="image/*" required /> */}
