@@ -8,7 +8,7 @@ const projectRouter = express.Router();
 // Get a list of top 50 trending projects with the highest views
 projectRouter.get("/trending", async (req, res) => {
   try {
-    const trendingProjects = await Project.find().sort({ views: -1 }).limit(50);
+    const trendingProjects = await Project.find().sort({ views: -1 }).limit(54);
     res.status(200).json(trendingProjects);
   } catch (error) {
     console.log(error);

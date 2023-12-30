@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import {
   Navbar,
-  MobileNav,
+  Collapse,
   Typography,
   Button,
   Menu,
@@ -19,7 +19,8 @@ import {
   ChevronDownIcon,
   Cog6ToothIcon,
   PowerIcon,
-  FolderIcon,
+  FolderOpenIcon,
+  DocumentPlusIcon,
 } from "@heroicons/react/24/solid";
 
 import { useSession, signIn, signOut } from "next-auth/react";
@@ -35,7 +36,11 @@ const profileMenuItems = [
   },
   {
     label: "My Projects",
-    icon: FolderIcon,
+    icon: FolderOpenIcon,
+  },
+  {
+    label: "Upload Projects",
+    icon: DocumentPlusIcon,
   },
   {
     label: "Sign Out",
@@ -43,7 +48,7 @@ const profileMenuItems = [
   },
 ];
 
-function ProfileMenu() {
+function ProfileMenu({image, update}) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const closeMenu = () => setIsMenuOpen(false);
@@ -61,7 +66,7 @@ function ProfileMenu() {
             size="sm"
             alt="tania andrew"
             className="border border-gray-900 p-0.5"
-            src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
+            src={image}
           />
           <ChevronDownIcon
             strokeWidth={2.5}
@@ -107,7 +112,7 @@ function ProfileMenu() {
 export function StickyNavbar() {
   const [openNav, setOpenNav] = React.useState(false);
   const { data: session, status } = useSession();
-  console.log(session, status);
+  // console.log(session, status);
 
   React.useEffect(() => {
     window.addEventListener(
@@ -136,24 +141,24 @@ export function StickyNavbar() {
       <Navbar className="mt-6 mr-0 sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
         <div className="flex items-center justify-between text-blue-gray-900">
           <Typography
-            as="a"
-            href="#"
+            as={Link}
+            to="/"
             className="ml-3 mr-4 cursor-pointer py-1.5 font-medium"
           >
-            <Link to="/">Project Platform</Link>
+            Project Platform
           </Typography>
           <div className="flex items-center gap-4">
             <div className="mr-4 hidden lg:block">{navList}</div>
             <div className="flex items-center gap-x-1">
               {status === "authenticated" ? (
-                <ProfileMenu />
+                <ProfileMenu image={session.user.image} />
               ) : (
                 <Button
                   variant="text"
                   size="sm"
-                  className="hidden lg:inline-block"
+                  className="inline-block"
                   onClick={() =>
-                    signIn({ callbackUrl: "http://localhost:5173/" })
+                    signIn()
                   }
                 >
                   <span>Log In</span>
@@ -199,17 +204,9 @@ export function StickyNavbar() {
             </IconButton>
           </div>
         </div>
-        <MobileNav open={openNav} className="ml-2">
+        <Collapse open={openNav} className="ml-2">
           {navList}
-          <div className="flex items-center gap-x-1">
-            <Button fullWidth variant="text" size="sm" className="">
-              <span>Log In</span>
-            </Button>
-            <Button fullWidth variant="gradient" size="sm" className="">
-              <span>Sign in</span>
-            </Button>
-          </div>
-        </MobileNav>
+        </Collapse>
       </Navbar>
     </div>
   );

@@ -8,13 +8,6 @@ const projectSchema = new Schema({
     required: true,
   },
 
-  // Field of study for the project, a required string field
-  field: {
-    type: String,
-    required: true,
-    default: "Computer Science",
-  },
-
   // Domain(s) of the project, an array of strings, required
   domain: {
     type: [String],
