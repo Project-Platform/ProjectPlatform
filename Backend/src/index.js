@@ -1,12 +1,11 @@
 // Import required modules and dependencies
 import dotenv from "dotenv"; // Load environment variables
 import express, { Router, json } from "express";
-import { connect } from "mongoose";
+import {connect }from 'mongoose';
 import cookieParser from "cookie-parser";
 import authRouter from "./Routes/authRouter.js";
 import projectRouter from "./Routes/projectRouter.js";
-import { authentication } from "./Middleware/auth.js";
-
+import searchRouter from "./Routes/searchRouter.js";
 dotenv.config();
 
 const router = Router();
@@ -21,8 +20,13 @@ const url = process.env.MONGODB_URL;
 const PORT = process.env.PORT;
 
 // Connect to MongoDB using Mongoose
-connect(url);
 
+try {
+  await connect(url);
+  console.log("Connected to MongoDB Atlas");
+} catch (error) {
+  console.error("Error connecting to MongoDB Atlas:", error);
+}
 app.use(cookieParser());
 
 app.use(express.urlencoded({ extended: true }));
@@ -34,7 +38,9 @@ app.use("/api/auth", authRouter);
 
 app.use("/projects", projectRouter);
 
+app.use("/search",searchRouter);
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`); // Start the Express server and log a message on successful start
 });
+

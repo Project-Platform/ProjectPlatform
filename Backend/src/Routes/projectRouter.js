@@ -1,7 +1,6 @@
 import express from "express";
 import Project from "../Models/project.js";
 import generateEmbeddings from "../utils/embeddings.js";
-import mongoose from "mongoose";
 
 const projectRouter = express.Router();
 
