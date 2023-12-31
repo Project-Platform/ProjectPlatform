@@ -18,17 +18,15 @@ export function SimpleCard(props) {
   };
 
   return (
-    <Card className="m-5 mt-6 w-[25vw] relative">
-      <CardBody>
-        <Typography variant="h5" color="blue-gray" className="mb-2">
+    <Card className="m-5 mt-6 w-9/12 sm:w-5/12 xl:w-3/12">
+      <CardBody className="h-full">
+        <Typography variant="h5" color="blue-gray" className="mb-2 h-20">
           {props.name}
         </Typography>
-        <Typography>{props.descp}</Typography>
+        <Typography>{props.descp.slice(0, 270) + " ...."}</Typography>
       </CardBody>
       <CardFooter className="pt-0">
-        <div className="absolute inset-x-6 bottom-2">
-          <Button onClick={() => handleClick(props.id)}>Read More</Button>
-        </div>
+        <Button onClick={() => handleClick(props.id)}>Read More</Button>
       </CardFooter>
     </Card>
   );
