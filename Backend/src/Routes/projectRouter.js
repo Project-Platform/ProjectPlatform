@@ -10,7 +10,7 @@ projectRouter.get("/trending", async (req, res) => {
     const trendingProjects = await Project.find().sort({ views: -1 }).limit(54);
     res.status(200).json(trendingProjects);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
@@ -24,7 +24,7 @@ projectRouter.post("/", async (req, res) => {
 
     res.status(201).json(savedProject);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
@@ -41,7 +41,7 @@ projectRouter.delete("/:id", async (req, res) => {
 
     res.status(200).json(deletedProject);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
@@ -61,9 +61,23 @@ projectRouter.get("/:id", async (req, res) => {
 
     res.status(200).json(project);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
+
+projectRouter.get("/student/:username", async (req, res) => {
+  try {
+    const studentUsername = req.params.username;
+
+    // Find the projects where the given student is an author
+    const projects = await Project.find({ author: studentUsername });
+
+    res.status(200).json(projects);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+})
 
 export default projectRouter;
