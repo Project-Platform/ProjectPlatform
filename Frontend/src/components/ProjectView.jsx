@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import AvatarCustomStyles from "../components/Avatar";
 
 export default function ProjectView(props) {
   return (

@@ -1,7 +1,7 @@
 import express from "express";
 import results from "../utils/search.js";
 const searchRouter = express.Router();
-searchRouter.post('/:search', async (req, res) => {
+searchRouter.get('/:search', async (req, res) => {
     try {
         const word = req.params.search;
         // Check if the 'search' parameter is present and is not empty

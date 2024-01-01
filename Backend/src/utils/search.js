@@ -47,7 +47,6 @@ const results = async (word) => {
 
     // Perform searches using FlexSearch
     const answer = index.search(word);
-
     // Filter the results based on the search answer
     const ans = data.filter((project) => answer.includes(project._id));
 

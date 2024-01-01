@@ -3,7 +3,8 @@ import Layout from "./components/Layout";
 import ProjectViewPage from "./pages/ProjectViewPage";
 import HomePage from "./pages/homePage";
 import AuthorProfilePage from "./pages/AuthorProfilePage";
-
+import WordSearch from "./components/search.jsx"; // Renamed to WordSearch
+import Results  from "./components/Result.jsx";
 function App() {
   return (
     <div className="App">
@@ -13,6 +14,8 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/ProjectPage/:id" element={<ProjectViewPage />} />
             <Route path="/AuthorProfile" element={<AuthorProfilePage />} />
+            <Route path="/search" element={<WordSearch />} />
+            <Route path="/search/:word" element={<Results />} />
           </Route>
         </Routes>
       </Router>

@@ -1,14 +1,12 @@
 import axios from "axios";
 
-const getProject = async (word) => {
+const searchResult = async (word) => {
   try {
-    const response = await axios.post(`/search/${word}`,word);
-    console.log(response.data);
-    console.log("Hi");
+    const response = await axios.get(`/search/${word}`);
     return response.data;
   } catch (error) {
     console.error("Error fetching project:", error);
     throw error;
   }
 };
-export default getProject;
+export  {searchResult};
