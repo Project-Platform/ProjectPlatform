@@ -6,9 +6,8 @@ import cookieParser from "cookie-parser";
 import authRouter from "./Routes/authRouter.js";
 import projectRouter from "./Routes/projectRouter.js";
 import searchRouter from "./Routes/searchRouter.js";
+import studentRouter from "./Routes/userRouter.js";
 dotenv.config();
-
-const router = Router();
 
 // Create an Express application
 const app = express();
@@ -37,6 +36,8 @@ app.use(json());
 app.use("/api/auth", authRouter);
 
 app.use("/projects", projectRouter);
+
+app.use("/api/students", studentRouter);
 
 app.use("/search",searchRouter);
 // Start the server
