@@ -35,11 +35,11 @@ app.use(json());
 
 app.use("/api/auth", authRouter);
 
-app.use("/projects", projectRouter);
+app.use("/api/projects", projectRouter);
 
 app.use("/api/students", studentRouter);
 
-app.use("/search",searchRouter);
+app.use("/api/search",searchRouter);
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`); // Start the Express server and log a message on successful start

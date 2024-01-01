@@ -66,4 +66,18 @@ projectRouter.get("/:id", async (req, res) => {
   }
 });
 
+projectRouter.get("/student/:username", async (req, res) => {
+  try {
+    const studentUsername = req.params.username;
+
+    // Find the projects where the given student is an author
+    const projects = await Project.find({ author: studentUsername });
+
+    res.status(200).json(projects);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+})
+
 export default projectRouter;
