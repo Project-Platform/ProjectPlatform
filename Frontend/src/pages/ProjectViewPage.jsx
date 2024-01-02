@@ -6,7 +6,6 @@ export default function ProjectViewPage() {
 
   const projectData = location.state;
 
-  // details={trendingProjects[1]}
   return (
     <ProjectView
       title={projectData.title}

@@ -50,6 +50,7 @@ projectRouter.delete("/:id", async (req, res) => {
 projectRouter.get("/:id", async (req, res) => {
   try {
     const projectId = req.params.id;
+    console.log(projectId);
     const project = await Project.findById(projectId);
     if (!project) {
       return res.status(404).json({ message: "Project not found" });
