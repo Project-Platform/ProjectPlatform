@@ -1,12 +1,9 @@
-import Table from "../components/Table"
+import Table from "../components/Table";
 
-
-export default function MyProjects(props){
-    return(
-        <div className="mt-5">
-            <Table
-            
-            />
-        </div>
-    )
+export default function MyProjects(props) {
+  return (
+    <div className="mt-5">
+      <Table />
+    </div>
+  );
 }
