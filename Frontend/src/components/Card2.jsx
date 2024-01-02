@@ -20,6 +20,7 @@ export function SimpleCard(props) {
 
   return (
     <Card className="m-5 mt-6 w-80 lg:w-96 ">
+    {/* // <Card className="m-5 mt-6 w-[25vw] relative"> */}
       <CardBody>
         <Typography variant="h5" color="blue-gray" className="mb-2">
           {props.name}
