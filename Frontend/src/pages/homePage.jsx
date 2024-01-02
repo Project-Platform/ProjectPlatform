@@ -30,7 +30,7 @@ function HomePage() {
     };
   }, []); // The empty dependency array ensures that this effect runs only once on component mount
 
-  console.log(trendingProjects);
+  // console.log(trendingProjects);
 
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
