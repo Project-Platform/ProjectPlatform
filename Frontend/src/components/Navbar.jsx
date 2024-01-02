@@ -1,113 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import ProfileMenu from "./ProfileMenu";
 
 import {
   Navbar,
   Collapse,
   Typography,
   Button,
-  Menu,
-  MenuHandler,
-  MenuList,
-  MenuItem,
-  Avatar,
   IconButton,
+  Input,
 } from "@material-tailwind/react";
 
 import {
-  UserCircleIcon,
-  ChevronDownIcon,
-  Cog6ToothIcon,
-  PowerIcon,
-  FolderOpenIcon,
-  DocumentPlusIcon,
+  MagnifyingGlassIcon,
+  Bars3Icon,
+  XMarkIcon,
 } from "@heroicons/react/24/solid";
 
-import { useSession, signIn, signOut } from "next-auth/react";
-
-const profileMenuItems = [
-  {
-    label: "My Profile",
-    icon: UserCircleIcon,
-  },
-  {
-    label: "Edit Profile",
-    icon: Cog6ToothIcon,
-  },
-  {
-    label: "My Projects",
-    icon: FolderOpenIcon,
-  },
-  {
-    label: "Upload Projects",
-    icon: DocumentPlusIcon,
-  },
-  {
-    label: "Sign Out",
-    icon: PowerIcon,
-  },
-];
-
-function ProfileMenu({image, update}) {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
-  const closeMenu = () => setIsMenuOpen(false);
-
-  return (
-    <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
-      <MenuHandler>
-        <Button
-          variant="text"
-          color="blue-gray"
-          className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
-        >
-          <Avatar
-            variant="circular"
-            size="sm"
-            alt="tania andrew"
-            className="border border-gray-900 p-0.5"
-            src={image}
-          />
-          <ChevronDownIcon
-            strokeWidth={2.5}
-            className={`h-3 w-3 transition-transform ${
-              isMenuOpen ? "rotate-180" : ""
-            }`}
-          />
-        </Button>
-      </MenuHandler>
-      <MenuList className="p-1">
-        {profileMenuItems.map(({ label, icon }, key) => {
-          const isLastItem = key === profileMenuItems.length - 1;
-          return (
-            <MenuItem
-              key={label}
-              onClick={isLastItem ? () => signOut() : closeMenu}
-              className={`flex items-center gap-2 rounded ${
-                isLastItem
-                  ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
-                  : ""
-              }`}
-            >
-              {React.createElement(icon, {
-                className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
-                strokeWidth: 2,
-              })}
-              <Typography
-                as="span"
-                variant="small"
-                className="font-normal"
-                color={isLastItem ? "red" : "inherit"}
-              >
-                {label}
-              </Typography>
-            </MenuItem>
-          );
-        })}
-      </MenuList>
-    </Menu>
-  );
-}
+import { useSession, signIn } from "next-auth/react";
 
 export function StickyNavbar() {
   const [openNav, setOpenNav] = React.useState(false);
@@ -121,21 +31,6 @@ export function StickyNavbar() {
     );
   }, []);
 
-  const navList = (
-    <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <a href="#" className="flex items-center">
-          Search
-        </a>
-      </Typography>
-    </ul>
-  );
-
   return (
     <div className="-m-6 max-h-[768px] w-[calc(100%+24px)]">
       <Navbar className="mt-6 mr-0 sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
@@ -147,8 +42,28 @@ export function StickyNavbar() {
           >
             Project Platform
           </Typography>
+          <div className="hidden items-center gap-x-2 lg:flex">
+            <div className="relative flex w-full gap-2 md:w-max">
+              <Input
+                type="search"
+                placeholder="Search"
+                containerProps={{
+                  className: "min-w-[288px]",
+                }}
+                className=" !border-t-blue-gray-300 pl-9 placeholder:text-blue-gray-300 focus:!border-blue-gray-300"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }}
+              />
+              <div className="!absolute left-3 top-[13px]">
+                <MagnifyingGlassIcon className="h-4 w-4" strokeWidth={2} />
+              </div>
+            </div>
+            <Button size="md" className="rounded-lg ">
+              Search
+            </Button>
+          </div>
           <div className="flex items-center gap-4">
-            <div className="mr-4 hidden lg:block">{navList}</div>
             <div className="flex items-center gap-x-1">
               {status === "authenticated" ? (
                 <ProfileMenu image={session.user.image} />
@@ -157,9 +72,7 @@ export function StickyNavbar() {
                   variant="text"
                   size="sm"
                   className="inline-block"
-                  onClick={() =>
-                    signIn()
-                  }
+                  onClick={() => signIn()}
                 >
                   <span>Log In</span>
                 </Button>
@@ -172,40 +85,42 @@ export function StickyNavbar() {
               onClick={() => setOpenNav(!openNav)}
             >
               {openNav ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  className="h-6 w-6 mr-0"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
+                <XMarkIcon className="h-6 w-6 mr-0" />
               ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 mr-0"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
+                <Bars3Icon className="h-6 w-6 mr-0" />
               )}
             </IconButton>
           </div>
         </div>
         <Collapse open={openNav} className="ml-2">
-          {navList}
+          <br />
+          <div className="container mx-auto">
+            <div className="flex flex-col gap-x-2 sm:flex-row sm:items-center">
+              <div className="relative w-full gap-2 md:w-max">
+                <Input
+                  type="search"
+                  placeholder="Search"
+                  containerProps={{
+                    className: "min-w-[288px]",
+                  }}
+                  className=" !border-t-blue-gray-300 pl-9 placeholder:text-blue-gray-300 focus:!border-blue-gray-300"
+                  labelProps={{
+                    className: "before:content-none after:content-none",
+                  }}
+                />
+                <div className="!absolute left-3 top-[13px]">
+                  <MagnifyingGlassIcon
+                    className="h-4 w-4"
+                    fill="black"
+                    strokeWidth={2}
+                  />
+                </div>
+              </div>
+              <Button size="md" className="mt-1 rounded-lg sm:mt-0">
+                Search
+              </Button>
+            </div>
+          </div>
         </Collapse>
       </Navbar>
     </div>
