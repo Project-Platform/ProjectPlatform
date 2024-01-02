@@ -48,7 +48,7 @@ const profileMenuItems = [
   },
 ];
 
-function ProfileMenu() {
+function ProfileMenu({image, update}) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const closeMenu = () => setIsMenuOpen(false);
@@ -66,7 +66,7 @@ function ProfileMenu() {
             size="sm"
             alt="tania andrew"
             className="border border-gray-900 p-0.5"
-            src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
+            src={image}
           />
           <ChevronDownIcon
             strokeWidth={2.5}
@@ -151,14 +151,14 @@ export function StickyNavbar() {
             <div className="mr-4 hidden lg:block">{navList}</div>
             <div className="flex items-center gap-x-1">
               {status === "authenticated" ? (
-                <ProfileMenu />
+                <ProfileMenu image={session.user.image} />
               ) : (
                 <Button
                   variant="text"
                   size="sm"
                   className="inline-block"
                   onClick={() =>
-                    signIn({ callbackUrl: "http://localhost:5173/" })
+                    signIn()
                   }
                 >
                   <span>Log In</span>

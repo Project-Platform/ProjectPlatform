@@ -62,9 +62,9 @@ const projectSchema = new Schema({
 
   // Date of the project, a string field with a default value
   date: {
-    type: String,
+    type: Date,
     required: false,
-    default: new Date().getFullYear(), // Default value set to the current year
+    default: new Date(), // Default value set to the current year
   },
 
   // Embeddings of the project, an array of numbers, required

@@ -1,7 +1,7 @@
 import { skipCSRFCheck } from "@auth/core";
 import GitHub from "@auth/core/providers/github";
-import dotenv from 'dotenv';
-dotenv.config()
+import dotenv from "dotenv";
+dotenv.config();
 
 export const authConfig = {
   providers: [
@@ -17,8 +17,7 @@ export const authConfig = {
       return token;
     },
     async redirect({ url, baseUrl }) {
-        console.log(url, baseUrl);
-        baseUrl="http://localhost:5173/"
+      baseUrl = "http://localhost:5173/";
       // Allows relative callback URLs
       if (url.startsWith("/")) return `${baseUrl}${url}`;
       // Allows callback URLs on the same origin
@@ -26,8 +25,6 @@ export const authConfig = {
       return baseUrl;
     },
   },
-  skipCSRFCheck: skipCSRFCheck,
   trustHost: true,
-  secret: "secret",
+  secret: process.env.NEXTAUTH_SECRET,
 };
-

@@ -6,6 +6,9 @@ import AuthorProfilePage from "./pages/AuthorProfilePage";
 import StudentProfile from "./pages/StudentProfile";
 import MyProjects from "./pages/MyProjects";
 import MyProfile from "./pages/MyProfile";
+import ProjectUploadPage from "./pages/ProjectUploadPage";
+import WordSearch from "./components/search.jsx"; // Renamed to WordSearch
+import Results  from "./components/Result.jsx";
 
 function App() {
   return (
@@ -17,8 +20,11 @@ function App() {
             <Route path="/MyProjects" element={<MyProjects/>}/>
             <Route path="/MyProfile" element={<MyProfile/>}/>
             <Route path="/StudentProfile" element={<StudentProfile/>}/>
+            <Route path="/Projectupload" element={<ProjectUploadPage />}/>            
             <Route path="/ProjectPage/:id" element={<ProjectViewPage />} />
             <Route path="/AuthorProfile" element={<AuthorProfilePage />} />
+            <Route path="/search" element={<WordSearch />} />
+            <Route path="/search/:word" element={<Results />} />
           </Route>
         </Routes>
       </Router>
