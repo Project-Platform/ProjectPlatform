@@ -1,12 +1,13 @@
-import { Card, Input, Button, Typography } from "@material-tailwind/react";
+import {
+  Card,
+  Input,
+  Button,
+  Typography,
+} from "@material-tailwind/react";
 
 export default function Profile() {
   return (
-    <Card
-      color="transparent"
-      shadow={false}
-      className="mt-10 place-items-center"
-    >
+    <Card color="transparent" shadow={false}>
       <Typography variant="h4" color="blue-gray">
         My Profile
       </Typography>
@@ -27,7 +28,17 @@ export default function Profile() {
               className: "before:content-none after:content-none",
             }}
           />
-
+          {/* <Typography variant="h6" color="blue-gray" className="-mb-3">
+              Username
+            </Typography>
+            <Input
+              size="lg"
+              placeholder="Abhinav_MS"
+              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+            /> */}
           <Typography variant="h6" color="blue-gray" className="-mb-3">
             University Name
           </Typography>
@@ -75,17 +86,10 @@ export default function Profile() {
             }}
           />
         </div>
-        <Button className="mt-6" fullWidth>
-          SAVE
-        </Button>
+
         <Button className="mt-6" fullWidth>
           EDIT
         </Button>
-
-        {/* <Button className="mt-6" fullWidth>
-          EDIT
-        </Button> */}
-
         <Typography color="gray" className="mt-4 text-center font-normal">
           {/* Already have an account?{" "} */}
           <a href="#" className="font-medium text-gray-900">

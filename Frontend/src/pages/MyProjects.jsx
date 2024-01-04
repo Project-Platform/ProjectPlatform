@@ -2,9 +2,26 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { getSession, signIn } from "next-auth/react";
 import Table from "../components/Table";
-import Input from "../components/Table"; // Replace './path/to/Input' with the actual path to your Input component file
-
-// ... rest of your code ...
+import TableBodyComponent from "../components/TableBodyComponent";
+import MyProjectsHeader from "../components/MyProjectsHeader";
+import InitialRowOfTable from "../components/InitialRowOfTable";
+import MyProjectsFooter from "../components/MyProjectsFooter";
+import {
+  Card,
+  CardHeader,
+  Input,
+  Typography,
+  Button,
+  CardBody,
+  Chip,
+  CardFooter,
+  Tabs,
+  TabsHeader,
+  Tab,
+  Avatar,
+  IconButton,
+  Tooltip,
+} from "@material-tailwind/react";
 
 export default function MyProjects(props) {
   const [projects, setProjects] = useState([]); // useState, set projects to an empty array.
@@ -14,6 +31,7 @@ export default function MyProjects(props) {
     try {
       const session = await getSession();
       if (session) {
+        // session.user.name
         const response = await axios.get(`/api/projects/student/${"Emma"}`);
         setProjects(response.data); // Update state with fetched projects
       } else {
@@ -32,20 +50,18 @@ export default function MyProjects(props) {
   if (error) {
     return <div>Error fetching projects: {error.message}</div>;
   }
-
   console.log(projects);
-  const headers = ["Name", "Role", "Organization", "Domain", "Date"];
-  <Table tableHeaders={headers} tableData={projects} />;
+
   return (
-    <div>
-      <h1 className="mt-10">My Projects</h1>
-      {projects.map((project) => (
-        <div key={project.id}>
-          <h2>{project.title}</h2>
-          <p>{project.description}</p>
-          {/* Render other project details here */}
-        </div>
-      ))}
-    </div>
+    <Card className="h-full w-full">
+      <MyProjectsHeader />
+      <CardBody className="overflow-scroll px-0">
+        <table className="mt-4 w-full min-w-max table-auto text-left">
+          <InitialRowOfTable />
+          <TableBodyComponent tableRows={projects} />
+        </table>
+      </CardBody>
+      <MyProjectsFooter />
+    </Card>
   );
 }
