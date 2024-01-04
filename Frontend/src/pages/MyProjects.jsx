@@ -35,16 +35,15 @@ export default function MyProjects(props) {
 
   console.log(projects);
   const headers = ["Name", "Role", "Organization", "Domain", "Date"];
-  // <Table tableHeaders={headers} tableData={projects} />;
+  <Table tableHeaders={headers} tableData={projects} />;
   return (
     <div>
       <h1 className="mt-10">My Projects</h1>
       {projects.map((project) => (
         <div key={project.id}>
-          {/* <Table tableHeaders={headers} tableData={project} /> */}
           <h2>{project.title}</h2>
-          <p>{project.author[0]}, {project.author[1]}</p>
-          Render other project details here
+          <p>{project.description}</p>
+          {/* Render other project details here */}
         </div>
       ))}
     </div>
