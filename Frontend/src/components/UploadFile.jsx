@@ -1,5 +1,4 @@
-import React from 'react';
-import { FileUpload } from 'material-tailwind';
+import { FileUpload } from "material-tailwind";
 
 function UploadButton() {
   const handleFileUpload = (files) => {
@@ -13,7 +12,7 @@ function UploadButton() {
       buttonType="filled"
       buttonText="Upload File"
       buttonProps={{
-        className: 'rounded-full',
+        className: "rounded-full",
       }}
       onChange={handleFileUpload}
     />

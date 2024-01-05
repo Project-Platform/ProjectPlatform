@@ -9,7 +9,7 @@ import {
   Button,
 } from "@material-tailwind/react";
 
-export function SimpleCard(props) {
+export function ProjectCard(props) {
   const navigate = useNavigate();
 
   const handleClick = async (id) => {
@@ -32,4 +32,4 @@ export function SimpleCard(props) {
   );
 }
 
-export default SimpleCard;
+export default ProjectCard;
