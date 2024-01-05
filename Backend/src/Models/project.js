@@ -36,7 +36,7 @@ const projectSchema = new Schema({
   author: {
     type: [String],
     ref: "students", // Reference to the 'students' collection
-    required: true
+    required: true,
   },
 
   // Abstract of the project, a required string field
@@ -55,9 +55,9 @@ const projectSchema = new Schema({
 
   // Document's ID, a reference to the 'docs' collection
   docs: {
-    type: Schema.Types.ObjectId,
-    ref: "docs",
-    select: false
+    type: Buffer,
+    required: true,
+    select: false,
   },
 
   // Date of the project, a string field with a default value
