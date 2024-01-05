@@ -9,8 +9,8 @@ export default function Profile() {
   const [profileData, setProfileData] = useState({
     name: '',
     universityName: '',
-    github: '',
-    linkedin: '',
+    githubUsername: '',
+    linkedinProfile: '',
   })
   const [isEditMode, setIsEditMode] = useState(false);
 
@@ -20,14 +20,17 @@ export default function Profile() {
       console.log(session);
     }
   }, [session]);
+  
 
   const fetchStudentData = async () => {
     try {
-      const { name, universityName } = await getStudentByUsername();
+      const { name, universityName,githubUsername,linkedinProfile } = await getStudentByUsername();
       setProfileData({
         ...profileData,
         name: name,
         universityName: universityName,
+        githubUsername: githubUsername,
+        linkedinProfile: linkedinProfile,
       });
     } catch (error) {
       console.error('Error fetching student data:', error);
@@ -38,6 +41,11 @@ export default function Profile() {
     console.log(profileData);
   }, [profileData]);
 
+  
+  const handleInputChange = (field, value) => {
+    setProfileData({ ...profileData, [field]: value });
+  };
+
   const handleSaveProfile = async () => {
     try {
       console.group(profileData);
@@ -46,8 +54,8 @@ export default function Profile() {
       setProfileData({
         name: '',
         universityName: '',
-        github: '',
-        linkedin: '',
+        githubUsername: '',
+        linkedinProfile: '',
       });
 
     } catch (error) {
@@ -119,7 +127,7 @@ export default function Profile() {
             placeholder="GitHub"
             id="github"  
             autoComplete="username"
-            onChange={(e) => handleInputChange('github', e.target.value)}
+            onChange={(e) => handleInputChange('githubUsername', e.target.value)}
             className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
             labelProps={{
               className: "before:content-none after:content-none",
@@ -135,7 +143,7 @@ export default function Profile() {
             placeholder="LinkedIn"
             id="linkedin"
             autoComplete="username"
-            onChange={(e) => handleInputChange('linkedin', e.target.value)}
+            onChange={(e) => handleInputChange('linkedinProfile', e.target.value)}
             className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
             labelProps={{
               className: "before:content-none after:content-none",
