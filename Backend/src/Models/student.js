@@ -1,5 +1,4 @@
-import { Schema, model } from 'mongoose';
-
+import { Schema, model } from "mongoose";
 
 // Define a Mongoose schema for the 'students' collection
 const studentSchema = new Schema({
@@ -22,15 +21,6 @@ const studentSchema = new Schema({
     required: true,
   },
 
-  // Mentor's ID, a reference to the 'mentor' collection
-  mentorId: {
-    type: String,
-    ref: "mentors",
-    required: true,
-    default: "tempMentor",
-    select: false,
-  },
-
   // University's Name, a reference to the 'univ' collection
   universityName: {
     type: String,
@@ -43,18 +33,16 @@ const studentSchema = new Schema({
     required: true,
     default: 0,
   },
-  contacts: {
-    githubUsername: {
-      type: String,
-      required: false,
-    },
-    linkedinProfile: {
-      type: String,
-      required: false,
-    },
+
+  githubUsername: {
+    type: String,
+    required: false,
+  },
+  linkedinProfile: {
+    type: String,
+    required: false,
   },
 });
 
-
 // Export the user schema for use in creating a model
-export default model('Student', studentSchema);
+export default model("Student", studentSchema);

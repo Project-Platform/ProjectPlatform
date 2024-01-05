@@ -29,10 +29,9 @@ studentRouter.post("/", async (req, res) => {
       name,
       username,
       email,
-      mentorId,
       universityName,
-      projectNo,
-      contacts,
+      githubUsername,
+      linkedinProfile
     } = req.body;
 
     // Create a new student instance
@@ -40,10 +39,9 @@ studentRouter.post("/", async (req, res) => {
       name,
       username,
       email,
-      mentorId,
       universityName,
-      projectNo,
-      contacts,
+      githubUsername,
+      linkedinProfile,
     });
 
     // Save the student to the database
