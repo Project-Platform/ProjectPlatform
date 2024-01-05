@@ -10,8 +10,9 @@ export default function ProjectViewPage() {
     <ProjectView
       title={projectData.title}
       abstract={projectData.abstract}
-      author1={projectData.author[0]}
-      author2={projectData.author[1]}
+      // author1={projectData.author[0]}
+      // author2={projectData.author[1]}
+      author = {projectData.author}
       date={projectData.date}
       field={projectData.field}
       domain1={projectData.domain[0]}
