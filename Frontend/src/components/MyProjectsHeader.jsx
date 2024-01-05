@@ -26,7 +26,7 @@ import {
 export default function MyProjectsHeader(){
 
 return (<CardHeader floated={false} shadow={false} className="mt-10 rounded-none">
-<div className="mb-8 flex items-center justify-between gap-8">
+<div className="flex items-center justify-between gap-8">
   <div>
     <Typography variant="h5" color="blue-gray">
       My Projects
@@ -36,9 +36,9 @@ return (<CardHeader floated={false} shadow={false} className="mt-10 rounded-none
     </Typography>
   </div>
   <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-    <Button variant="outlined" size="sm">
+    {/* <Button variant="outlined" size="sm">
       view all
-    </Button>
+    </Button> */}
     <Button className="flex items-center gap-3" size="sm">
       <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add a project
     </Button>
@@ -46,10 +46,10 @@ return (<CardHeader floated={false} shadow={false} className="mt-10 rounded-none
 </div>
 <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
   <div className="w-full md:w-72 ml-[80vw]">
-    <Input
+    {/* <Input
       label="Search"
       icon={<MagnifyingGlassIcon className="h-5 w-5" />}
-    />
+    /> */}
   </div>
 </div>
 </CardHeader>);

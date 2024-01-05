@@ -1,8 +1,28 @@
 import React from 'react';
 import { Typography, IconButton, Tooltip } from "@material-tailwind/react";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
+import {
+  Card,
+  CardBody,
+  CardFooter,
+  
+  Button,
+} from "@material-tailwind/react";
+
+import { useNavigate } from "react-router-dom";
+
+
+import { getProjectById } from '../services/projectData';
 
 export default function TableBodyComponent({ tableRows }) {
+  const navigate = useNavigate();
+  const handleClick = async (id) => {
+    const project = await getProjectById(id);
+    navigate(`/ProjectPage/${id}`, { state: project });
+  };
+
+
+
   return (
     <tbody>
       {tableRows.map(({ _id, title, author, domain, date }, index) => {
@@ -39,7 +59,9 @@ export default function TableBodyComponent({ tableRows }) {
             <td className={classes}>
               <Tooltip content="Open">
                 <IconButton variant="text">
-                  <ArrowTopRightOnSquareIcon className="h-5 w-5" />
+                {/* <Button onClick={() => handleClick(_id)}> */}
+                  <ArrowTopRightOnSquareIcon onClick={() => handleClick(_id)} className="h-5 w-5" />
+                  {/* </Button> */}
                 </IconButton>
               </Tooltip>
             </td>
