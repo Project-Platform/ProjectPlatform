@@ -6,6 +6,8 @@ export default function ProjectView(props) {
 
   const myArray = props.author;
   const arrayElementsWithSpaces = myArray.join(', ');
+  const domArray = props.domain;
+  const domainElementswithSpace = domArray.join(', ');
   return (
     <div className="min-h-screen">
       <h1 className="font-semibold text-5xl ml-[18vw] mt-[3vw] underline underline-offset-auto ">
@@ -18,7 +20,7 @@ export default function ProjectView(props) {
       <h2 className="font-medium text-lg ml-[18vw]">Date: {`${newDate.getDate()}/${newDate.getMonth()+1}/${newDate.getFullYear()}`}</h2>
 
       <h2 className="font-medium text-lg ml-[18vw]">
-        Domain: {props.domain1}, {props.domain2}
+        Domain: {domainElementswithSpace}
       </h2>
 
       <p className="p-5 mx-60  text-xl ">{props.abstract}</p>
