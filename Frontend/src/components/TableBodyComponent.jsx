@@ -30,7 +30,7 @@ export default function TableBodyComponent({ tableRows }) {
               </div>
             </td>
             <td className={classes}>
-              <div className="w-max">{domain}</div>
+              <div className="w-max">{domain.join(' ')}</div>
             </td>
             <td className={classes}>
               <Typography variant="small" color="blue-gray" className="font-normal">
