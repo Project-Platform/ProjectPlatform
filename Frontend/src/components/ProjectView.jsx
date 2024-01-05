@@ -4,14 +4,16 @@ export default function ProjectView(props) {
 
   const newDate = new Date(props.date);
 
+  const myArray = props.author;
+  const arrayElementsWithSpaces = myArray.join(', ');
   return (
     <div className="min-h-screen">
       <h1 className="font-semibold text-5xl ml-[18vw] mt-[3vw] underline underline-offset-auto ">
         {props.title}
       </h1>
       <h2 className="font-medium text-lg ml-[18vw] mt-[1vw]">
-        Authors: {props.author1}, {props.author2}
-      </h2>
+        Authors: {arrayElementsWithSpaces}
+    </h2>
 
       <h2 className="font-medium text-lg ml-[18vw]">Date: {`${newDate.getDate()}/${newDate.getMonth()+1}/${newDate.getFullYear()}`}</h2>
 

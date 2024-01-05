@@ -29,6 +29,7 @@ export default function TableBodyComponent({ tableRows }) {
         const isLast = index === tableRows.length - 1;
         const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
         const newDate = new Date(date);
+        const NewAuthor = author.join(', ')
         return (
           <tr key={_id}>
             {/* Table cells */}
@@ -44,12 +45,12 @@ export default function TableBodyComponent({ tableRows }) {
             <td className={classes}>
               <div className="flex flex-col">
                 <Typography variant="small" color="blue-gray" className="font-normal">
-                  {author}
+                  {NewAuthor}
                 </Typography>
               </div>
             </td>
             <td className={classes}>
-              <div className="w-max">{domain}</div>
+              <div className="w-max">{domain.join(' ')}</div>
             </td>
             <td className={classes}>
               <Typography variant="small" color="blue-gray" className="font-normal">

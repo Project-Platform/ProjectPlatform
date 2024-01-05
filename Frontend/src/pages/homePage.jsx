@@ -36,6 +36,8 @@ function HomePage() {
   const firstPostIndex = lastPostIndex - postsPerPage;
   const currentPosts = trendingProjects.slice(firstPostIndex, lastPostIndex);
 
+  console.log(trendingProjects);
+
   return (
     <div>
       <br />
