@@ -10,7 +10,21 @@ const getProjectById = async (projectId) => {
     throw error;
   }
 };
-
+// const addProject = async (newProject) => {
+//   try {
+//     const response = await axios.post("/api/projects", newProject);
+//     if (response.status === 201) {
+//       console.log("Project added successfully:", response.data);
+//       return response.data;
+//     } else {
+//       console.error("Failed to add project. Unexpected status:", response.status);
+//       throw new Error("Failed to add project");
+//     }
+//   } catch (error) {
+//     console.error("Error adding project:", error);
+//     throw error;
+//   }
+// };
 const addProject = async (newProject) => {
   try {
     const response = await axios.post("/api/projects", newProject);
