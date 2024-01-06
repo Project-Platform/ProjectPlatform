@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 import {
   Typography,
@@ -25,17 +24,14 @@ const profileMenuItems = [
   {
     label: "My Profile",
     icon: UserCircleIcon,
-    route: "/MyProfile", // Add the route path
   },
   {
     label: "My Projects",
     icon: FolderOpenIcon,
-    route: "/MyProjects", // Add the route path
   },
   {
     label: "Upload Projects",
     icon: DocumentPlusIcon,
-    route: "/Projectupload", // Add the route path
   },
   {
     label: "Sign Out",
@@ -72,7 +68,7 @@ function ProfileMenu({ image, update }) {
         </Button>
       </MenuHandler>
       <MenuList className="p-1">
-        {profileMenuItems.map(({ label, icon, route }, key) => {
+        {profileMenuItems.map(({ label, icon }, key) => {
           const isLastItem = key === profileMenuItems.length - 1;
           return (
             <MenuItem
@@ -84,44 +80,18 @@ function ProfileMenu({ image, update }) {
                   : ""
               }`}
             >
-              {" "}
-              {route ? (
-                <Link
-                  to={route}
-                  onClick={closeMenu}
-                  style={{ textDecoration: "none" }}
-                >
-                  {React.createElement(icon, {
-                    className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
-                    strokeWidth: 2,
-                  })}
-
-                  <Typography
-                    as="span"
-                    variant="small"
-                    className="font-normal"
-                    color={isLastItem ? "red" : "inherit"}
-                  >
-                    {label}
-                  </Typography>
-                </Link>
-              ) : (
-                <>
-                  {React.createElement(icon, {
-                    className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
-                    strokeWidth: 2,
-                  })}
-
-                  <Typography
-                    as="span"
-                    variant="small"
-                    className="font-normal"
-                    color={isLastItem ? "red" : "inherit"}
-                  >
-                    {label}
-                  </Typography>
-                </>
-              )}
+              {React.createElement(icon, {
+                className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
+                strokeWidth: 2,
+              })}
+              <Typography
+                as="span"
+                variant="small"
+                className="font-normal"
+                color={isLastItem ? "red" : "inherit"}
+              >
+                {label}
+              </Typography>
             </MenuItem>
           );
         })}
