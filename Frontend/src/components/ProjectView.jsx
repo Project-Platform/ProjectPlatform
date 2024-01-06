@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
 export default function ProjectView(props) {
-
   const newDate = new Date(props.date);
 
   const myArray = props.author;
