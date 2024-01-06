@@ -1,6 +1,8 @@
 import express from "express";
 import Project from "../Models/project.js";
 import generateEmbeddings from "../utils/embeddings.js";
+import multer from "multer";
+const upload = multer({ storage: multer.memoryStorage() });
 
 const projectRouter = express.Router();
 
@@ -16,10 +18,11 @@ projectRouter.get("/trending", async (req, res) => {
 });
 
 // Post a new project
-projectRouter.post("/", async (req, res) => {
+projectRouter.post("/", upload.single("pdf"), async (req, res) => {
   try {
     const newProject = new Project(req.body);
     newProject["embeddings"] = await generateEmbeddings(newProject);
+    newProject["docs"] = req.file.buffer;
     const savedProject = await newProject.save();
 
     res.status(201).json(savedProject);
@@ -50,12 +53,10 @@ projectRouter.delete("/:id", async (req, res) => {
 projectRouter.get("/:id", async (req, res) => {
   try {
     const projectId = req.params.id;
-    console.log(projectId);
-    const project = await Project.findById(projectId);
+    const project = await Project.findById(projectId).select('+docs');
     if (!project) {
       return res.status(404).json({ message: "Project not found" });
     }
-
     // Update views when a project is accessed
     project.views += 1;
     await project.save();

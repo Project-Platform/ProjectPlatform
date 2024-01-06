@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
   Typography,
@@ -24,14 +25,19 @@ const profileMenuItems = [
   {
     label: "My Profile",
     icon: UserCircleIcon,
+    route:"/MyProfile"
   },
   {
     label: "My Projects",
     icon: FolderOpenIcon,
+    route:"/MyProjects"
+
   },
   {
     label: "Upload Projects",
     icon: DocumentPlusIcon,
+    route:"/Projectupload"
+
   },
   {
     label: "Sign Out",
@@ -41,6 +47,7 @@ const profileMenuItems = [
 
 function ProfileMenu({ image, update }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const navigate = useNavigate();
 
   const closeMenu = () => setIsMenuOpen(false);
 
@@ -68,12 +75,12 @@ function ProfileMenu({ image, update }) {
         </Button>
       </MenuHandler>
       <MenuList className="p-1">
-        {profileMenuItems.map(({ label, icon }, key) => {
+        {profileMenuItems.map(({ label, icon,route }, key) => {
           const isLastItem = key === profileMenuItems.length - 1;
           return (
             <MenuItem
               key={label}
-              onClick={isLastItem ? () => signOut() : closeMenu}
+              onClick={isLastItem ? () => signOut() : () => navigate(route)}
               className={`flex items-center gap-2 rounded ${
                 isLastItem
                   ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
