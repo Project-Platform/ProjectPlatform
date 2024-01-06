@@ -4,10 +4,16 @@ import { useState, useEffect } from "react";
 import ProjectList from "../components/ProjectList";
 
 function HomePage() {
-  const [trendingProjects, setTrendingProjects] = useState([]); //useState,set trendingProjects to an empty array.
+   //useState,set trendingProjects to an empty array.you can change the value of the trendingProjects
+  //  with the help of setTrendingProjects.
+  const [trendingProjects, setTrendingProjects] = useState([]); 
+  // sets the currentPage to 1
+  // you can change the value of currentPage with the help of setCurrentPage. 
   const [currentPage, setCurrentPage] = useState(1);
+  // this is for the implementation of the plagiarism
   const postsPerPage = 6;
 
+  // use of useEffect 
   useEffect(() => {
     // Define a function to fetch trending projects
     let ignore = false;
