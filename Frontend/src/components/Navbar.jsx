@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ProfileMenu from "./ProfileMenu";
-
+import { useNavigate } from "react-router-dom";
 import {
   Navbar,
   Collapse,
@@ -21,9 +21,23 @@ import { useSession, signIn } from "next-auth/react";
 
 export function StickyNavbar() {
   const [openNav, setOpenNav] = React.useState(false);
+  const [searchTerm, setSearchTerm] = React.useState("");
+  const navigate = useNavigate();
   const { data: session, status } = useSession();
   // console.log(session, status);
-
+  const handleKeyPress = (event,word) => {
+    if (event.key === "Enter") {
+      // Call the async function
+      console.log(word);
+      navigate(`/search/${word}`,{state: word});
+      setSearchTerm("");
+    }
+  };
+  const handleClick = async (word) => {
+    console.log(word);  
+    navigate(`/search/${word}`,{state: word});
+    setSearchTerm("");
+  };
   React.useEffect(() => {
     window.addEventListener(
       "resize",
@@ -54,12 +68,15 @@ export function StickyNavbar() {
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onKeyDown={(e) => handleKeyPress(e, searchTerm)}
               />
               <div className="!absolute left-3 top-[13px]">
                 <MagnifyingGlassIcon className="h-4 w-4" strokeWidth={2} />
               </div>
             </div>
-            <Button size="md" className="rounded-lg ">
+            <Button onClick={() => handleClick(searchTerm)} size="md" className="rounded-lg ">
               Search
             </Button>
           </div>
@@ -107,6 +124,9 @@ export function StickyNavbar() {
                   labelProps={{
                     className: "before:content-none after:content-none",
                   }}
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onKeyDown={(e) => handleKeyPress(e, searchTerm)}
                 />
                 <div className="!absolute left-3 top-[13px]">
                   <MagnifyingGlassIcon
@@ -116,7 +136,7 @@ export function StickyNavbar() {
                   />
                 </div>
               </div>
-              <Button size="md" className="mt-1 rounded-lg sm:mt-0">
+              <Button onClick={() => handleClick(searchTerm)} size="md" className="mt-1 rounded-lg sm:mt-0">
                 Search
               </Button>
             </div>

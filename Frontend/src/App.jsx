@@ -7,8 +7,7 @@ import StudentProfile from "./pages/StudentProfile";
 import MyProjects from "./pages/MyProjects";
 import MyProfile from "./pages/MyProfile";
 import ProjectUploadPage from "./pages/ProjectUploadPage";
-import WordSearch from "./components/search.jsx"; // Renamed to WordSearch
-import Results  from "./components/Result.jsx";
+import SearchResults  from "./components/searchWord.jsx";
 
 function App() {
   return (
@@ -23,8 +22,7 @@ function App() {
             <Route path="/Projectupload" element={<ProjectUploadPage />}/>            
             <Route path="/ProjectPage/:id" element={<ProjectViewPage />} />
             <Route path="/AuthorProfile" element={<AuthorProfilePage />} />
-            <Route path="/search" element={<WordSearch />} />
-            <Route path="/search/:word" element={<Results />} />
+            <Route path="/search/:word" element={<SearchResults />} />
           </Route>
         </Routes>
       </Router>
