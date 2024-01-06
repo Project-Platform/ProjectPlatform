@@ -29,7 +29,7 @@ function ProjectUploadPage() {
       const newProject = await addProject(projectData);
       console.log("Project uploaded successfully:", newProject);
 
-      // Reset form
+    
       setProjectData({
         title: "",
         authors: [],
