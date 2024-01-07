@@ -12,6 +12,7 @@ export default function Profile() {
     linkedinProfile: '',
   });
   const [isEditMode, setIsEditMode] = useState(false);
+  const [isNewUser, setIsNewUser] = useState(true);
 
   useEffect(() => {
     if (session) {
@@ -29,6 +30,7 @@ export default function Profile() {
         githubUsername: githubUsername,
         linkedinProfile: linkedinProfile,
       });
+      setIsNewUser(false); 
     } catch (error) {
       console.error('Error fetching student data:', error);
     }
@@ -50,6 +52,7 @@ export default function Profile() {
         linkedinProfile: '',
       });
       setIsEditMode(false);
+      setIsNewUser(false);
     } catch (error) {
       console.error('Error saving profile:', error);
     }
@@ -130,23 +133,23 @@ export default function Profile() {
             disabled={!isEditMode}
           />
         </div>
-        {isEditMode ? (
-          <Button className="mt-6" fullWidth onClick={handleUpdateProfile}>
-            UPDATE.
+        {isNewUser ? (
+          <Button className="mt-6" fullWidth onClick={handleSaveProfile}>
+            SAVE.
           </Button>
         ) : (
           <>
-            <Button className="mt-6" fullWidth onClick={handleSaveProfile}>
-              SAVE.
-            </Button>
             <Button className="mt-6" fullWidth onClick={handleEditProfile}>
               EDIT.
             </Button>
+            {isEditMode && (
+              <Button className="mt-6" fullWidth onClick={handleUpdateProfile}>
+                UPDATE.
+              </Button>
+            )}
           </>
         )}
       </form>
     </Card>
   );
 }
-
-
