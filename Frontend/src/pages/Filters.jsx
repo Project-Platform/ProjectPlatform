@@ -1,56 +1,43 @@
-import React from "react";
-import { Checkbox } from "@material-tailwind/react";
 import { Radio } from "@material-tailwind/react";
+import { Switch } from "@material-tailwind/react";
 import {
-  Drawer,
-  Button,
-  Typography,
-  IconButton,
+  Card,
+  Typography
 } from "@material-tailwind/react";
-
-export default function Filters(){
-
-  const [open, setOpen] = React.useState(false);
-  const openDrawer = () => setOpen(true);
-  const closeDrawer = () => setOpen(false);
- 
+ export default function Filters() {
   return (
-    <React.Fragment>
-      <div className="flex items-center justify-center mt-20"><Button onClick={openDrawer}>Filters</Button></div>
-      <Drawer open={open} onClose={closeDrawer} className="p-4 overflow-y-auto">
-        <div className=" mb-6 flex items-center justify-between">
-          <Typography variant="h3" color="blue-gray" className="mt-5">
+    <Card className="h-[calc(100vh-2rem)] bg-white w-full max-w-[20rem] p-4 shadow-xl shadow-blue-900/5 overflow-y-auto">
+      <div className=" mb-6 flex items-center justify-between">
+          <Typography variant="h3" color="black" className="mt-5">
             Filters:
           </Typography>
-          {/* <IconButton variant="text" color="blue-gray" onClick={closeDrawer}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="h-5 w-5"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </IconButton> */}
         </div>
-        {open && (
+        {/* <hr className="my-2 border-blue-gray-50" /> 
+        <Switch
+      label={
+        <div>
+          <Typography color="blue-gray" className="font-medium">
+            Switch
+          </Typography>
+          <Typography variant="small" color="gray" className="font-normal">
+            We can keep a random choice.
+          </Typography>
+        </div>
+      }
+      containerProps={{
+        className: "-mt-5",
+      }}
+    />
+        <hr className="my-2 border-blue-gray-50" /> */}
         <div className="flex flex-col gap-0 mb-1">
         <Typography variant="h5" color="black" className="flex items-center justify-start">
             Technology Focus:
           </Typography>
-            <Radio name='TechFocus' label='AI' />
-            <Radio name='TechFocus' label='Virtual Reality' />
-            <Radio name='TechFocus' label='Biosensor' />
-            <Radio name='TechFocus' label='Raspberry Pi' />
+            <Radio name='TechFocus' label='AI' ripple={true}/>
+            <Radio name='TechFocus' label='Virtual Reality' ripple={true}/>
+            <Radio name='TechFocus' label='Biosensor' ripple={true}/>
+            <Radio name='TechFocus' label='Raspberry Pi' ripple={true}/>
         </div>
-        )}
-        {open && (
         <div className="flex flex-col gap-0 mb-1">
         <Typography variant="h5" color="black" className="flex items-center justify-start">
             Application Domain:
@@ -60,8 +47,6 @@ export default function Filters(){
             <Radio name='AppDomain' label='Drug Discovery' ripple={true}/>
             <Radio name='AppDomain' label='Access Control System' ripple={true}/>
         </div>
-        )}
-        {open && (
         <div className="flex flex-col gap-0 mb-1">
         <Typography variant="h5" color="black" className="flex items-center justify-start">
             Skill Requirement:
@@ -71,8 +56,6 @@ export default function Filters(){
             <Radio name='SkillReq' label='Biometric Technology' ripple={true}/>
             <Radio name='SkillReq' label='Moleculat Dynamics' ripple={true}/>
         </div>
-        )}
-        {open && (
         <div className="flex flex-col gap-0 mb-1">
         <Typography variant="h5" color="black" className="flex items-center justify-start">
             Project Type:
@@ -82,8 +65,6 @@ export default function Filters(){
             <Radio name='ProjType' label='Computational Modeling' ripple={true}/>
             <Radio name='ProjType' label='Data Science and Analytics' ripple={true}/>
         </div>
-        )}
-        {open && (
         <div className="flex flex-col gap-0 mb-1">
         <Typography variant="h5" color="black" className="flex items-center justify-start mb-2">
         Domain Expertise:
@@ -93,8 +74,7 @@ export default function Filters(){
             <Radio name='DomExpert' label='Cultural Experiences' ripple={true}/>
             <Radio name='DomExpert' label='Computer Vision' ripple={true}/>
         </div>
-        )}
-      </Drawer>
-    </React.Fragment>
+        
+    </Card>
   );
 }
