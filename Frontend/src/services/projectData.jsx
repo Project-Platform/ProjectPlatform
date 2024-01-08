@@ -11,9 +11,38 @@ const getProjectById = async (projectId) => {
   }
 };
 
+// const addProject = async (newProject) => {
+//   try {
+//     const response = await axios.post("/api/projects", newProject);
+//     console.log("Project added successfully:", response.data);
+//     return response.data;
+//   } catch (error) {
+//     console.error("Error adding project:", error);
+//     throw error;
+//   }
+// };
+
 const addProject = async (newProject) => {
   try {
-    const response = await axios.post("/api/projects", newProject);
+    const formData = new FormData();
+
+    Object.keys(newProject).forEach((key) => {
+      if (key === "document") {
+        formData.append(key, newProject[key]);
+      } else if (Array.isArray(newProject[key])) {
+        // If the field is an array, convert it to a JSON string
+        formData.append(key, JSON.stringify(newProject[key]));
+      } else {
+        formData.append(key, newProject[key]);
+      }
+    });
+
+    const response = await axios.post("/api/projects", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
     console.log("Project added successfully:", response.data);
     return response.data;
   } catch (error) {
@@ -21,6 +50,10 @@ const addProject = async (newProject) => {
     throw error;
   }
 };
+
+
+
+
 
 const getTrendingProjects = async () => {
   try {
