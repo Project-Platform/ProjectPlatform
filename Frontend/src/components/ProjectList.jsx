@@ -2,6 +2,10 @@ import ProjectCard from "./ProjectCard";
 
 const ProjectList = ({ trendingProjects }) => {
   return (
+    <div>
+    <h1 className="text-2xl  font-semibold text-gray-800 m-4 mt-12">
+      Trending Projects
+    </h1>
     <div className="flex flex-row flex-wrap place-content-evenly">
       {trendingProjects.map((curr) => {
         return (
@@ -13,6 +17,7 @@ const ProjectList = ({ trendingProjects }) => {
           />
         );
       })}
+    </div>
     </div>
   );
 };

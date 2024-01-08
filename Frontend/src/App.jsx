@@ -7,7 +7,8 @@ import StudentProfile from "./pages/StudentProfile";
 import MyProjects from "./pages/MyProjects";
 import MyProfile from "./pages/MyProfile";
 import ProjectUploadPage from "./pages/ProjectUploadPage";
-import SearchResults  from "./components/searchWord.jsx";
+import SearchResults  from "./pages/searchWord.jsx";
+import FilterResults from "./pages/filterPage.jsx";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/ProjectPage/:id" element={<ProjectViewPage />} />
             <Route path="/AuthorProfile" element={<AuthorProfilePage />} />
             <Route path="/search/:word" element={<SearchResults />} />
+            <Route path="/:word" element={<FilterResults/>}/>
           </Route>
         </Routes>
       </Router>
