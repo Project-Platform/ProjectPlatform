@@ -1,46 +1,55 @@
 import React, { useState } from "react";
-import TextArea from "../components/TextArea";
-import { TagsInput } from "react-tag-input-component";
-import { Button } from "@material-tailwind/react";
-import { addProject } from "../services/projectData";
-
-function ProjectUploadPage() {
-  const [Author, changeAuthor] = useState([]);
-  const [Domain, changeDomain] = useState([]);
-  const [projectData, setProjectData] = useState({
-    title: "",
-    authors: [],
-    domain: [],
-    abstract: "",
-    document: null,
-  });
-
-  const handleInputChange = (field, value) => {
-    setProjectData({ ...projectData, [field]: Array.isArray(value) ? value : [value] });
-  };
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setProjectData({ ...projectData, document: file });
-  };
-
-  const handleUploadProject = async () => {
-    try {
-      const newProject = await addProject(projectData);
-      console.log("Project uploaded successfully:", newProject);
-
+  // import TextArea from "../components/TextArea";
+  import { TagsInput } from "react-tag-input-component";
+  import { Button, Input, Textarea } from "@material-tailwind/react";
+  import { addProject } from "../services/projectData";
+  
+  function ProjectUploadPage() {
+    const [Author, changeAuthor] = useState([]);
+    const [Domain, changeDomain] = useState([]);
+    const [projectData, setProjectData] = useState({
+      title:"",
+      author: [],
+      domain: [],
+      abstract:"",
+      docs: null,
+    });
+    const handleInputChange = (field, value) => {
+      if (field === 'author' || field === 'domain') {
+        // Handle arrays
+        console.log(field, value);
+        setProjectData((prevData) => ({ ...prevData, [field]: [value] }));
+      } else {
+        // Handle single values
+        setProjectData((prevData) => ({ ...prevData, [field]: value }));
+      }
+    };
     
-      setProjectData({
-        title: "",
-        authors: [],
-        domain: [],
-        abstract: "",
-        document: null,
-      });
-    } catch (error) {
-      console.error("Error uploading project:", error);
-    }
-  };
+  
+    const handleFileChange = (e) => {
+      const file = e.target.files[0];
+      setProjectData({ ...projectData, docs: file });
+    };
+  
+    const handleUploadProject = async () => {
+      try {
+        console.log(projectData);
+        const newProject = await addProject(projectData);
+        console.log("Project uploaded successfully:", newProject);
+  
+        setProjectData({
+          title: "",
+          author: [],
+          domain: [],
+          abstract: "",
+          docs: null,
+        });
+      } catch (error) {
+        console.error("Error uploading project:", error);
+      }
+    };
+  
+
 
   return (
     <div className="font-Arial m-0 p-0 bg-beige">
@@ -62,40 +71,41 @@ function ProjectUploadPage() {
             <div className="md:col-span-2 lg:col-span-1 bg-palevioletred text-blanchedalmond p-2 md:p-12 rounded-4 text-18 font-bold text-xl">
               Idea Title (100 characters):
             </div>
-            <TextArea
+            <Textarea
               label="Title"
-              onChange={(e) => handleInputChange("title", e.target.value)}
-              value={projectData.title}
-            />
+              onChange={(e) => {
+                handleInputChange("title", e.target.value)
+              }}
+              value={projectData.title}/>
             
             <div className="md:col-span-2 lg:col-span-1 bg-palevioletred text-blanchedalmond p-2 md:p-12 rounded-4 text-18 font-bold text-xl">
-              Authors(s) Username:
+              Author(s) Username:
             </div>
             <TagsInput
-              value={Author}
-              onChange={changeAuthor}
-              name="Authors"
-              placeHolder="Enter Author Name:"
-            />
+             value={Author}
+              onChange={(value) => handleInputChange("author", value)}
+              name="Author"
+              placeHolder="Enter Author Name:"/>
+
 
             <div className="md:col-span-2 lg:col-span-1 bg-palevioletred text-blanchedalmond p-2 md:p-12 rounded-4 text-18 font-bold text-xl">
             Domain (AIML, Blockchain, etc):
             </div>
             <TagsInput
               value={Domain}
-              onChange={changeDomain}
+               onChange={(value) => handleInputChange("domain", value)}
               name="Domain"
-              placeHolder="Enter Domain:"
-            />
+               placeHolder="Enter Domain:"/>
+
+            
 
             <div className="md:col-span-2 lg:col-span-1 bg-palevioletred text-blanchedalmond p-2 md:p-12 rounded-4 text-18 font-bold text-xl">
               Abstract (1500 characters):
             </div>
-            <TextArea
+            <Textarea
               label="Abstract"
               onChange={(e) => handleInputChange("abstract", e.target.value)}
-              value={projectData.abstract}
-            />
+              value={projectData.abstract}/>
             
             <div className="md:col-span-2 lg:col-span-1 bg-palevioletred text-blanchedalmond p-2 md:p-12 rounded-4 text-18 font-bold text-xl">
               Document (PDF or word format, up to 500Kb):

@@ -18,7 +18,7 @@ projectRouter.get("/trending", async (req, res) => {
 });
 
 // Post a new project
-projectRouter.post("/", upload.single("pdf"), async (req, res) => {
+projectRouter.post("/", upload.single("docs"), async (req, res) => {
   try {
     const newProject = new Project(req.body);
     newProject["embeddings"] = await generateEmbeddings(newProject);
