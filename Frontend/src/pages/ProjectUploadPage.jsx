@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import TextArea from "../components/TextArea";
 import { TagsInput } from "react-tag-input-component";
 import { Button, Input, Textarea } from "@material-tailwind/react";
 import { addProject } from "../services/projectData";
@@ -12,6 +11,15 @@ function ProjectUploadPage() {
     abstract: "",
     docs: null,
   });
+  
+  useEffect(() => {
+    // Retrieve data from local storage when the component mounts
+    const storedData = JSON.parse(localStorage.getItem("projectData"));
+    if (storedData) {
+      setProjectData(storedData);
+    }
+  }, []);
+  
   const handleInputChange = (field, value) => {
     setProjectData((prevData) => ({ ...prevData, [field]: value }));
   };
@@ -24,6 +32,7 @@ function ProjectUploadPage() {
   const handleUploadProject = async () => {
     try {
       console.log(projectData)
+      localStorage.setItem("projectData", JSON.stringify(projectData));
       const newProject = await addProject(projectData);
       console.log("Project uploaded successfully:", newProject);
 
