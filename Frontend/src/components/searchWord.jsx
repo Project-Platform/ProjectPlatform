@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { searchResult } from "../services/searchData";
+import { useNavigate } from "react-router-dom";
+import { getProjectById } from "../services/projectData";
+import Filters from "./Filters";
 import {
   Card,
   CardHeader,
   CardBody,
+  CardFooter,
   Typography,
+  Button,
 } from "@material-tailwind/react";
+import { Radio } from "@material-tailwind/react";
+import { Switch } from "@material-tailwind/react";
 
 export function TestimonialCard() {
   const location = useLocation();
   const word = location.state || "";
-
+  const [size, setSize] = useState(false);
   const [dataProject, setDataProject] = useState([]);
 
   useEffect(() => {
@@ -29,35 +36,44 @@ export function TestimonialCard() {
     fetchData();
   }, [word]);
 
-  return (
-    <>
-      {dataProject.map((project, index) => (
-        <Card
-          key={index}
-          color="transparent"
-          shadow={false}
-          className="w-full max-w-[26rem]"
-        >
-          <CardHeader
-            color="transparent"
-            floated={false}
-            shadow={false}
-            className="mx-0 flex items-center gap-4 pt-0 pb-8"
-          >
-          </CardHeader>
-          <CardBody className="ml-8 mb-6 p-0">
-            <Typography variant="h5" color="blue-gray">
-              {project.title}
-            </Typography>
-            <Typography color="blue-gray">
-              Description: {project.abstract}
-            </Typography>
-            <Typography color="blue-gray">Domain: {project.domain}</Typography>
-          </CardBody>
-        </Card>
-      ))}
-    </>
-  );
+const navigate = useNavigate();
+
+  const handleClick = async (id) => {
+    console.log(id);
+    const project = await getProjectById(id);
+    console.log(project)
+    navigate(`/ProjectPage/${id}`, { state: project });
+  };
+
+
+return (
+  <div className="flex ">
+  <Filters />
+  <div className="m-2 mt-8 flex-grow p-4 w-full grid grid-cols-1 md:grid-cols-2 gap-4" style={{ marginLeft: '320px' }}>
+  {dataProject.map((project, index) => (
+  <Card className="w-full max-w-20[rem] flex-row mb-6">
+      <CardBody>
+        <Typography variant="h4" color="black" className="mb-4 uppercase">
+          {project.title}
+        </Typography>
+        <Typography color="blue-gray">Domain: {project.domain.join(', ')}</Typography>
+        <Typography color="blue-gray" className="mb-4">
+            {project.abstract.length > 270
+              ? project.showFullDescription
+                ? project.abstract
+                : project.abstract.slice(0, 270) + " ...."
+              : project.abstract}
+          </Typography>
+        <a href="#" className="inline-block">
+        <Button onClick={() => handleClick(project._id)}>Read More</Button>
+        </a>
+      </CardBody>
+    </Card>
+  ))}
+
+  </div>
+  </div>
+);
 }
 
 export default TestimonialCard;

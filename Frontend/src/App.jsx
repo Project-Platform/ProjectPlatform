@@ -8,7 +8,6 @@ import MyProjects from "./pages/MyProjects";
 import MyProfile from "./pages/MyProfile";
 import ProjectUploadPage from "./pages/ProjectUploadPage";
 import SearchResults  from "./components/searchWord.jsx";
-import Filters from "./pages/Filters.jsx";
 function App() {
   return (
     <div className="App">
@@ -16,7 +15,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<HomePage />} />
-            <Route path="/Filters" element={<Filters/>}/>
             <Route path="/MyProjects" element={<MyProjects/>}/>
             <Route path="/MyProfile" element={<MyProfile/>}/>
             <Route path="/StudentProfile" element={<StudentProfile/>}/>
