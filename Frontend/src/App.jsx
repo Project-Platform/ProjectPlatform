@@ -8,7 +8,6 @@ import MyProjects from "./pages/MyProjects";
 import MyProfile from "./pages/MyProfile";
 import ProjectUploadPage from "./pages/ProjectUploadPage";
 import SearchResults  from "./components/searchWord.jsx";
-
 function App() {
   return (
     <div className="App">
