@@ -88,7 +88,7 @@ export function StickyNavbar() {
                   variant="text"
                   size="sm"
                   className="inline-block"
-                  onClick={() => signIn()}
+                  onClick={() => navigate("/login")}
                 >
                   <span>Log In</span>
                 </Button>

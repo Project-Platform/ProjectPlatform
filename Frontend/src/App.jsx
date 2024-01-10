@@ -8,6 +8,7 @@ import MyProjects from "./pages/MyProjects";
 import MyProfile from "./pages/MyProfile";
 import ProjectUploadPage from "./pages/ProjectUploadPage";
 import SearchResults  from "./components/searchWord.jsx";
+import LoginPage from "./pages/loginPage.jsx";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
             <Route path="/MyProjects" element={<MyProjects/>}/>
             <Route path="/MyProfile" element={<MyProfile/>}/>
             <Route path="/StudentProfile" element={<StudentProfile/>}/>
