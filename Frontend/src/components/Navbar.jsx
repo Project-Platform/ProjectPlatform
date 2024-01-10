@@ -30,13 +30,11 @@ export function StickyNavbar() {
       // Call the async function
       console.log(word);
       navigate(`/search/${word}`,{state: word});
-      setSearchTerm("");
     }
   };
   const handleClick = async (word) => {
     console.log(word);  
     navigate(`/search/${word}`,{state: word});
-    setSearchTerm("");
   };
   React.useEffect(() => {
     window.addEventListener(

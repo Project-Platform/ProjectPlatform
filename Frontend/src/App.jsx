@@ -7,7 +7,7 @@ import StudentProfile from "./pages/StudentProfile";
 import MyProjects from "./pages/MyProjects";
 import MyProfile from "./pages/MyProfile";
 import ProjectUploadPage from "./pages/ProjectUploadPage";
-import SearchResults  from "./components/searchWord.jsx";
+import SearchResults  from "./pages/searchPage.jsx";
 function App() {
   return (
     <div className="App">
