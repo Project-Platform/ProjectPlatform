@@ -56,45 +56,50 @@ export default function ProjectView(props) {
 
   return (
     <div className="min-h-screen">
-      <h1 className="font-semibold text-5xl ml-[18vw] mt-[3vw] underline underline-offset-auto ">
+      <h1 className="font-semibold text-5xl flex place-content-center mt-[3vw] underline underline-offset-auto ">
         {props.title}
       </h1>
-      <h2 className="font-medium text-lg ml-[18vw] mt-[1vw]">
+      <h2 className="font-medium text-lg ml-[17vw] mt-[1vw]">
         Authors: {arrayElementsWithSpaces}
       </h2>
 
-      <h2 className="font-medium text-lg ml-[18vw]">
+      <h2 className="font-medium text-lg ml-[17vw]">
         Date:{" "}
         {`${newDate.getDate()}/${
           newDate.getMonth() + 1
         }/${newDate.getFullYear()}`}
       </h2>
 
-      <h2 className="font-medium text-lg ml-[18vw]">
+      <h2 className="font-medium text-lg ml-[17vw]">
         Domain: {domainElementswithSpace}
       </h2>
 
-      <p className="p-5 mx-60  text-xl ">{props.abstract}</p>
+      <p className="p-5 mx-60   text-xl ">{props.abstract}</p>
       <div className="ml-[17vw] mt-[1vw]">
         <Link to={props.githubLink}>GitHub Link</Link>
         <br />
         <Link to={props.youtubeLink}>Youtube Link</Link>
         <br />
-        <div>
+        {/* className="flex place-content-center" */}
+        {/* <div> */}
+        </div>
+        <div className="flex flex-col items-center mt-4">
         {pdfData && (
-            <div>
-              <Document file={pdfData} onLoadSuccess={onDocumentLoadSuccess}>
+            <div className="flex flex-col items-center">
+              <Document file={pdfData} onLoadSuccess={onDocumentLoadSuccess} className="outline" >
                 <Page pageNumber={currentPage} />
               </Document>
-              <div>
+              {/* </div> */}
+              <div className="mt-4 flex space-x-4" >
                 <Button onClick={goToPreviousPage} disabled={currentPage === 1}>Previous Page</Button>
                 <span className="font-medium"> Page {currentPage} of {numPages} </span>
                 <Button onClick={goToNextPage} disabled={currentPage === numPages}>Next Page</Button>
               </div>
             </div>
           )}
-        </div>
-      </div>
+          </div>
+        {/* </div> */}
+     
     </div>
   );
 }
