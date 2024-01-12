@@ -33,7 +33,6 @@ export default function MyProjects(props) {
 
   //for pagination
 
-
   const [error, setError] = useState(null);
 
   const getStudentProjects = async () => {
@@ -41,7 +40,9 @@ export default function MyProjects(props) {
       const session = await getSession();
       if (session) {
         // session.user.name
-        const response = await axios.get(`/api/projects/student/${session.user.name}`);
+        const response = await axios.get(
+          `/api/projects/student/${session.user.name}`
+        );
         setProjects(response.data); // Update state with fetched projects
       } else {
         signIn(); // Trigger sign-in if no session is found
@@ -59,14 +60,13 @@ export default function MyProjects(props) {
   if (error) {
     return <div>Error fetching projects: {error.message}</div>;
   }
-  // console.log(projects.length);
-  // console.log((projects));
 
   const lastpostIndex = currPage * postPerPage;
   const firstpostIndex = lastpostIndex - postPerPage;
 
   const currPosts = projects.slice(firstpostIndex, lastpostIndex);
 
+  const MyProjectsCount = Math.ceil(projects.length / postPerPage);
 
   return (
     <Card className="h-full w-full">
@@ -77,7 +77,11 @@ export default function MyProjects(props) {
           <TableBodyComponent tableRows={currPosts} />
         </table>
       </CardBody>
-      <Pagination setCurrentPage={setCurrPage} currentPage={currPage} />
+      <Pagination
+        setCurrentPage={setCurrPage}
+        currentPage={currPage}
+        totalPages={MyProjectsCount}
+      />
 
       {/* <MyProjectsFooter /> */}
     </Card>

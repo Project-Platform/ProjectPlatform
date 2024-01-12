@@ -80,8 +80,6 @@ export default function ProjectView(props) {
         <br />
         <Link to={props.youtubeLink}>Youtube Link</Link>
         <br />
-        {/* className="flex place-content-center" */}
-        {/* <div> */}
         </div>
         <div className="flex flex-col items-center mt-4">
         {pdfData && (
