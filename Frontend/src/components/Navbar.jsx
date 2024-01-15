@@ -142,7 +142,6 @@ export function StickyNavbar() {
           </div>
         </Collapse>
       </Navbar>
-    
   );
 }
 

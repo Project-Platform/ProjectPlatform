@@ -13,8 +13,7 @@ const getProjectById = async (projectId) => {
 
 const addProject = async (newProject) => {
   try {
-    const response = await axios.post("/api/projects", newProject);
-    console.log("Project added successfully:", response.data);
+    const response = await axios.postForm("/api/projects", newProject,);
     return response.data;
   } catch (error) {
     console.error("Error adding project:", error);
