@@ -6,6 +6,7 @@ import 'react-pdf/dist/esm/Page/TextLayer.css';
 import { Button } from "@material-tailwind/react";
 
 
+
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 export default function ProjectView(props) {
@@ -55,7 +56,7 @@ export default function ProjectView(props) {
   
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen mt-24">
       <h1 className="font-semibold text-5xl flex place-content-center mt-[3vw] underline underline-offset-auto ">
         {props.title}
       </h1>
