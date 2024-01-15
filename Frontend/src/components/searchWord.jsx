@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { searchResult } from "../services/searchData";
 import { useNavigate } from "react-router-dom";
 import { getProjectById } from "../services/projectData";
-import Filters from "./Filters";
+import FilterResponsive from "./FilterResponsive";
 import {
   Card,
   CardHeader,
@@ -12,13 +12,23 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
-import { Radio } from "@material-tailwind/react";
-import { Switch } from "@material-tailwind/react";
 
 export function TestimonialCard() {
+  const [viewportWidth, setViewportWidth] = useState(document.documentElement.clientWidth);
+
+  const updateViewportWidth = () => {
+    setViewportWidth(document.documentElement.clientWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', updateViewportWidth);
+
+    return () => {
+      window.removeEventListener('resize', updateViewportWidth);
+    };
+  }, []);
   const location = useLocation();
   const word = location.state || "";
-  const [size, setSize] = useState(false);
   const [dataProject, setDataProject] = useState([]);
 
   useEffect(() => {
@@ -32,7 +42,6 @@ export function TestimonialCard() {
         // Handle the error as needed
       }
     };
-
     fetchData();
   }, [word]);
 
@@ -44,15 +53,23 @@ const navigate = useNavigate();
     console.log(project)
     navigate(`/ProjectPage/${id}`, { state: project });
   };
+  
+  const projectStyleless = {
+    marginLeft : "0px",
+    marginTop : "0px"
+  };
 
-
-return (
-  <div className="flex ">
-  <Filters />
-  <div className="m-2 mt-8 flex-grow p-4 w-full grid grid-cols-1 md:grid-cols-2 gap-4" style={{ marginLeft: '320px' }}>
-  {dataProject.map((project, index) => (
-  <Card className="w-full max-w-20[rem] flex-row mb-6">
-      <CardBody>
+  const projectStylemore = {
+    marginLeft : "280px",
+    marginTop : "10px"
+  };
+  return (
+  <div className="flex flex-col overflow-hidden">
+  <FilterResponsive />
+  <div className="m-2 p-4 w-auto grid grid-cols-1fr 1fr md:grid-cols-2 gap-4 " style={viewportWidth<=640 ? projectStyleless : projectStylemore}>
+  {dataProject.map((project) => (
+  <Card key={project._id} className="w-full flex-row mb-6">
+      <CardBody className="">
         <Typography variant="h4" color="black" className="mb-4 uppercase">
           {project.title}
         </Typography>
@@ -70,10 +87,9 @@ return (
       </CardBody>
     </Card>
   ))}
-
   </div>
   </div>
-);
+  );
 }
 
 export default TestimonialCard;

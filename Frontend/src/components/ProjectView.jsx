@@ -8,7 +8,7 @@ export default function ProjectView(props) {
   const domArray = props.domain;
   const domainElementswithSpace = domArray.join(', ');
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen mt-24">
       <h1 className="font-semibold text-5xl ml-[18vw] mt-[3vw] underline underline-offset-auto ">
         {props.title}
       </h1>

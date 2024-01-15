@@ -45,7 +45,7 @@ function HomePage() {
   console.log(trendingProjects);
 
   return (
-    <div>
+    <div className="mt-16">
       <br />
       <ProjectList trendingProjects={currentPosts} />
       <Pagination setCurrentPage={setCurrentPage} currentPage={currentPage} />
