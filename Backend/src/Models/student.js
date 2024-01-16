@@ -18,6 +18,7 @@ const studentSchema = new Schema({
   // Email of the student, a required string field
   email: {
     type: String,
+    unique: true,
     required: true,
   },
 
@@ -25,13 +26,6 @@ const studentSchema = new Schema({
   universityName: {
     type: String,
     required: true,
-  },
-
-  // Number of projects associated with the student, a required number field with a default of 0
-  projectNo: {
-    type: Number,
-    required: true,
-    default: 0,
   },
 
   githubUsername: {
