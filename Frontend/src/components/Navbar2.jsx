@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import ProfileMenu from "./ProfileMenu";
 import { useNavigate } from "react-router-dom";
-import { SessionContext } from "./SessionProvider";
 import {
   Navbar,
   Collapse,
@@ -18,22 +17,24 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/solid";
 
+import { useSession, signIn } from "next-auth/react";
+
 export function StickyNavbar() {
   const [openNav, setOpenNav] = React.useState(false);
   const [searchTerm, setSearchTerm] = React.useState("");
   const navigate = useNavigate();
-  const { user, setUser } = React.useContext(SessionContext);
+  const { data: session, status } = useSession();
   // console.log(session, status);
-  const handleKeyPress = (event,word) => {
+  const handleKeyPress = (event, word) => {
     if (event.key === "Enter") {
       // Call the async function
       console.log(word);
-      navigate(`/search/${word}`,{state: word});
+      navigate(`/search/${word}`, { state: word });
     }
   };
   const handleClick = async (word) => {
-    console.log(word);  
-    navigate(`/search/${word}`,{state: word});
+    console.log(word);
+    navigate(`/search/${word}`, { state: word });
   };
   React.useEffect(() => {
     window.addEventListener(
@@ -41,6 +42,7 @@ export function StickyNavbar() {
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
   }, []);
+
   return (
     <div className="-m-6 max-h-[768px] w-[calc(100%+24px)]">
       <Navbar className="mt-6 mr-0 sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
@@ -53,39 +55,18 @@ export function StickyNavbar() {
             Project Platform
           </Typography>
           <div className="hidden items-center gap-x-2 lg:flex">
-            <div className="relative flex w-full gap-2 md:w-max">
-              <Input
-                type="search"
-                placeholder="Search"
-                containerProps={{
-                  className: "min-w-[288px]",
-                }}
-                className=" !border-t-blue-gray-300 pl-9 placeholder:text-blue-gray-300 focus:!border-blue-gray-300"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                onKeyDown={(e) => handleKeyPress(e, searchTerm)}
-              />
-              <div className="!absolute left-3 top-[13px]">
-                <MagnifyingGlassIcon className="h-4 w-4" strokeWidth={2} />
-              </div>
-            </div>
-            <Button onClick={() => handleClick(searchTerm)} size="md" className="rounded-lg ">
-              Search
-            </Button>
+            <div className="relative flex w-full gap-2 md:w-max"></div>
           </div>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-x-1">
-              {user ? (
-                <ProfileMenu image={user.avatar} />
+              {status === "authenticated" ? (
+                <ProfileMenu image={session.user.image} />
               ) : (
                 <Button
                   variant="text"
                   size="sm"
                   className="inline-block"
-                  onClick={() => navigate("/login")}
+                  onClick={() => signIn()}
                 >
                   <span>Log In</span>
                 </Button>
@@ -132,7 +113,11 @@ export function StickyNavbar() {
                   />
                 </div>
               </div>
-              <Button onClick={() => handleClick(searchTerm)} size="md" className="mt-1 rounded-lg sm:mt-0">
+              <Button
+                onClick={() => handleClick(searchTerm)}
+                size="md"
+                className="mt-1 rounded-lg sm:mt-0"
+              >
                 Search
               </Button>
             </div>

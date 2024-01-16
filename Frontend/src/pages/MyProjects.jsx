@@ -23,6 +23,7 @@ import {
 } from "@material-tailwind/react";
 
 import Pagination from "../components/Pagination";
+// import { objectSize } from "pdfjs-dist/types/src/shared/util";
 
 export default function MyProjects(props) {
   const [projects, setProjects] = useState([]); // useState, set projects to an empty array.
@@ -59,10 +60,13 @@ export default function MyProjects(props) {
   if (error) {
     return <div>Error fetching projects: {error.message}</div>;
   }
-  console.log(projects);
+
   const lastpostIndex = currPage * postPerPage;
   const firstpostIndex = lastpostIndex - postPerPage;
+
   const currPosts = projects.slice(firstpostIndex, lastpostIndex);
+
+  const MyProjectsCount = Math.ceil(projects.length / postPerPage);
 
   return (
     <Card className="h-full w-full">
@@ -73,7 +77,11 @@ export default function MyProjects(props) {
           <TableBodyComponent tableRows={currPosts} />
         </table>
       </CardBody>
-      <Pagination setCurrentPage={setCurrPage} currentPage={currPage} />
+      <Pagination
+        setCurrentPage={setCurrPage}
+        currentPage={currPage}
+        totalPages={MyProjectsCount}
+      />
 
       {/* <MyProjectsFooter /> */}
     </Card>

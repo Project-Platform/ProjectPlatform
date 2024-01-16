@@ -7,9 +7,9 @@ import StudentProfile from "./pages/StudentProfile";
 import MyProjects from "./pages/MyProjects";
 import MyProfile from "./pages/MyProfile";
 import ProjectUploadPage from "./pages/ProjectUploadPage";
-import SearchResults  from "./components/searchWord.jsx";
 import LoginPage from "./pages/loginPage.jsx";
-
+import SearchResults from "./pages/searchPage.jsx";
+import Layout2 from "./components/Layout2.jsx";
 function App() {
   return (
     <div className="App">
@@ -17,14 +17,16 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/MyProjects" element={<MyProjects/>}/>
-            <Route path="/MyProfile" element={<MyProfile/>}/>
-            <Route path="/StudentProfile" element={<StudentProfile/>}/>
-            <Route path="/Projectupload" element={<ProjectUploadPage />}/>            
+            <Route path="/login" element={<LoginPage />} />           
+            <Route path="/MyProjects" element={<MyProjects />} />
+            <Route path="/StudentProfile" element={<StudentProfile />} />
             <Route path="/ProjectPage/:id" element={<ProjectViewPage />} />
             <Route path="/AuthorProfile" element={<AuthorProfilePage />} />
             <Route path="/search/:word" element={<SearchResults />} />
+          </Route>
+          <Route path="/" element={<Layout2 />}>
+            <Route path="/Projectupload" element={<ProjectUploadPage />} />
+            <Route path="/MyProfile" element={<MyProfile />} />
           </Route>
         </Routes>
       </Router>
