@@ -16,7 +16,7 @@ const SessionProvider = ({ children }) => {
       try {
         const response = await getSession();
         if (!ignore) {
-          setUser(response.data.user); // Assuming the session API returns user data
+          setUser(response.user); // Assuming the session API returns user data
         }
       } catch (error) {
         // Handle error, e.g., user is not authenticated
@@ -31,6 +31,7 @@ const SessionProvider = ({ children }) => {
       ignore = true;
     };
   }, []); // Empty dependency array ensures the effect runs only once on mount
+
   return (
     <SessionContext.Provider value={{ user, setUser }}>
       {children}
