@@ -228,7 +228,6 @@
 
 // export default FilterResponsive;
 
-
 import React, { useState, useEffect } from 'react';
 import { Button, Drawer, Typography} from "@material-tailwind/react"; 
 import {
@@ -284,9 +283,10 @@ const FilterResponsive = () => {
     "Embedded Systems",
     "Energy",
   ];
+  console.log(viewportWidth);
   if (viewportWidth <= 640) {
     return (
-      <div className='inline-block'>
+      <div className='mt-16'>
       <div className='display-block flex justify-center mt-4'><Button onClick={openDrawer} size="lg" className='mt-16'>Filters</Button></div>
         <Drawer open={open} onClose={closeDrawer} className="p-4 w-320px">
         <div className="h-screen bg-white w-[17rem] p-4 shadow-xl shadow-blue-900/5 overflow-y-auto pt-2 fixed">
@@ -327,7 +327,7 @@ const FilterResponsive = () => {
     );
   } else {
     return (
-      <div className='mt-16'>
+      <div className=''>
         <div className=" h-screen bg-white w-[18rem] p-2 shadow-xl shadow-blue-900/5 overflow-y-auto pt-2 fixed">
     <Card className="h-[calc(100vh-2rem)] bg-white w-full max-w-[18rem] p-2 shadow-xl shadow-blue-900/5 overflow-y-auto">
     <div className="mb-6 flex items-center justify-between">      

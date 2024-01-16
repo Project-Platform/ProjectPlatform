@@ -15,7 +15,6 @@ import {
 
 export function TestimonialCard() {
   const [viewportWidth, setViewportWidth] = useState(document.documentElement.clientWidth);
-
   const updateViewportWidth = () => {
     setViewportWidth(document.documentElement.clientWidth);
   };
@@ -60,11 +59,12 @@ const navigate = useNavigate();
   };
 
   const projectStylemore = {
-    marginLeft : "280px",
+    marginLeft : "10px",
     marginTop : "10px"
   };
+  console.log(viewportWidth);
   return (
-  <div className="flex flex-col overflow-hidden">
+  <div className="">
   <FilterResponsive />
   <div className="m-2 p-4 w-auto grid grid-cols-1fr 1fr md:grid-cols-2 gap-4 " style={viewportWidth<=640 ? projectStyleless : projectStylemore}>
   {dataProject.map((project) => (
