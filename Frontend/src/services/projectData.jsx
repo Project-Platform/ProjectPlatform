@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getSession, signIn } from "next-auth/react";
+import { getSession } from "./authData";
 
 const getProjectById = async (projectId) => {
   try {
@@ -45,12 +45,10 @@ const deleteProjectById = async (projectId) => {
 const getStudentProjects = async () => {
   try {
     const session = await getSession();
-    if (session) {
-      const response = await axios.get(`/api/projects/student/${session.user.name}`);
+    if (session.user) {
+      console.log(session.user.username)
+      const response = await axios.get(`/api/projects/student/${session.user.username}`);
       return response.data;
-    }
-    else{
-      signIn();
     }
   } catch (error) {
     console.error("Error fetching student projects:", error);

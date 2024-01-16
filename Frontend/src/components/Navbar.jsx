@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import ProfileMenu from "./ProfileMenu";
 import { useNavigate } from "react-router-dom";
+import { SessionContext } from "./SessionProvider";
 import {
   Navbar,
   Collapse,
@@ -17,13 +18,11 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/solid";
 
-import { useSession, signIn } from "next-auth/react";
-
 export function StickyNavbar() {
   const [openNav, setOpenNav] = React.useState(false);
   const [searchTerm, setSearchTerm] = React.useState("");
   const navigate = useNavigate();
-  const { data: session, status } = useSession();
+  const { user, setUser } = React.useContext(SessionContext);
   // console.log(session, status);
   const handleKeyPress = (event,word) => {
     if (event.key === "Enter") {
@@ -44,7 +43,6 @@ export function StickyNavbar() {
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
   }, []);
-
   return (
       <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
         <div className="flex items-center justify-between text-blue-gray-900">
@@ -81,8 +79,8 @@ export function StickyNavbar() {
           </div>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-x-1">
-              {status === "authenticated" ? (
-                <ProfileMenu image={session.user.image} />
+              {user ? (
+                <ProfileMenu image={user.avatar} />
               ) : (
                 <Button
                   variant="text"
