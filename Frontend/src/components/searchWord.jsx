@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { searchResult } from "../services/searchData";
 import { useNavigate } from "react-router-dom";
 import { getProjectById } from "../services/projectData";
-import FilterResponsive from "./FilterResponsive";
+import Filters from "./Filters";
 import {
   Card,
   CardHeader,
@@ -12,6 +12,8 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
+import { Radio } from "@material-tailwind/react";
+import { Switch } from "@material-tailwind/react";
 
 export function TestimonialCard() {
   const [viewportWidth, setViewportWidth] = useState(document.documentElement.clientWidth);
@@ -28,6 +30,7 @@ export function TestimonialCard() {
   }, []);
   const location = useLocation();
   const word = location.state || "";
+  const [size, setSize] = useState(false);
   const [dataProject, setDataProject] = useState([]);
 
   useEffect(() => {
@@ -41,6 +44,7 @@ export function TestimonialCard() {
         // Handle the error as needed
       }
     };
+
     fetchData();
   }, [word]);
 
@@ -51,11 +55,6 @@ const navigate = useNavigate();
     const project = await getProjectById(id);
     console.log(project)
     navigate(`/ProjectPage/${id}`, { state: project });
-  };
-  
-  const projectStyleless = {
-    marginLeft : "0px",
-    marginTop : "0px"
   };
 
   const projectStylemore = {
@@ -87,9 +86,10 @@ const navigate = useNavigate();
       </CardBody>
     </Card>
   ))}
+
   </div>
   </div>
-  );
+);
 }
 
 export default TestimonialCard;

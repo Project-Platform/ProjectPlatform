@@ -241,12 +241,13 @@ import {
 const FilterResponsive = () => {
   const [viewportWidth, setViewportWidth] = useState(document.documentElement.clientWidth);
   const [open, setOpen] = useState(false);
-
+  console.log('abc');
   const updateViewportWidth = () => {
     setViewportWidth(document.documentElement.clientWidth);
   };
 
   useEffect(() => {
+    console.log('abc');
     window.addEventListener('resize', updateViewportWidth);
 
     return () => {
@@ -283,7 +284,7 @@ const FilterResponsive = () => {
     "Embedded Systems",
     "Energy",
   ];
-  console.log(viewportWidth);
+  console.log('abc');
   if (viewportWidth <= 640) {
     return (
       <div className='mt-16'>
