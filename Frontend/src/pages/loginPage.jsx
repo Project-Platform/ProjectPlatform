@@ -2,106 +2,50 @@ import {
   Card,
   CardHeader,
   CardBody,
-  CardFooter,
   Typography,
-  Input,
-  Button,
 } from "@material-tailwind/react";
-import { useState } from "react";
 
 export function LoginPage() {
-  const [username, setusername] = useState("");
-  const [password, setpassword] = useState("");
-
   return (
-    <form className="flex justify-center items-center h-screen ">
+    <div className="flex justify-center items-center h-[80vh]">
       <Card className="w-96">
         <CardHeader
           variant="gradient"
           color="gray"
-          className="mb-4 grid h-28 place-items-center"
+          className="mb-4 grid h-28 place-content-center"
         >
           <Typography variant="h3" color="white">
             Log In
           </Typography>
         </CardHeader>
         <CardBody className="flex flex-col gap-4">
-          <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Username
-          </Typography>
-          <Input
-            size="lg"
-            value={username}
-            placeholder="Username"
-            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-            onChange={(e) => {
-              setusername(e.target.value);
-            }}
-          />
-
-          <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Password
-          </Typography>
-          <Input
-            size="lg"
-            type="password"
-            value={password}
-            placeholder="*******"
-            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-            onChange={(e) => {
-              setpassword(e.target.value);
-            }}
-          />
-        </CardBody>
-        <CardFooter className="pt-0">
-          <Button type="submit" variant="gradient" fullWidth>
-            Login
-          </Button>
-          <hr className="my-5 border-blue-gray-50" />
-          <Button
-            size="lg"
-            variant="outlined"
-            color="blue-gray"
-            fullWidth
-            className="mt-3"
+          <Typography
+            as="a"
+            href="/api/auth/google"
+            className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-sm py-3.5 px-7 rounded-lg border border-blue-gray-500 text-blue-gray-500 hover:opacity-75 focus:ring focus:ring-blue-gray-200 active:opacity-[0.85] w-full flex place-content-center gap-3 mt-3"
           >
-            Continue with Email
-          </Button>
-          <Button
-            size="lg"
-            variant="outlined"
-            color="blue-gray"
-            fullWidth
-            className="flex items-center gap-3 mt-3"
+            <img
+              src="../../icons8-google.svg"
+              alt="metamask"
+              className="h-6 w-6"
+            />
+            Log in with Google
+          </Typography>
+          <Typography
+            as="a"
+            href="/api/auth/github"
+            className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-sm py-3.5 px-7 rounded-lg border border-blue-gray-500 text-blue-gray-500 hover:opacity-75 focus:ring focus:ring-blue-gray-200 active:opacity-[0.85] w-full flex place-content-center gap-3 mt-3"
           >
             <img
               src="../../github-mark.svg"
               alt="metamask"
-              className="h-6 w-6 ml-5"
+              className="h-6 w-6"
             />
-            Continue with GitHub
-          </Button>
-          <Typography variant="small" className="mt-6 flex justify-center">
-            Don&apos;t have an account?
-            <Typography
-              as="a"
-              href="student/register"
-              variant="small"
-              color="blue-gray"
-              className="ml-1 font-bold"
-            >
-              Sign up
-            </Typography>
+            Log in with GitHub
           </Typography>
-        </CardFooter>
+        </CardBody>
       </Card>
-    </form>
+    </div>
   );
 }
 export default LoginPage;

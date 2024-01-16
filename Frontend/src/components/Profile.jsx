@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
 import { createStudent, getStudentByUsername, updateStudent } from '../services/studentData';
-import { useSession } from "next-auth/react";
+import { SessionContext } from './SessionProvider';
 
 export default function Profile() {
-  const { data: session } = useSession();
+  const session = React.useContext(SessionContext);
   const [profileData, setProfileData] = useState({
     name: '',
     universityName: '',
@@ -15,10 +15,10 @@ export default function Profile() {
   const [isNewUser, setIsNewUser] = useState(true);
 
   useEffect(() => {
-    if (session) {
+    if (session.user) {
       fetchStudentData();
     }
-  }, [session]);
+  }, [session.user]);
 
   const fetchStudentData = async () => {
     try {

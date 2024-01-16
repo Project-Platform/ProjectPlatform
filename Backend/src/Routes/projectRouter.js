@@ -2,6 +2,7 @@ import express from "express";
 import Project from "../Models/project.js";
 import generateEmbeddings from "../utils/embeddings.js";
 import multer from "multer";
+import { authenticated } from "../Middleware/auth.js";
 const upload = multer({ storage: multer.memoryStorage() });
 
 const projectRouter = express.Router();
@@ -18,7 +19,7 @@ projectRouter.get("/trending", async (req, res) => {
 });
 
 // Post a new project
-projectRouter.post("/", upload.single("docs"), async (req, res) => {
+projectRouter.post("/", authenticated, upload.single("docs"), async (req, res) => {
   try {
     const newProject = new Project(req.body);
     newProject["embeddings"] = await generateEmbeddings(newProject);
@@ -33,7 +34,7 @@ projectRouter.post("/", upload.single("docs"), async (req, res) => {
 });
 
 // Delete a project by _id
-projectRouter.delete("/:id", async (req, res) => {
+projectRouter.delete("/:id", authenticated, async (req, res) => {
   try {
     const projectId = req.params.id;
     const deletedProject = await Project.findByIdAndDelete(projectId);
@@ -68,13 +69,12 @@ projectRouter.get("/:id", async (req, res) => {
   }
 });
 
-projectRouter.get("/student/:username", async (req, res) => {
+projectRouter.get("/student/:username", authenticated, async (req, res) => {
   try {
     const studentUsername = req.params.username;
 
     // Find the projects where the given student is an author
     const projects = await Project.find({ author: studentUsername });
-
     res.status(200).json(projects);
   } catch (error) {
     console.error(error);
