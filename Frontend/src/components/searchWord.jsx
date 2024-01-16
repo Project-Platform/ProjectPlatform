@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { searchResult } from "../services/searchData";
 import { useNavigate } from "react-router-dom";
 import { getProjectById } from "../services/projectData";
-import Filters from "./Filters";
+import FilterResponsive from "./FilterResponsive";
 import {
   Card,
   CardHeader,
@@ -12,11 +12,10 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
-import { Radio } from "@material-tailwind/react";
-import { Switch } from "@material-tailwind/react";
 
 export function TestimonialCard() {
   const [viewportWidth, setViewportWidth] = useState(document.documentElement.clientWidth);
+
   const updateViewportWidth = () => {
     setViewportWidth(document.documentElement.clientWidth);
   };
@@ -30,21 +29,18 @@ export function TestimonialCard() {
   }, []);
   const location = useLocation();
   const word = location.state || "";
-  const [size, setSize] = useState(false);
   const [dataProject, setDataProject] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const projects = await searchResult(word);
-        console.log(projects);
         setDataProject(projects);
       } catch (error) {
         console.error("Error fetching search results:", error);
         // Handle the error as needed
       }
     };
-
     fetchData();
   }, [word]);
 
@@ -56,14 +52,18 @@ const navigate = useNavigate();
     console.log(project)
     navigate(`/ProjectPage/${id}`, { state: project });
   };
+  
+  const projectStyleless = {
+    marginLeft : "0px",
+    marginTop : "0px"
+  };
 
   const projectStylemore = {
-    marginLeft : "10px",
+    marginLeft : "280px",
     marginTop : "10px"
   };
-  console.log(viewportWidth);
   return (
-  <div className="">
+  <div className="flex flex-col overflow-hidden">
   <FilterResponsive />
   <div className="m-2 p-4 w-auto grid grid-cols-1fr 1fr md:grid-cols-2 gap-4 " style={viewportWidth<=640 ? projectStyleless : projectStylemore}>
   {dataProject.map((project) => (
@@ -86,10 +86,9 @@ const navigate = useNavigate();
       </CardBody>
     </Card>
   ))}
-
   </div>
   </div>
-);
+  );
 }
 
 export default TestimonialCard;
