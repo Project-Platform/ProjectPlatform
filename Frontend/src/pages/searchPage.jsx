@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { searchResult } from "../services/searchData";
 import { useNavigate } from "react-router-dom";
 import { getProjectById } from "../services/projectData";
 import results from "../utils/filterProjects";
@@ -41,7 +40,7 @@ const computerScienceTags = [
 export function TestimonialCard() {
   const location = useLocation();
   const word = location.state || "";
-  const [dataProject, setDataProject] = useState([]);
+  const [dataProject, setDataProject] = useState({});
   const [checkedItems, setCheckedItems] = useState([]);
 
   const handleResults = async (selectedTags) => {
@@ -75,19 +74,6 @@ export function TestimonialCard() {
     handleResults(checkedItems);
   }, [word, checkedItems]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const projects = await searchResult(word);
-        setDataProject(projects);
-      } catch (error) {
-        console.error("Error fetching search results:", error);
-        // Handle the error as needed
-      }
-    };
-
-    fetchData();
-  }, [word]);
 
   const navigate = useNavigate();
 
@@ -101,7 +87,7 @@ export function TestimonialCard() {
   return (
     <div className="flex ">
       <div className="w-1/4">
-        <Card className="h-[calc(100vh-2rem)] bg-white w-full max-w-[20rem] p-4 shadow-xl shadow-blue-900/5 overflow-y-auto">
+        <Card className=" m-4 h-[calc(100vh-2rem)] bg-white w-full max-w-[20rem] p-4 shadow-xl shadow-blue-900/5 overflow-y-auto">
           <Typography variant="h4" color="black">
             Filters:
           </Typography>
@@ -134,11 +120,16 @@ export function TestimonialCard() {
         </Card>
       </div>
       <div
-        className="m-2 mt-8 flex-grow p-4 w-full grid grid-cols-1 md:grid-cols-2 gap-4"
+        className="m-2 mt-8 flex-grow p-4 w-full"
         style={{ marginLeft: "320px" }}
       >
-        {dataProject.map((project, index) => (
-          <Card className="w-full max-w-20[rem] flex-row mb-6" key={project._id}>
+        {dataProject.projectNo === 0 && (
+  <h1 className="flex items-center justify-center ">
+    Most relevant projects are:
+  </h1>
+)}
+      {dataProject.ans && dataProject.ans.map((project, index) => (
+          <Card className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-20[rem] flex-row mb-6" key={project._id}>
             <CardBody>
               <Typography
                 variant="h4"

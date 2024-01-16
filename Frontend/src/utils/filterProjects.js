@@ -41,6 +41,7 @@ const results = async (word, tags) => {
 
     // Perform searches using FlexSearch
     let ans = [];
+    let projectNo=0;
 
     const searchDomain = index.search({
       field: "domain",
@@ -48,6 +49,7 @@ const results = async (word, tags) => {
     });
 
     if (searchDomain.length > 0) {
+      projectNo=1;
       ans = data.filter((project) => searchDomain[0]["result"].includes(project._id));
     } else {
       // console.log(`No matches found on the ${word} with these combination of tags ,but revelant projects are`);
@@ -62,10 +64,13 @@ const results = async (word, tags) => {
         ans = data.filter((project) => searchAbstract[0]["result"].includes(project._id));
       } else {
         // console.log(`No matches found on the ${word} & ${tags}. but relevant projects are`);
+        if(tags.length ==0 ){
+          projectNo=1;
+        }
         ans = data;
       }
     }
-    return ans;
+    return {ans,projectNo};
   } catch (error) {
     console.error("Error fetching or processing data:", error);
     throw error; // Rethrow the error to propagate it further
