@@ -5,7 +5,7 @@ export default function ProjectViewPage() {
   const location = useLocation();
 
   const projectData = location.state;
-  console.log(projectData);
+
   return (
     <ProjectView
       title={projectData.title}

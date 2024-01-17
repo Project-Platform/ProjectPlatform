@@ -1,29 +1,13 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { getStudentProjects } from "../services/projectData";
-import Table from "../components/Table";
 import TableBodyComponent from "../components/TableBodyComponent";
 import MyProjectsHeader from "../components/MyProjectsHeader";
 import InitialRowOfTable from "../components/InitialRowOfTable";
-import MyProjectsFooter from "../components/MyProjectsFooter";
 import {
   Card,
-  CardHeader,
-  Input,
-  Typography,
-  Button,
   CardBody,
-  Chip,
-  CardFooter,
-  Tabs,
-  TabsHeader,
-  Tab,
-  Avatar,
-  IconButton,
-  Tooltip,
 } from "@material-tailwind/react";
-
 import Pagination from "../components/Pagination";
-// import { objectSize } from "pdfjs-dist/types/src/shared/util";
 
 export default function MyProjects(props) {
   const [projects, setProjects] = useState([]); // useState, set projects to an empty array.
