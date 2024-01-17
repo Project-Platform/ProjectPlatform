@@ -4,6 +4,7 @@ import { searchResult } from "../services/searchData";
 import { useNavigate } from "react-router-dom";
 import { getProjectById } from "../services/projectData";
 import results from "../utils/filterProjects";
+import Filters from "../components/Filters";
 import {
   Card,
   Button,
@@ -123,56 +124,10 @@ export function TestimonialCard() {
     navigate(`/ProjectPage/${id}`, { state: project });
   };
 
-  const projectStyleless = {
-    marginLeft : "0px",
-    marginTop : "0px"
-  };
-
-  const projectStylemore = {
-    marginLeft : "280px",
-    marginTop : "10px"
-  };
   if(viewportWidth <=640){
     return (
       <div className="flex flex-col">
-      <div className='flex justify-center mt-4'><Button onClick={openDrawer} size="lg">Filters</Button></div>
-        <Drawer open={open} onClose={closeDrawer} className="p-4 w-320px">
-        <div className="h-screen bg-white w-[17rem] p-4 shadow-xl shadow-blue-900/5 overflow-y-auto pt-2 fixed">
-    <Card className="h-[calc(100vh-2rem)] bg-white w-full max-w-[17rem] p-4 shadow-xl shadow-blue-900/5 overflow-y-auto">
-    <div className="mb-6">
-      <Typography variant="h4" color="black">
-        Filters:
-      </Typography>
-      </div>
-      <List>
-        {computerScienceTags.map((tag) => (
-          <ListItem key={tag} className="p-0 h-8">
-            <label
-              htmlFor={`vertical-list-${tag}`}
-              className="flex w-full cursor-pointer items-center px-3 py-2"
-            >
-              <ListItemPrefix className="mr-3">
-                <Checkbox
-                  id={`vertical-list-${tag}`}
-                  ripple={false}
-                  checked={checkedItems.includes(tag)}
-                  onChange={() => handleCheckboxChange(tag)}
-                  className="hover:before:opacity-0 w-4 h-4"
-                  containerProps={{
-                    className: "p-0",
-                  }}
-                />
-              </ListItemPrefix>
-              <Typography color="blue-gray" className="font-medium">
-                {tag}
-              </Typography>
-            </label>
-          </ListItem>
-        ))}
-      </List>
-    </Card>
-    </div>
-        </Drawer>
+      <Filters />
         <div
         className="m-2 mt-0 flex-grow p-4 w-full grid grid-cols-1 md:grid-cols-2 gap-4"
       >
@@ -211,43 +166,9 @@ export function TestimonialCard() {
   else{
     return(
     <div className="flex flex-col">
-    <div className=" w-[18rem] overflow-y-auto pt-2 fixed">
-    <Card className="h-[80vh] bg-white w-full max-w-[18rem] p-2 shadow-xl shadow-blue-900/5">
-    <div className="mb-6 flex items-center justify-between">
-      <Typography variant="h4" color="black">
-        Filters:
-      </Typography>
-      </div>
-      <List>
-        {computerScienceTags.map((tag) => (
-          <ListItem key={tag} className="p-0 h-8">
-            <label
-              htmlFor={`vertical-list-${tag}`}
-              className="flex w-full cursor-pointer items-center px-3 py-2"
-            >
-              <ListItemPrefix className="mr-3">
-                <Checkbox
-                  id={`vertical-list-${tag}`}
-                      ripple={false}
-                      checked={checkedItems.includes(tag)}
-                      onChange={() => handleCheckboxChange(tag)}
-                      className="hover:before:opacity-0 w-4 h-4"
-                      containerProps={{
-                        className: "p-0",
-                      }}
-                />
-              </ListItemPrefix>
-              <Typography color="blue-gray" className="font-medium">
-                {tag}
-              </Typography>
-            </label>
-          </ListItem>
-        ))}
-      </List>
-    </Card>
-    </div>
+          <Filters />
     <div
-        className="m-2 mt-8 flex-grow p-4 w-full grid grid-cols-1 md:grid-cols-2 gap-4 ml-72 overflow-x-hidden"
+        className="m-2 mt-8 p-4 w-[140 vh] grid grid-cols-1 md:grid-cols-2 gap-4 ml-72"
       >
         {dataProject.map((project) => (
           <Card className="w-full max-w-20[rem] flex-row mb-6" key={project._id}>

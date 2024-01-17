@@ -1,86 +1,181 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { searchResult } from "../services/searchData";
+import { useNavigate } from "react-router-dom";
+import { getProjectById } from "../services/projectData";
+import results from "../utils/filterProjects";
 import {
     Card,
-    CardHeader,
+    Button,
+    Drawer,
     CardBody,
-    CardFooter,
     Typography,
+    List,
+    ListItem,
+    ListItemPrefix,
+    Checkbox,
   } from "@material-tailwind/react";
-  import { Radio } from "@material-tailwind/react";
-  import { Button } from "@material-tailwind/react";
+  const computerScienceTags = [
+    "3D Printing",
+    "Artificial Intelligence",
+    "Agriculture",
+    "Automation",
+    "Blockchain",
+    "Cloud Computing",
+    "Communication",
+    "Computer Science",
+    "Cybersecurity",
+    "Data Privacy",
+    "Data Science",
+    "Data Streaming",
+    "Deep Learning",
+    "Diagnostics",
+    "Drones",
+    "E-commerce",
+    "Education",
+    "Education Technology",
+    "Embedded Systems",
+    "Energy",
+  ];
 
 export default function Filters(){
-    return(
-    <div className=" h-screen bg-white w-[20rem] p-4 shadow-xl shadow-blue-900/5 overflow-y-auto pt-2 fixed ">
-    <Card className="h-[calc(100vh-2rem)] bg-white w-full max-w-[20rem] p-4 shadow-xl shadow-blue-900/5 overflow-y-auto ">
-        <div className=" mb-6 flex items-center justify-between">
-            <Typography variant="h3" color="black">
-              Filters:
-            </Typography>
-          </div>
-          {/* <hr className="my-2 border-blue-gray-50" /> 
-          <Switch
-        label={
-          <div>
-            <Typography color="blue-gray" className="font-medium">
-              Switch
-            </Typography>
-            <Typography variant="small" color="gray" className="font-normal">
-              We can keep a random choice.
-            </Typography>
-          </div>
+    const [viewportWidth, setViewportWidth] = useState(document.documentElement.clientWidth);
+    const [open, setOpen] = useState(false);
+    const [dataProject, setDataProject] = useState([]);
+    const openDrawer = () => {
+        setOpen(true);
+      };
+    
+      const closeDrawer = () => {
+        setOpen(false);
+      };
+  
+    const updateViewportWidth = () => {
+      setViewportWidth(document.documentElement.clientWidth);
+    };
+  
+    useEffect(() => {
+      window.addEventListener('resize', updateViewportWidth);
+  
+      return () => {
+        window.removeEventListener('resize', updateViewportWidth);
+      };
+    }, []);
+    const handleResults = async (selectedTags) => {
+        try {
+          const searchResults = await results(word, selectedTags);
+          setDataProject(searchResults);
+        } catch (error) {
+          console.error("Error fetching search results:", error);
+          // Handle the error as needed
         }
-        containerProps={{
-          className: "-mt-5",
-        }}
-      />
-          <hr className="my-2 border-blue-gray-50" /> */}
-          <div className="flex flex-col gap-0 mb-1">
-          <Typography variant="h5" color="black" className="flex items-center justify-start">
-              Technology Focus:
-            </Typography>
-              <Radio name='TechFocus' label='AI' ripple={true}/>
-              <Radio name='TechFocus' label='Virtual Reality' ripple={true}/>
-              <Radio name='TechFocus' label='Biosensor' ripple={true}/>
-              <Radio name='TechFocus' label='Raspberry Pi' ripple={true}/>
-          </div>
-          <div className="flex flex-col gap-0 mb-1">
-          <Typography variant="h5" color="black" className="flex items-center justify-start">
-              Application Domain:
-            </Typography>
-              <Radio name='AppDomain' label='Image Recognition' ripple={true}/>
-              <Radio name='AppDomain' label='Museum Experience' ripple={true}/>
-              <Radio name='AppDomain' label='Drug Discovery' ripple={true}/>
-              <Radio name='AppDomain' label='Access Control System' ripple={true}/>
-          </div>
-          <div className="flex flex-col gap-0 mb-1">
-          <Typography variant="h5" color="black" className="flex items-center justify-start">
-              Skill Requirement:
-            </Typography>
-              <Radio name='SkillReq' label='Deep Learning' ripple={true}/>
-              <Radio name='SkillReq' label='Virtual Reality' ripple={true}/>
-              <Radio name='SkillReq' label='Biometric Technology' ripple={true}/>
-              <Radio name='SkillReq' label='Moleculat Dynamics' ripple={true}/>
-          </div>
-          <div className="flex flex-col gap-0 mb-1">
-          <Typography variant="h5" color="black" className="flex items-center justify-start">
-              Project Type:
-            </Typography>
-              <Radio name='ProjType' label='Hardware Integration' ripple={true}/>
-              <Radio name='ProjType' label='Software Development' ripple={true}/>
-              <Radio name='ProjType' label='Computational Modeling' ripple={true}/>
-              <Radio name='ProjType' label='Data Science and Analytics' ripple={true}/>
-          </div>
-          <div className="flex flex-col gap-0 mb-1">
-          <Typography variant="h5" color="black" className="flex items-center justify-start mb-2">
-          Domain Expertise:
-            </Typography>
-              <Radio name='DomExpert' label='Healthcare and Biotechnology' ripple={true}/>
-              <Radio name='DomExpert' label='Security' ripple={true}/>
-              <Radio name='DomExpert' label='Cultural Experiences' ripple={true}/>
-              <Radio name='DomExpert' label='Computer Vision' ripple={true}/>
-          </div>       
-      </Card>
+      };
+    
+      const handleCheckboxChange = async (tag) => {
+        // Toggle the checked state of the tag
+        setCheckedItems((prevCheckedItems) => {
+          const updatedCheckedItems = prevCheckedItems.includes(tag)
+            ? prevCheckedItems.filter((item) => item !== tag)
+            : [...prevCheckedItems, tag];
+    
+          // Call the results function with the updatedCheckedItems
+          if (updatedCheckedItems.length > 0) {
+            handleResults(updatedCheckedItems);
+          }
+    
+          return updatedCheckedItems;
+        });
+      };
+    
+      const location = useLocation();
+      const word = location.state || "";
+      const [checkedItems, setCheckedItems] = useState([]);
+
+      useEffect(() => {
+        // Use handleResults directly inside the useEffect
+        handleResults(checkedItems);
+      }, [word, checkedItems]);
+
+    if(viewportWidth <=640){
+        return(
+            <div>
+            <div className='flex justify-center mt-4'><Button onClick={openDrawer} size="lg">Filters</Button></div>
+        <Drawer open={open} onClose={closeDrawer} className="p-4 w-320px">
+        <div className="h-screen bg-white w-[17rem] p-4 shadow-xl shadow-blue-900/5 overflow-y-auto pt-2 fixed">
+    <Card className="h-[calc(100vh-2rem)] bg-white w-full max-w-[17rem] p-4 shadow-xl shadow-blue-900/5 overflow-y-auto">
+    <div className="mb-6">
+      <Typography variant="h4" color="black">
+        Filters:
+      </Typography>
+      </div>
+      <List>
+        {computerScienceTags.map((tag) => (
+          <ListItem key={tag} className="p-0 h-8">
+            <label
+              htmlFor={`vertical-list-${tag}`}
+              className="flex w-full cursor-pointer items-center px-3 py-2"
+            >
+              <ListItemPrefix className="mr-3">
+                <Checkbox
+                  id={`vertical-list-${tag}`}
+                  ripple={false}
+                  checked={checkedItems.includes(tag)}
+                  onChange={() => handleCheckboxChange(tag)}
+                  className="hover:before:opacity-0 w-4 h-4"
+                  containerProps={{
+                    className: "p-0",
+                  }}
+                />
+              </ListItemPrefix>
+              <Typography color="blue-gray" className="font-medium">
+                {tag}
+              </Typography>
+            </label>
+          </ListItem>
+        ))}
+      </List>
+    </Card>
     </div>
-    );
+        </Drawer>
+        </div>
+        );
+    }else{
+        return(
+            <div className=" w-[18rem] overflow-y-auto pt-2 fixed">
+    <Card className="h-[80vh] bg-white w-full max-w-[18rem] p-2 shadow-xl shadow-blue-900/5">
+    <div className="mb-6 flex items-center justify-between">
+      <Typography variant="h4" color="black">
+        Filters:
+      </Typography>
+      </div>
+      <List>
+        {computerScienceTags.map((tag) => (
+          <ListItem key={tag} className="p-0 h-8">
+            <label
+              htmlFor={`vertical-list-${tag}`}
+              className="flex w-full cursor-pointer items-center px-3 py-2"
+            >
+              <ListItemPrefix className="mr-3">
+                <Checkbox
+                  id={`vertical-list-${tag}`}
+                      ripple={false}
+                      checked={checkedItems.includes(tag)}
+                      onChange={() => handleCheckboxChange(tag)}
+                      className="hover:before:opacity-0 w-4 h-4"
+                      containerProps={{
+                        className: "p-0",
+                      }}
+                />
+              </ListItemPrefix>
+              <Typography color="blue-gray" className="font-medium">
+                {tag}
+              </Typography>
+            </label>
+          </ListItem>
+        ))}
+      </List>
+    </Card>
+    </div>
+        );
+    }
 }
