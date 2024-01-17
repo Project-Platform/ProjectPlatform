@@ -47,8 +47,8 @@ function HomePage() {
   console.log(trendingProjectsCount);
 
   return (
-    <div className="mt-12 w-full">
-      <Filters />
+    <div>
+      <br />
       <ProjectList trendingProjects={currentPosts} />
       <Pagination
         setCurrentPage={setCurrentPage}
