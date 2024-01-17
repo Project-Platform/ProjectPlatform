@@ -49,7 +49,7 @@ function HomePage() {
   return (
     <div className="mt-12 w-full">
       <Filters />
-      <ProjectList trendingProjects={currentPosts} />
+      <ProjectList name="Trending Projects" trendingProjects={currentPosts} />
       <Pagination
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}

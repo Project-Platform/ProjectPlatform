@@ -18,6 +18,8 @@ export default function ProjectView(props) {
   const [pdfData, setPdfData] = useState(null);
   const [numPages, setNumPages] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+    // State to toggle PDF visibility
+    const [showPdf, setShowPdf] = useState(false);
 
 
     const loadPdfData = async () => {
@@ -52,6 +54,11 @@ export default function ProjectView(props) {
     useEffect(() => {
       loadPdfData();
     }, [props.docs]);
+
+      // Function to toggle PDF visibility
+  const togglePdfDisplay = () => {
+    setShowPdf(!showPdf);
+  };
   
 
   return (
@@ -80,9 +87,13 @@ export default function ProjectView(props) {
         <br />
         <Link to={props.youtubeLink}>Youtube Link</Link>
         <br />
+        <Button onClick={togglePdfDisplay}>
+        {showPdf ? 'Hide PDF' : 'Show PDF'}
+      </Button>
         </div>
+        
         <div className="flex flex-col items-center mt-4">
-        {pdfData && (
+        {showPdf && pdfData && (
             <div className="flex flex-col items-center">
               <Document file={pdfData} onLoadSuccess={onDocumentLoadSuccess} className="outline" >
                 <Page pageNumber={currentPage} />
