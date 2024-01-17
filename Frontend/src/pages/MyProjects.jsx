@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { getSession, signIn } from "next-auth/react";
+import { getStudentProjects } from "../services/projectData";
 import Table from "../components/Table";
 import TableBodyComponent from "../components/TableBodyComponent";
 import MyProjectsHeader from "../components/MyProjectsHeader";
@@ -35,27 +34,28 @@ export default function MyProjects(props) {
 
   const [error, setError] = useState(null);
 
-  const getStudentProjects = async () => {
-    try {
-      const session = await getSession();
-      if (session) {
-        // session.user.name
-        const response = await axios.get(
-          `/api/projects/student/${session.user.name}`
-        );
-        setProjects(response.data); // Update state with fetched projects
-      } else {
-        signIn(); // Trigger sign-in if no session is found
-      }
-    } catch (error) {
-      console.error("Error fetching student projects:", error);
-      setError(error); // Update state with error
-    }
-  };
-
+  // use of useEffect
   useEffect(() => {
-    getStudentProjects();
-  }, []); // Empty dependency array ensures this runs once on mount
+    // Define a function to fetch trending projects
+    let ignore = false;
+    const StudentProjects = async () => {
+      try {
+        const projects = await getStudentProjects();
+        if (!ignore) {
+          setProjects(projects); // Assuming the response is an array of projects
+        }
+      } catch (error) {
+        console.error("Error fetching trending projects:", error);
+      }
+    };
+
+    // Call the function to fetch trending projects
+    StudentProjects();
+
+    return () => {
+      ignore = true;
+    };
+  }, []); // The empty dependency array ensures that this effect runs only once on component mount
 
   if (error) {
     return <div>Error fetching projects: {error.message}</div>;
