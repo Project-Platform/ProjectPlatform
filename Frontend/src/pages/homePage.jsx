@@ -44,8 +44,6 @@ function HomePage() {
     trendingProjects.length / postsPerPage
   );
 
-  console.log(trendingProjectsCount);
-
   return (
     <div className="mt-12 w-full">
       <Filters />
