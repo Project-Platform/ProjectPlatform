@@ -75,7 +75,7 @@ export default function Profile() {
   };
 
   return (
-    <Card color="transparent" shadow={false} className="mt-10 place-items-center">
+    <Card color="transparent" shadow={false} className="mt-10 place-items-center mb-10">
       <Typography variant="h4" color="blue-gray">
         My Profile
       </Typography>

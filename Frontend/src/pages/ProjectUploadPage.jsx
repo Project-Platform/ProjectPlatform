@@ -59,7 +59,7 @@ function ProjectUploadPage() {
         </h1>
       </div>
       <div className="flex justify-center m-0 p-0">
-        <section className="flex flex-col md:flex-row mx-auto p-2 md:p-4 shadow-md rounded-8">
+        <section className="flex flex-col md:flex-row mx-auto p-2 md:p-4 shadow-md rounded-8 max-w-4xl">
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -68,7 +68,7 @@ function ProjectUploadPage() {
             encType="multipart/form-data"
             className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 text-left"
           >
-            <div className="text-left col-span-2 md:col-span-1 p-2 md:p-4 rounded-4 text-18 font-bold text-xl">
+            <div className="md:py-3 flex place-items-center pl-4 col-span-2 md:col-span-1 rounded-4 text-18 font-bold text-xl">
               Idea Title (100 characters):
             </div>
             <Input
@@ -80,7 +80,7 @@ function ProjectUploadPage() {
               containerProps={{ className: "place-self-center" }}
             />
 
-            <div className="text-left col-span-2 md:col-span-1 p-2 md:p-6 rounded-4 text-18 font-bold text-xl">
+            <div className="md:py-3 flex place-items-center pl-4 col-span-2 md:col-span-1 rounded-4 text-18 font-bold text-xl">
               Author(s) Username:
             </div>
             <TagsInput
@@ -90,7 +90,7 @@ function ProjectUploadPage() {
               placeHolder="Enter Author Name:"
             />
 
-            <div className="text-left col-span-2 md:col-span-1 p-2 md:p-6 rounded-4 text-18 font-bold text-xl">
+            <div className="md:py-3 flex place-items-center pl-4 col-span-2 md:col-span-1 rounded-4 text-18 font-bold text-xl">
               Domain (AIML, Blockchain, etc):
             </div>
             <TagsInput
@@ -100,7 +100,7 @@ function ProjectUploadPage() {
               placeHolder="Enter Domain:"
             />
 
-            <div className="text-left col-span-2 md:col-span-1 p-2 md:p-12 rounded-4 text-18 font-bold text-xl content-center">
+            <div className="md:py-14 flex place-items-center pl-4 col-span-2 md:col-span-1 rounded-4 text-18 font-bold text-xl content-center">
               Abstract (1500 characters):
             </div>
             <Textarea
@@ -109,10 +109,10 @@ function ProjectUploadPage() {
               value={projectData.abstract}
             />
 
-            <div className="text-left col-span-2 md:col-span-1 p-2 md:p-6 rounded-4 text-18 font-bold text-xl">
+            <div className="md:py-3 flex place-items-center pl-4 col-span-2 md:col-span-1 rounded-4 text-18 font-bold text-xl">
               Document (PDF or word format, up to 500Kb):
             </div>
-            <div className="col-span-2 md:col-span-1 p-2 md:p-6 rounded-4 text-18 font-bold text-xl">
+            <div className="flex place-items-center col-span-2 md:col-span-1 rounded-4 text-18 font-bold text-xl">
               <input
                 type="file"
                 accept=".pdf, .doc, .docx"
