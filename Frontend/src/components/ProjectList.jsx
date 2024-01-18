@@ -1,26 +1,15 @@
 import ProjectCard from "./ProjectCard";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Typography,
 } from "@material-tailwind/react";
 
 const ProjectList = ({ trendingProjects }) => {
-  const [viewportWidth, setViewportWidth] = useState(document.documentElement.clientWidth);
-  const updateViewportWidth = () => {
-    setViewportWidth(document.documentElement.clientWidth);
-  };
-  useEffect(() => {
-    window.addEventListener('resize', updateViewportWidth);
-
-    return () => {
-      window.removeEventListener('resize', updateViewportWidth);
-    };
-  }, []);
   return (
     <div>
-    <div className={viewportWidth>590 ?"flex flex-col justify-center items-center bg-black h-[35vh]":"flex flex-col justify-center items-center bg-black h-[50vh]"}>
+    <div className="flex flex-wrap flex-col justify-center items-center bg-black">
       <Typography variant="h1" color="white" className="m-10 mt-28 text-center">PROJECT PLATFORM</Typography>
-      <div className="ml-17 mr-17 mb-20 mt-12 flex justify-center items-center">
+      <div className="ml-5 mr-5 mb-20 mt-12 flex justify-center items-center">
         <Typography variant="h5" color="white" className="text-center">A unified space for students to showcase their projects, exchange knowledge, and foster innovation, creating a hub for collaborative learning and knowledge sharing.</Typography>
       </div>
     </div>
