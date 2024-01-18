@@ -1,4 +1,61 @@
-import React, { useState,useEffect } from "react";
+// import React, { useState, useEffect } from "react";
+// import { TagsInput } from "react-tag-input-component";
+// import { Button, Input, Textarea } from "@material-tailwind/react";
+// import { addProject } from "../services/projectData";
+
+// function ProjectUploadPage() {
+//   const [projectData, setProjectData] = useState({
+//     title: "",
+//     author: [],
+//     domain: [],
+//     abstract: "",
+//     docs: null,
+//   });
+
+//   useEffect(() => {
+   
+//     const storedData = JSON.parse(localStorage.getItem("projectData"));
+//     if (storedData) {
+//       setProjectData(storedData);
+//     }
+//   }, []);
+
+//   const handleInputChange = (field, value) => {
+//     setProjectData((prevData) => {
+//       const newData = { ...prevData, [field]: value };
+
+//       // Store the updated data in local storage
+//       localStorage.setItem("projectData", JSON.stringify(newData));
+
+//       return newData;
+//     });
+//   };
+
+// //   const handleFileChange = (e) => {
+// //     const file = e.target.files[0];
+// //     setProjectData({ ...projectData, docs: file });
+// //   };
+// // ;
+
+// const handleFileChange = (e) => {
+//   const file = e.target.files[0];
+//   setProjectData({ ...projectData, docs: file });
+
+//   // Save the updated projectData including the document in local storage
+//   localStorage.setItem("projectData", JSON.stringify({ ...projectData, docs: file }));
+// };
+
+//   const handleUploadProject = async () => {
+//     try {
+//       console.log(projectData);
+//       const newProject = await addProject(projectData);
+//       console.log("Project uploaded successfully:", newProject);
+//       localStorage.removeItem("projectData");
+//     } catch (error) {
+//       console.error("Error uploading project:", error);
+//     }
+//   };
+import React, { useState, useEffect } from "react";
 import { TagsInput } from "react-tag-input-component";
 import { Button, Input, Textarea } from "@material-tailwind/react";
 import { addProject } from "../services/projectData";
@@ -11,42 +68,50 @@ function ProjectUploadPage() {
     abstract: "",
     docs: null,
   });
-  
+
   useEffect(() => {
-    // Retrieve data from local storage when the component mounts
     const storedData = JSON.parse(localStorage.getItem("projectData"));
     if (storedData) {
       setProjectData(storedData);
     }
   }, []);
-  
+
   const handleInputChange = (field, value) => {
-    setProjectData((prevData) => ({ ...prevData, [field]: value }));
+    setProjectData((prevData) => {
+      const newData = { ...prevData, [field]: value };
+      localStorage.setItem("projectData", JSON.stringify(newData));
+      return newData;
+    });
   };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    setProjectData({ ...projectData, docs: file });
+
+    // Convert the file to a data URL (Base64)
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const fileDataUrl = reader.result;
+      setProjectData((prevData) => {
+        const newData = { ...prevData, docs: fileDataUrl };
+        localStorage.setItem("projectData", JSON.stringify(newData));
+        return newData;
+      });
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleUploadProject = async () => {
     try {
-      console.log(projectData)
-      localStorage.setItem("projectData", JSON.stringify(projectData));
+      console.log(projectData);
+      // For the actual file upload, you might need to handle the data URL on the server
       const newProject = await addProject(projectData);
       console.log("Project uploaded successfully:", newProject);
-
-      setProjectData({
-        title: "",
-        author: [],
-        domain: [],
-        abstract: "",
-        docs: null,
-      });
+      localStorage.removeItem("projectData");
     } catch (error) {
       console.error("Error uploading project:", error);
     }
   };
+  
 
   return (
     <>
