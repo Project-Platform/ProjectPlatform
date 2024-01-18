@@ -1,5 +1,6 @@
 import ProjectCard from "./ProjectCard";
 import React from "react";
+import Filters from "./FiltersHome";
 import {
   Typography,
 } from "@material-tailwind/react";
@@ -13,6 +14,7 @@ const ProjectList = ({ trendingProjects }) => {
           <Typography variant="h5" color="white" className="text-center">A unified space for students to showcase their projects, exchange knowledge, and foster innovation, creating a hub for collaborative learning and knowledge sharing.</Typography>
         </div>
       </div>
+      <Filters></Filters>
       <Typography variant="h4" color="black" className="flex justify-center mt-6 underline">Trending Projects</Typography>
       <div className="mt-2 flex flex-row flex-wrap place-content-evenly">
         {trendingProjects.map((curr) => {
