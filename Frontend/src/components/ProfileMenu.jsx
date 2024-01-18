@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { SessionContext } from "./SessionProvider";
 
 import {
   Typography,
@@ -19,25 +20,23 @@ import {
   DocumentPlusIcon,
 } from "@heroicons/react/24/solid";
 
-import { signOut } from "next-auth/react";
+import axios from "axios";
 
 const profileMenuItems = [
   {
     label: "My Profile",
     icon: UserCircleIcon,
-    route:"/MyProfile"
+    route: "/MyProfile",
   },
   {
     label: "My Projects",
     icon: FolderOpenIcon,
-    route:"/MyProjects"
-
+    route: "/MyProjects",
   },
   {
     label: "Upload Projects",
     icon: DocumentPlusIcon,
-    route:"/Projectupload"
-
+    route: "/Projectupload",
   },
   {
     label: "Sign Out",
@@ -45,11 +44,16 @@ const profileMenuItems = [
   },
 ];
 
-function ProfileMenu({ image, update }) {
+function ProfileMenu({ image }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const navigate = useNavigate();
+  const { setUser } = React.useContext(SessionContext);
 
-  const closeMenu = () => setIsMenuOpen(false);
+  const signOut = async () => {
+    const response = await axios.get("/api/auth/signout");
+    setUser(response.data.user);
+    navigate("/")
+  };
 
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
@@ -62,8 +66,8 @@ function ProfileMenu({ image, update }) {
           <Avatar
             variant="circular"
             size="sm"
-            alt="tania andrew"
             className="border border-gray-900 p-0.5"
+            alt="User"
             src={image}
           />
           <ChevronDownIcon
@@ -75,12 +79,18 @@ function ProfileMenu({ image, update }) {
         </Button>
       </MenuHandler>
       <MenuList className="p-1">
-        {profileMenuItems.map(({ label, icon,route }, key) => {
+        {profileMenuItems.map(({ label, icon, route }, key) => {
           const isLastItem = key === profileMenuItems.length - 1;
           return (
             <MenuItem
               key={label}
-              onClick={isLastItem ? () => signOut() : () => navigate(route)}
+              onClick={
+                isLastItem
+                  ? () => {
+                      signOut();
+                    }
+                  : () => navigate(route)
+              }
               className={`flex items-center gap-2 rounded ${
                 isLastItem
                   ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"

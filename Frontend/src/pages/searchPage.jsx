@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { searchResult } from "../services/searchData";
 import { useNavigate } from "react-router-dom";
 import { getProjectById } from "../services/projectData";
 import results from "../utils/filterProjects";
@@ -67,7 +66,7 @@ export function TestimonialCard() {
 
   const location = useLocation();
   const word = location.state || "";
-  const [dataProject, setDataProject] = useState([]);
+  const [dataProject, setDataProject] = useState({});
   const [checkedItems, setCheckedItems] = useState([]);
 
   const handleResults = async (selectedTags) => {
@@ -101,19 +100,6 @@ export function TestimonialCard() {
     handleResults(checkedItems);
   }, [word, checkedItems]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const projects = await searchResult(word);
-        setDataProject(projects);
-      } catch (error) {
-        console.error("Error fetching search results:", error);
-        // Handle the error as needed
-      }
-    };
-
-    fetchData();
-  }, [word]);
 
   const navigate = useNavigate();
 

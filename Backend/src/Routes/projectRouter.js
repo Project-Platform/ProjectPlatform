@@ -2,6 +2,9 @@ import express from "express";
 import Project from "../Models/project.js";
 import generateEmbeddings from "../utils/embeddings.js";
 import multer from "multer";
+import { authenticated } from "../Middleware/auth.js";
+import semanticSearch from "../utils/semanticSearch.js";
+
 const upload = multer({ storage: multer.memoryStorage() });
 
 const projectRouter = express.Router();
@@ -18,7 +21,7 @@ projectRouter.get("/trending", async (req, res) => {
 });
 
 // Post a new project
-projectRouter.post("/", upload.single("docs"), async (req, res) => {
+projectRouter.post("/", authenticated, upload.single("docs"), async (req, res) => {
   try {
     const newProject = new Project(req.body);
     newProject["embeddings"] = await generateEmbeddings(newProject);
@@ -33,7 +36,7 @@ projectRouter.post("/", upload.single("docs"), async (req, res) => {
 });
 
 // Delete a project by _id
-projectRouter.delete("/:id", async (req, res) => {
+projectRouter.delete("/:id", authenticated, async (req, res) => {
   try {
     const projectId = req.params.id;
     const deletedProject = await Project.findByIdAndDelete(projectId);
@@ -53,7 +56,10 @@ projectRouter.delete("/:id", async (req, res) => {
 projectRouter.get("/:id", async (req, res) => {
   try {
     const projectId = req.params.id;
-    const project = await Project.findById(projectId).select('+docs');
+    const project = await Project.findById(projectId).select('+docs +embeddings');
+    const similarProjects = await semanticSearch(project.embeddings);
+    const topSimilarProjects = similarProjects.slice(1,7);
+    console.log(topSimilarProjects);
     if (!project) {
       return res.status(404).json({ message: "Project not found" });
     }
@@ -61,20 +67,19 @@ projectRouter.get("/:id", async (req, res) => {
     project.views += 1;
     await project.save();
 
-    res.status(200).json(project);
+    res.status(200).json({project:project, similarProjects:topSimilarProjects});
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
-projectRouter.get("/student/:username", async (req, res) => {
+projectRouter.get("/student/:username", authenticated, async (req, res) => {
   try {
     const studentUsername = req.params.username;
 
     // Find the projects where the given student is an author
     const projects = await Project.find({ author: studentUsername });
-
     res.status(200).json(projects);
   } catch (error) {
     console.error(error);

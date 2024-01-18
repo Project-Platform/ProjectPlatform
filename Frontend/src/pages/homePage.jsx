@@ -44,8 +44,6 @@ function HomePage() {
     trendingProjects.length / postsPerPage
   );
 
-  console.log(trendingProjectsCount);
-
   return (
     <div>
       <ProjectList trendingProjects={currentPosts} />

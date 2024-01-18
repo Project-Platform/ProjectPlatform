@@ -1,5 +1,5 @@
 // Import the Project model from the "../Models/project" module.
-import Project from "../Models/project";
+import Project from "../Models/project.js";
 
 // Async function for semantic search using vector indexing.
 const semanticSearch = async (queryEmbedding) => {
@@ -19,10 +19,7 @@ const semanticSearch = async (queryEmbedding) => {
                 '_id': 1,                   // Include the document ID in the result.
                 'title': 1,                 // Include the document title in the result.
                 'domain': 1,                // Include the document domain in the result.
-                'field': 1,                 // Include the document field in the result.
                 'abstract': 1,              // Include the document abstract in the result.
-                'mentorId': 1,              // Include the document mentorId in the result.
-                'universityId': 1,          // Include the document universityId in the result.
                 'author': 1,                // Include the document author in the result.
                 'score': {                  // Include the search score in the result.
                     '$meta': 'vectorSearchScore'
