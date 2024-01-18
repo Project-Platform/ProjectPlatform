@@ -5,10 +5,9 @@ const getSession = async () => {
     const response = await axios.get(`/api/auth/session`);
     return response.data;
   } catch (error) {
-    console.error("Error fetching project:", error);
+    console.error("Error fetching session:", error);
     throw error;
   }
 };
 
-export { getSession }
-
+export { getSession };
