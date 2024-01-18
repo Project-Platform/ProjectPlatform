@@ -47,15 +47,14 @@ const profileMenuItems = [
 function ProfileMenu({ image }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const navigate = useNavigate();
-  const { user, setUser } = React.useContext(SessionContext);
-
-  const closeMenu = () => setIsMenuOpen(false);
+  const { setUser } = React.useContext(SessionContext);
 
   const signOut = async () => {
     const response = await axios.get("/api/auth/signout");
     setUser(response.data.user);
-    return response.data;
+    navigate("/")
   };
+
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
       <MenuHandler>

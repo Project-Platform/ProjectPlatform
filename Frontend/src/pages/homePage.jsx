@@ -2,7 +2,7 @@ import Pagination from "../components/Pagination";
 import { getTrendingProjects } from "../services/projectData";
 import { useState, useEffect } from "react";
 import ProjectList from "../components/ProjectList";
-import Filters from "../components/FiltersHome";
+
 
 function HomePage() {
   //useState,set trendingProjects to an empty array.you can change the value of the trendingProjects
@@ -44,11 +44,8 @@ function HomePage() {
     trendingProjects.length / postsPerPage
   );
 
-  console.log(trendingProjectsCount);
-
   return (
-    <div className="mt-12 w-full">
-      <Filters />
+    <div>
       <ProjectList trendingProjects={currentPosts} />
       <Pagination
         setCurrentPage={setCurrentPage}

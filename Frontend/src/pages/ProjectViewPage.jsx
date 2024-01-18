@@ -4,8 +4,10 @@ import ProjectView from "../components/ProjectView";
 export default function ProjectViewPage() {
   const location = useLocation();
 
-  const projectData = location.state;
-  console.log(projectData);
+  const response = location.state;
+  const projectData = response.project
+  console.log(response)
+
   return (
     <ProjectView
       title={projectData.title}

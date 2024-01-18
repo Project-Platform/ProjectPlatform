@@ -26,6 +26,7 @@ const PORT = process.env.PORT;
 // Set up Express to use sessions with a specific configuration
 app.use(
   session({
+    name: "ProjectPlatform-session",
     secret: process.env.JWT_SECRET, // Secret used to sign the session ID cookie
     resave: false, // Do not save the session if it hasn't been modified
     saveUninitialized: false, // Do not save uninitialized sessions

@@ -13,7 +13,7 @@ export function ChipPills() {
   };
 
   return (
-    <div className='flex flex-row flex-wrap place-content-evenly'>
+    <div className='m-4 flex flex-row flex-wrap place-content-evenly'>
       {filterWordsData.map((filter) => (
         <Chip
           key={filter.label}
