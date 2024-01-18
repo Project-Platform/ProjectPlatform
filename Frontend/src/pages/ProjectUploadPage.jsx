@@ -2,9 +2,6 @@ import React, { useState,useEffect } from "react";
 import { TagsInput } from "react-tag-input-component";
 import { Button, Input, Textarea } from "@material-tailwind/react";
 import { addProject } from "../services/projectData";
-import {
-  Typography,
-} from "@material-tailwind/react";
 
 function ProjectUploadPage() {
   const [projectData, setProjectData] = useState({
@@ -66,9 +63,9 @@ function ProjectUploadPage() {
               handleUploadProject();
             }}
             encType="multipart/form-data"
-            className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 text-left"
+            className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 justify-center"
           >
-            <div className="text-left col-span-2 md:col-span-1 p-2 md:p-4 rounded-4 text-18 font-bold text-xl">
+            <div className="col-span-2 md:col-span-1 p-2 md:p-4 rounded-4 text-18 font-bold text-xl">
               Idea Title (100 characters):
             </div>
             <Input
@@ -80,7 +77,7 @@ function ProjectUploadPage() {
               containerProps={{ className: "place-self-center" }}
             />
 
-            <div className="text-left col-span-2 md:col-span-1 p-2 md:p-6 rounded-4 text-18 font-bold text-xl">
+            <div className="col-span-2 md:col-span-1 p-2 md:p-6 rounded-4 text-18 font-bold text-xl">
               Author(s) Username:
             </div>
             <TagsInput
@@ -90,7 +87,7 @@ function ProjectUploadPage() {
               placeHolder="Enter Author Name:"
             />
 
-            <div className="text-left col-span-2 md:col-span-1 p-2 md:p-6 rounded-4 text-18 font-bold text-xl">
+            <div className="col-span-2 md:col-span-1 p-2 md:p-6 rounded-4 text-18 font-bold text-xl">
               Domain (AIML, Blockchain, etc):
             </div>
             <TagsInput
@@ -100,7 +97,7 @@ function ProjectUploadPage() {
               placeHolder="Enter Domain:"
             />
 
-            <div className="text-left col-span-2 md:col-span-1 p-2 md:p-12 rounded-4 text-18 font-bold text-xl content-center">
+            <div className="col-span-2 md:col-span-1 p-2 md:p-12 rounded-4 text-18 font-bold text-xl content-center">
               Abstract (1500 characters):
             </div>
             <Textarea
@@ -109,7 +106,7 @@ function ProjectUploadPage() {
               value={projectData.abstract}
             />
 
-            <div className="text-left col-span-2 md:col-span-1 p-2 md:p-6 rounded-4 text-18 font-bold text-xl">
+            <div className="col-span-2 md:col-span-1 p-2 md:p-6 rounded-4 text-18 font-bold text-xl">
               Document (PDF or word format, up to 500Kb):
             </div>
             <div className="col-span-2 md:col-span-1 p-2 md:p-6 rounded-4 text-18 font-bold text-xl">
@@ -121,7 +118,7 @@ function ProjectUploadPage() {
               />
             </div>
 
-            <div className="flex flex-col justify-center items-center mx-auto col-span-2">
+            <div className="mx-auto col-span-2">
               <Button className="mb-4" variant="filled" size="lg" type="submit">
                 Plagiarism Checker
               </Button>
