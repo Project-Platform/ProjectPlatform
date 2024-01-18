@@ -99,7 +99,7 @@ export default function Filters(){
     if(viewportWidth <=640){
         return(
             <div>
-            <div className='flex justify-center mt-4'><Button onClick={openDrawer} size="lg">Filters</Button></div>
+            <div className='flex justify-center mt-8'><Button onClick={openDrawer} size="lg">Filters</Button></div>
         <Drawer open={open} onClose={closeDrawer} className="p-4 w-320px">
         <div className="h-screen bg-white w-[17rem] p-4 shadow-xl shadow-blue-900/5 overflow-y-auto pt-2 fixed">
     <Card className="h-[calc(100vh-2rem)] bg-white w-full max-w-[17rem] p-4 shadow-xl shadow-blue-900/5 overflow-y-auto">

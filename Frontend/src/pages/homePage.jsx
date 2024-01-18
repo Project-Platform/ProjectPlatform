@@ -46,7 +46,6 @@ function HomePage() {
 
   return (
     <div>
-      <br />
       <ProjectList trendingProjects={currentPosts} />
       <Pagination
         setCurrentPage={setCurrentPage}
