@@ -129,10 +129,10 @@ export function TestimonialCard() {
       <div className="flex flex-col">
       <Filters />
         <div
-        className="m-2 mt-0 flex-grow p-4 w-full grid grid-cols-1 md:grid-cols-2 gap-4"
+        className="mt-0 flex-grow p-4 w-full grid grid-cols-1 md:grid-cols-2 gap-4"
       >
         {dataProject.map((project) => (
-          <Card className="w-full max-w-20[rem] flex-row mb-6" key={project._id}>
+          <Card className="w-1/2 max-w-20[rem] flex-row mb-6 sm: w-full" key={project._id}>
             <CardBody>
               <Typography
                 variant="h4"
