@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import { getSession } from "../services/authData";
+import { Spinner } from "@material-tailwind/react";
 // Create a context with a default value
 const SessionContext = createContext({
   user: null,
@@ -9,28 +10,43 @@ const SessionContext = createContext({
 // A provider component to wrap your entire app
 const SessionProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let ignore = false;
-    const fetchSession = async () => {
+    let timeoutId
+
+    const fetchSessionAndDelay = async () => {
       try {
         const response = await getSession();
         if (!ignore) {
-          setUser(response.user); // Assuming the session API returns user data
+          setUser(response.user);
+          // Introduce a delay after setting the user
+          timeoutId = setTimeout(() => {
+            setLoading(false);
+          }, 50);
         }
       } catch (error) {
-        // Handle error, e.g., user is not authenticated
         console.error("Error fetching session:", error);
       }
     };
 
-    // Fetch session when SessionProvider mounts
-    fetchSession();
+    fetchSessionAndDelay();
 
     return () => {
       ignore = true;
+      clearTimeout(timeoutId)
     };
-  }, []); // Empty dependency array ensures the effect runs only once on mount
+  }, []);
+
+  if (loading) {
+    // You can render a loading state here
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Spinner className="h-12 w-12" />
+      </div>
+    );
+  }
 
   return (
     <SessionContext.Provider value={{ user, setUser }}>
