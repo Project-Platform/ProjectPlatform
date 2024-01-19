@@ -1,10 +1,8 @@
-import React, { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { TagsInput } from "react-tag-input-component";
 import { Button, Input, Textarea } from "@material-tailwind/react";
 import { addProject } from "../services/projectData";
-import {
-  Typography,
-} from "@material-tailwind/react";
+import AlertBox from "../components/AlertBox";
 
 function ProjectUploadPage() {
   const [projectData, setProjectData] = useState({
@@ -14,7 +12,8 @@ function ProjectUploadPage() {
     abstract: "",
     docs: null,
   });
-  
+  const [message, setMessage] = useState(null);
+
   useEffect(() => {
     // Retrieve data from local storage when the component mounts
     const storedData = JSON.parse(localStorage.getItem("projectData"));
@@ -22,7 +21,7 @@ function ProjectUploadPage() {
       setProjectData(storedData);
     }
   }, []);
-  
+
   const handleInputChange = (field, value) => {
     setProjectData((prevData) => ({ ...prevData, [field]: value }));
   };
@@ -34,11 +33,13 @@ function ProjectUploadPage() {
 
   const handleUploadProject = async () => {
     try {
-      console.log(projectData)
+      console.log(projectData);
       localStorage.setItem("projectData", JSON.stringify(projectData));
       const newProject = await addProject(projectData);
       console.log("Project uploaded successfully:", newProject);
 
+      setMessage({type: "success", message: "Project successfully uploaded."});
+      
       setProjectData({
         title: "",
         author: [],
@@ -47,13 +48,21 @@ function ProjectUploadPage() {
         docs: null,
       });
     } catch (error) {
+      setMessage({ type: "error", message: "Project failed to upload." });
       console.error("Error uploading project:", error);
     }
   };
 
   return (
     <>
-      <div className="mt-16">
+      {message && (
+        <AlertBox
+          type={message.type}
+          message={message.message}
+          onClose={setMessage}
+        />
+      )}
+      <div className="mt-10">
         <h1 className="flex justify-center mt-3 mb-6 text-3xl md:text-5xl text-bold">
           Project Upload
         </h1>
