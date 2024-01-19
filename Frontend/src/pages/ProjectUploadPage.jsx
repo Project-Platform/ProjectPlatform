@@ -54,6 +54,8 @@ const handleFileChange = (e) => {
       console.log("Project uploaded successfully:", newProject);
 
       setMessage({type: "success", message: "Project successfully uploaded."});
+
+      localStorage.removeItem("projectData");
       
       // setProjectData({
       //   title: "",
