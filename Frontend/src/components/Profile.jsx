@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
 import { createStudent, getStudentByUsername, updateStudent } from '../services/studentData';
 import { SessionContext } from './SessionProvider';
+import AlertBox from '../components/AlertBox';
 
 export default function Profile() {
   const session = React.useContext(SessionContext);
@@ -13,6 +14,7 @@ export default function Profile() {
   });
   const [isEditMode, setIsEditMode] = useState(false);
   const [isNewUser, setIsNewUser] = useState(true);
+  const [message, setMessage] = useState(null);
 
   useEffect(() => {
     if (session.user) {
@@ -35,30 +37,23 @@ export default function Profile() {
       console.error('Error fetching student data:', error);
     }
   };
-
   const handleInputChange = (field, value) => {
     setProfileData((prevData) => ({ ...prevData, [field]: value }));
   };
-  
 
   const handleSaveProfile = async () => {
     try {
       console.group(profileData);
       const createdStudent = await createStudent(profileData);
       console.log('Student created:', createdStudent);
-      // setProfileData({
-      //   name: '',
-      //   universityName: '',
-      //   githubUsername: '',
-      //   linkedinProfile: '',
-      // });
       setIsEditMode(false);
       setIsNewUser(false);
+      showMessage({ type: "success", message: "Profile successfully saved." });
     } catch (error) {
       console.error('Error saving profile:', error);
+      showMessage({ type: "error", message: "Failed to save profile." });
     }
   };
-  
 
   const handleEditProfile = () => {
     setIsEditMode(true);
@@ -69,12 +64,26 @@ export default function Profile() {
       const updatedStudent = await updateStudent(profileData);
       console.log('Student updated:', updatedStudent);
       setIsEditMode(false);
+      showMessage({ type: "success", message: "Profile successfully updated." });
     } catch (error) {
       console.error('Error updating profile:', error);
+      showMessage({ type: "error", message: "Failed to update profile." });
     }
   };
 
+  const showMessage = (message) => {
+    setMessage(message);
+    // You may want to clear the message after a certain time
+    setTimeout(() => {
+      setMessage(null);
+    }, 5000); // 5000 milliseconds (5 seconds)
+  };
+
   return (
+    <>
+      {message && (
+        <AlertBox type={message.type} message={message.message} onClose={() => setMessage(null)} />
+      )}
     <Card color="transparent" shadow={false} className="mt-10 place-items-center mb-10">
       <Typography variant="h4" color="blue-gray">
         My Profile
@@ -155,5 +164,6 @@ export default function Profile() {
         )}
       </form>
     </Card>
+    </>
   );
 }
