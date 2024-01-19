@@ -141,9 +141,11 @@ export default function Profile() {
           </Button>
         ) : (
           <>
-            <Button className="mt-6" fullWidth onClick={handleEditProfile}>
-              EDIT.
-            </Button>
+          {!isEditMode && (
+              <Button className="mt-6" fullWidth onClick={handleEditProfile}>
+                EDIT.
+              </Button>
+            )}
             {isEditMode && (
               <Button className="mt-6" fullWidth onClick={handleUpdateProfile}>
                 UPDATE.
