@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { TagsInput } from "react-tag-input-component";
 import { Button, Input, Textarea } from "@material-tailwind/react";
 import { addProject } from "../services/projectData";
-
+import AlertBox from "../components/AlertBox";
 
 
 function ProjectUploadPage() {
@@ -34,13 +34,6 @@ function ProjectUploadPage() {
     });
   };
 
-// const handleFileChange = (e) => {
-//   const file = e.target.files[0];
-//   setProjectData({ ...projectData, docs: file });
-
-//   // Save the updated projectData including the document in local storage
-//   localStorage.setItem("projectData", JSON.stringify({ ...projectData, docs: file }));
-// };
 
 const handleFileChange = (e) => {
   const file = e.target.files[0];
@@ -62,13 +55,13 @@ const handleFileChange = (e) => {
 
       setMessage({type: "success", message: "Project successfully uploaded."});
       
-      setProjectData({
-        title: "",
-        author: [],
-        domain: [],
-        abstract: "",
-        docs: null,
-      });
+      // setProjectData({
+      //   title: "",
+      //   author: [],
+      //   domain: [],
+      //   abstract: "",
+      //   docs: null,
+      // });
     } catch (error) {
       setMessage({ type: "error", message: "Project failed to upload." });
       console.error("Error uploading project:", error);
