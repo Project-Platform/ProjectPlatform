@@ -3,6 +3,8 @@ import { TagsInput } from "react-tag-input-component";
 import { Button, Input, Textarea } from "@material-tailwind/react";
 import { addProject } from "../services/projectData";
 
+
+
 function ProjectUploadPage() {
   const [projectData, setProjectData] = useState({
     title: "",
@@ -11,6 +13,7 @@ function ProjectUploadPage() {
     abstract: "",
     docs: null,
   });
+  const [message, setMessage] = useState(null);
 
   useEffect(() => {
    
@@ -31,27 +34,43 @@ function ProjectUploadPage() {
     });
   };
 
-//   const handleFileChange = (e) => {
-//     const file = e.target.files[0];
-//     setProjectData({ ...projectData, docs: file });
-//   };
-// ;
+// const handleFileChange = (e) => {
+//   const file = e.target.files[0];
+//   setProjectData({ ...projectData, docs: file });
+
+//   // Save the updated projectData including the document in local storage
+//   localStorage.setItem("projectData", JSON.stringify({ ...projectData, docs: file }));
+// };
 
 const handleFileChange = (e) => {
   const file = e.target.files[0];
-  setProjectData({ ...projectData, docs: file });
 
-  // Save the updated projectData including the document in local storage
-  localStorage.setItem("projectData", JSON.stringify({ ...projectData, docs: file }));
+  if (file) {
+    setProjectData({ ...projectData, docs: file });
+
+    // Save the updated projectData including the document in local storage
+    localStorage.setItem("projectData", JSON.stringify({ ...projectData, docs: file }));
+  }
 };
 
   const handleUploadProject = async () => {
     try {
       console.log(projectData);
+      localStorage.setItem("projectData", JSON.stringify(projectData));
       const newProject = await addProject(projectData);
       console.log("Project uploaded successfully:", newProject);
-      localStorage.removeItem("projectData");
+
+      setMessage({type: "success", message: "Project successfully uploaded."});
+      
+      setProjectData({
+        title: "",
+        author: [],
+        domain: [],
+        abstract: "",
+        docs: null,
+      });
     } catch (error) {
+      setMessage({ type: "error", message: "Project failed to upload." });
       console.error("Error uploading project:", error);
     }
   };
@@ -59,7 +78,14 @@ const handleFileChange = (e) => {
 
   return (
     <>
-      <div className="mt-16">
+      {message && (
+        <AlertBox
+          type={message.type}
+          message={message.message}
+          onClose={setMessage}
+        />
+      )}
+      <div className="mt-10">
         <h1 className="flex justify-center mt-3 mb-6 text-3xl md:text-5xl text-bold">
           Project Upload
         </h1>
