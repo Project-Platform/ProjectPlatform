@@ -1,66 +1,50 @@
-import { useLocation, } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import ProjectView from "../components/ProjectView";
 import ProjectList from "../components/ProjectList";
 import { useEffect } from "react";
 import { useState } from "react";
 import { getTrendingProjects } from "../services/projectData";
-
+import ProjectCard from "../components/ProjectCard";
+import { useParams } from 'react-router-dom';
+import { getProjectById } from '../services/projectData';
 
 export default function ProjectViewPage() {
+
   const location = useLocation();
 
-  const projectData = location.state;
-  console.log(projectData);
-
-//all of this is temp for getting trending Projects.
-
-const [trendingProjects, setTrendingProjects] = useState([]);
-// sets the currentPage to 1
-// you can change the value of currentPage with the help of setCurrentPage.
-const [currentPage, setCurrentPage] = useState(1);
-// this is for the implementation of the plagiarism
-const postsPerPage = 6;
-
-// use of useEffect
-useEffect(() => {
-  // Define a function to fetch trending projects
-  let ignore = false;
-  const TrendingProjects = async () => {
-    try {
-      const projects = await getTrendingProjects();
-      if (!ignore) {
-        setTrendingProjects(projects); // Assuming the response is an array of projects
-      }
-    } catch (error) {
-      console.error("Error fetching trending projects:", error);
-    }
-  };
-
-  // Call the function to fetch trending projects
-  TrendingProjects();
-
-  return () => {
-    ignore = true;
-  };
-}, []); 
-//End of the part for the trending projects(similar projects function will come)
-
+  const response = location.state;
+  const projectData = response.project;
+  console.log(response);
 
   return (
     <>
-    <ProjectView
-      title={projectData.title}
-      abstract={projectData.abstract}
-      author = {projectData.author}
-      date={projectData.date}
-      field={projectData.field}
-      domain={projectData.domain}
-      githubLink={projectData.githubLink}
-      youtubeLink={projectData.youtubeLink}
-      docs={projectData.docs}
-    />
-    {/* for showing the similar Projects. */}
-    <ProjectList name="Similar Projects" trendingProjects={trendingProjects} />
+      <ProjectView
+        title={projectData.title}
+        abstract={projectData.abstract}
+        author={projectData.author}
+        date={projectData.date}
+        field={projectData.field}
+        domain={projectData.domain}
+        githubLink={projectData.githubLink}
+        youtubeLink={projectData.youtubeLink}
+        docs={projectData.docs}
+      />
+      <div className="flex flex-row flex-wrap place-content-evenly">
+      {response.similarProjects.map((curr) => {
+        return (
+          <ProjectCard
+            className="w-9/12 sm:w-6/12 lg:w-4/12"
+            key={curr._id}
+            name={curr.title}
+            descp={curr.abstract}
+            id={curr._id}
+          />
+        );
+      })}
+      </div>
+
+      {/* for showing the similar Projects. */}
+      {/* <ProjectList name="Similar Projects" trendingProjects={response.similarProjects} /> */}
     </>
   );
 }

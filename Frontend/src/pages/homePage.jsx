@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import ProjectList from "../components/ProjectList";
 import Filters from "../components/FiltersHome";
 
+
 function HomePage() {
   //useState,set trendingProjects to an empty array.you can change the value of the trendingProjects
   //  with the help of setTrendingProjects.
@@ -44,11 +45,9 @@ function HomePage() {
     trendingProjects.length / postsPerPage
   );
 
-  console.log(trendingProjectsCount);
-
   return (
     <div className="mt-12 w-full">
-      <Filters />
+      {/* <Filters /> */}
       <ProjectList name="Trending Projects" trendingProjects={currentPosts} />
       <Pagination
         setCurrentPage={setCurrentPage}

@@ -3,6 +3,8 @@ import Project from "../Models/project.js";
 import generateEmbeddings from "../utils/embeddings.js";
 import multer from "multer";
 import { authenticated } from "../Middleware/auth.js";
+import semanticSearch from "../utils/semanticSearch.js";
+
 const upload = multer({ storage: multer.memoryStorage() });
 
 const projectRouter = express.Router();
@@ -54,7 +56,10 @@ projectRouter.delete("/:id", authenticated, async (req, res) => {
 projectRouter.get("/:id", async (req, res) => {
   try {
     const projectId = req.params.id;
-    const project = await Project.findById(projectId).select('+docs');
+    const project = await Project.findById(projectId).select('+docs +embeddings');
+    const similarProjects = await semanticSearch(project.embeddings);
+    const topSimilarProjects = similarProjects.slice(1,7);
+    console.log(topSimilarProjects);
     if (!project) {
       return res.status(404).json({ message: "Project not found" });
     }
@@ -62,7 +67,7 @@ projectRouter.get("/:id", async (req, res) => {
     project.views += 1;
     await project.save();
 
-    res.status(200).json(project);
+    res.status(200).json({project:project, similarProjects:topSimilarProjects});
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal Server Error" });

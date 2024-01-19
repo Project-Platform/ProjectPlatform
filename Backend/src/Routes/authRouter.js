@@ -14,12 +14,14 @@ authRouter.get("/session", (req, res) => {
 
 // Route to sign out the user. Terminates the login session and responds with the user's status and a message.
 authRouter.get("/signout", (req, res) => {
-  req.logout((err) => {
+  // Destroy the session
+  req.session.destroy((err) => {
     if (err) {
-      return next(err);
+      console.error("Error destroying session:", err);
     }
-    res.status(200).json({ user: req.user, message: "Logout successful." });
   });
+  res.clearCookie("ProjectPlatform-session");
+  res.status(200).json({ user: null, message: "Logout successful." });
 });
 
 // GitHub authentication route. Initiates the GitHub OAuth flow.

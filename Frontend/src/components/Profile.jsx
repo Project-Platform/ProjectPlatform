@@ -37,26 +37,28 @@ export default function Profile() {
   };
 
   const handleInputChange = (field, value) => {
-    setProfileData({ ...profileData, [field]: value });
+    setProfileData((prevData) => ({ ...prevData, [field]: value }));
   };
+  
 
   const handleSaveProfile = async () => {
     try {
       console.group(profileData);
       const createdStudent = await createStudent(profileData);
       console.log('Student created:', createdStudent);
-      setProfileData({
-        name: '',
-        universityName: '',
-        githubUsername: '',
-        linkedinProfile: '',
-      });
+      // setProfileData({
+      //   name: '',
+      //   universityName: '',
+      //   githubUsername: '',
+      //   linkedinProfile: '',
+      // });
       setIsEditMode(false);
       setIsNewUser(false);
     } catch (error) {
       console.error('Error saving profile:', error);
     }
   };
+  
 
   const handleEditProfile = () => {
     setIsEditMode(true);
@@ -73,7 +75,7 @@ export default function Profile() {
   };
 
   return (
-    <Card color="transparent" shadow={false} className="mt-10 place-items-center">
+    <Card color="transparent" shadow={false} className="mt-10 place-items-center mb-10">
       <Typography variant="h4" color="blue-gray">
         My Profile
       </Typography>
@@ -92,7 +94,7 @@ export default function Profile() {
             autoComplete="name"
             onChange={(e) => handleInputChange('name', e.target.value)}
             value={profileData.name}
-            disabled={!isEditMode}
+            disabled={!isEditMode && !isNewUser}
           />
           <Typography variant="h6" color="blue-gray" className="-mb-3">
             Your University Name
@@ -104,7 +106,7 @@ export default function Profile() {
             autoComplete="organization"
             onChange={(e) => handleInputChange('universityName', e.target.value)}
             value={profileData.universityName}
-            disabled={!isEditMode}
+            disabled={!isEditMode && !isNewUser}
           />
 
           <Typography variant="h6" color="blue-gray" className="-mb-3">
@@ -117,7 +119,7 @@ export default function Profile() {
             autoComplete="username"
             onChange={(e) => handleInputChange('githubUsername', e.target.value)}
             value={profileData.githubUsername}
-            disabled={!isEditMode}
+            disabled={!isEditMode && !isNewUser}
           />
 
           <Typography variant="h6" color="blue-gray" className="-mb-3">
@@ -130,7 +132,7 @@ export default function Profile() {
             autoComplete="username"
             onChange={(e) => handleInputChange('linkedinProfile', e.target.value)}
             value={profileData.linkedinProfile}
-            disabled={!isEditMode}
+            disabled={!isEditMode && !isNewUser}
           />
         </div>
         {isNewUser ? (
