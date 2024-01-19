@@ -63,8 +63,8 @@ export default function ProjectView(props) {
   
 
   return (
-    <div className="min-h-screen mt-24">
-      <h1 className="font-semibold text-5xl flex place-content-center mt-[3vw] underline underline-offset-auto ">
+    <div className="min-h-screen mt-4">
+      <h1 className="font-semibold text-5xl flex place-content-center underline underline-offset-auto ">
         {props.title}
       </h1>
       <h2 className="font-medium text-lg ml-[17vw] mt-[1vw]">

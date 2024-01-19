@@ -15,10 +15,12 @@ export function ProjectCard(props) {
   const handleClick = async (id) => {
     const project = await getProjectById(id);
     navigate(`/ProjectPage/${id}`, { state: project });
+    // window.open(`/ProjectPage/${id}`, '_blank');
   };
-
+  // w-9/12 sm:w-5/12 xl:w-3/12
+  const cardClass = `m-5 mt-6 ${props.className}`;
   return (
-    <Card className="m-5 mt-6 w-9/12 sm:w-5/12 xl:w-3/12">
+    <Card className={cardClass}>
       <CardBody className="h-full">
         <Typography variant="h5" color="blue-gray" className="mb-2 h-20">
           {props.name}
