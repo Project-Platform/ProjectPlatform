@@ -68,6 +68,18 @@ const handleFileChange = (e) => {
     }
   };
 
+  const isFormValid = () => {
+    const requiredFields = ["title", "author", "domain", "abstract", "docs"];
+    
+    for (const field of requiredFields) {
+      if (!projectData[field]) {
+        return false; 
+      }
+    }
+  
+    return true; 
+  };
+
 
   return (
     <>
@@ -88,8 +100,13 @@ const handleFileChange = (e) => {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              handleUploadProject();
+              if (isFormValid()) {
+                handleUploadProject();
+              } else {
+                setMessage({ type: "error", message: "Please fill in all required fields." });
+              }
             }}
+            
             encType="multipart/form-data"
             className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 text-left"
           >
