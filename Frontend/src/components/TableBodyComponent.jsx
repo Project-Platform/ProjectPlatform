@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography, IconButton, Tooltip } from "@material-tailwind/react";
-import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
+import { TrashIcon } from "@heroicons/react/24/solid";
 import {
   Card,
   CardBody,
@@ -8,7 +8,6 @@ import {
   
   Button,
 } from "@material-tailwind/react";
-import { MdDelete } from "react-icons/md";
 import { deleteProjectById } from '../services/projectData';
 
 import { useNavigate } from "react-router-dom";
@@ -76,7 +75,7 @@ export default function TableBodyComponent({ tableRows,refreshProjects, showAler
                 {/* <Button onClick={() => handleClick(_id)}> */}
                   {/* <ArrowTopRightOnSquareIcon onClick={() => handleClick(_id)} className="h-5 w-5" />
                    */}
-                  <MdDelete  className="h-5 w-6" />
+                  <TrashIcon  className="h-5 w-6" />
                   {/* </Button> */}
                 </IconButton>
               </Tooltip>
