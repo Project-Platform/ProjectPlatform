@@ -7,7 +7,8 @@ import { getTrendingProjects } from "../services/projectData";
 import ProjectCard from "../components/ProjectCard";
 import { useParams } from 'react-router-dom';
 import { getProjectById } from '../services/projectData';
-
+// import typography from "@material-tailwind/react/theme/components/typography/typographyColors";
+import { Typography } from "@material-tailwind/react";
 export default function ProjectViewPage() {
 
   const location = useLocation();
@@ -29,11 +30,12 @@ export default function ProjectViewPage() {
         youtubeLink={projectData.youtubeLink}
         docs={projectData.docs}
       />
-      <div className="flex flex-row flex-wrap place-content-evenly">
+      <Typography variant="h4" color="black" className="flex justify-center mt-6 underline">Projects you might find relevant</Typography>
+      <div className="flex flex-row flex-wrap place-content-center">
       {response.similarProjects.map((curr) => {
         return (
           <ProjectCard
-            className="w-9/12 sm:w-6/12 lg:w-4/12"
+          className="mx-1 w-9/12 sm:w-6/12 lg:w-4/12"
             key={curr._id}
             name={curr.title}
             descp={curr.abstract}

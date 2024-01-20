@@ -63,26 +63,28 @@ export default function ProjectView(props) {
   
 
   return (
-    <div className="min-h-screen mt-4">
-      <h1 className="font-semibold text-5xl flex place-content-center underline underline-offset-auto ">
+    <div className="min-h-svh mt-4">
+      {/* className="font-semibold text-5xl flex place-content-center underline underline-offset-auto " */}
+      <h1 className="font-semibold flex flex-wrap place-content-center text-xl sm:text-2xl md:text-3xl lg:text-4xl underline underline-offset-auto">
         {props.title}
       </h1>
-      <h2 className="font-medium text-lg ml-[17vw] mt-[1vw]">
+      {/* className="font-medium text-lg ml-[17vw] mt-[1vw]" */}
+      <h2 className="font-medium text-base sm:text-lg ml-4 sm:ml-8 md:ml-12 lg:ml-[17vw] mt-2 sm:mt-4 md:mt-[1vw]">
         Authors: {arrayElementsWithSpaces}
       </h2>
-
-      <h2 className="font-medium text-lg ml-[17vw]">
+      {/* className="font-medium text-lg ml-[17vw]" */}
+      <h2 className="font-medium text-base sm:text-lg ml-4 sm:ml-8 md:ml-12 lg:ml-[17vw] mt-2">
         Date:{" "}
         {`${newDate.getDate()}/${
           newDate.getMonth() + 1
         }/${newDate.getFullYear()}`}
       </h2>
-
-      <h2 className="font-medium text-lg ml-[17vw]">
+      {/* className="font-medium text-lg ml-[17vw]" */}
+      <h2 className="font-medium text-base sm:text-lg ml-4 sm:ml-8 md:ml-12 lg:ml-[17vw] mt-2">
         Domain: {domainElementswithSpace}
       </h2>
-
-      <p className="p-5 mx-60   text-xl ">{props.abstract}</p>
+      {/* className="p-5 mx-60   text-xl " */}
+      <p className="p-5 mx-4 sm:mx-10 md:mx-20 lg:mx-40 xl:mx-60 text-xl">{props.abstract}</p>
       <div className="ml-[17vw] mt-[1vw]">
         <Link to={props.githubLink}>GitHub Link</Link>
         <br />

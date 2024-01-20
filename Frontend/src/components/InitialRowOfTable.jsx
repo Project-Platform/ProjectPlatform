@@ -5,6 +5,8 @@ import {
     ArrowTopRightOnSquareIcon,
   } from "@heroicons/react/24/outline";
 
+import { MdDelete } from "react-icons/md";
+
 import {
     Card,
     CardHeader,
@@ -24,15 +26,17 @@ import {
 
 export default function InitialRowOfTable(){
 
-    const TABLE_HEAD = ["Projects", "Authors", "Domain", "Date", "View"];
+    const TABLE_HEAD = ["Projects", "Authors", "Domain", "Date", "Delete"];
 
 return (
     <thead>
     <tr>
       {TABLE_HEAD.map((head, index) => (
         <th
+        // cursor-pointer
+        // hover:bg-blue-gray-50
           key={head}
-          className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
+          className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
         >
           <Typography
             variant="small"

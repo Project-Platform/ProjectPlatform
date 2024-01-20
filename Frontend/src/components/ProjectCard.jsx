@@ -18,7 +18,7 @@ export function ProjectCard(props) {
     // window.open(`/ProjectPage/${id}`, '_blank');
   };
   // w-9/12 sm:w-5/12 xl:w-3/12
-  const cardClass = `m-5 mt-6 ${props.className}`;
+  const cardClass = `${props.className}`;
   return (
     <Card className={cardClass}>
       <CardBody className="h-full">

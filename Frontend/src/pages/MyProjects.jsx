@@ -19,27 +19,26 @@ export default function MyProjects(props) {
   const [error, setError] = useState(null);
 
   // use of useEffect
+  // Fetch projects
+  const fetchProjects = async () => {
+    try {
+      const projects = await getStudentProjects();
+      setProjects(projects);
+    } catch (error) {
+      console.error("Error fetching projects:", error);
+      setError(error);
+    }
+  };
+
+  // useEffect for initial fetch
   useEffect(() => {
-    // Define a function to fetch trending projects
-    let ignore = false;
-    const StudentProjects = async () => {
-      try {
-        const projects = await getStudentProjects();
-        if (!ignore) {
-          setProjects(projects); // Assuming the response is an array of projects
-        }
-      } catch (error) {
-        console.error("Error fetching trending projects:", error);
-      }
-    };
+    fetchProjects();
+  }, []);
 
-    // Call the function to fetch trending projects
-    StudentProjects();
-
-    return () => {
-      ignore = true;
-    };
-  }, []); // The empty dependency array ensures that this effect runs only once on component mount
+  // Function to refresh projects
+  const refreshProjects = () => {
+    fetchProjects();
+  };
 
   if (error) {
     return <div>Error fetching projects: {error.message}</div>;
@@ -58,7 +57,7 @@ export default function MyProjects(props) {
       <CardBody className="overflow-scroll px-0">
         <table className="mt-4 w-full min-w-max table-auto text-left">
           <InitialRowOfTable />
-          <TableBodyComponent tableRows={currPosts} />
+          <TableBodyComponent tableRows={currPosts} refreshProjects={refreshProjects} />
         </table>
       </CardBody>
       <Pagination

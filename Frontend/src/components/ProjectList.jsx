@@ -20,7 +20,7 @@ const ProjectList = ({ trendingProjects,name }) => {
         {trendingProjects.map((curr) => {
           return (
             <ProjectCard 
-              className="w-9/12 sm:w-5/12 xl:w-3/12"
+              className="m-5 mt-6 w-9/12 sm:w-5/12 xl:w-3/12"
               key={curr._id}
               name={curr.title}
               descp={curr.abstract}
