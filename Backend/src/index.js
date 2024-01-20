@@ -64,7 +64,18 @@ app.use("/api/students", authenticated, studentRouter);
 
 app.use("/api/search", searchRouter); // Route for search-related endpoints
 
+app.use((err, req, res, next) => {
+  console.error(err); // Log the error for debugging
+
+  // Send a generic response to the client
+  res.status(500).json({
+    message: "Internal Server Error! Please reload the page or try again after some time.",
+    error: process.env.NODE_ENV === "production" ? {} : err, // Don't expose detailed error information in production
+  });
+});
+
 // Start the server
 app.listen(PORT, () => {
+  console.log(process.env.NODE_ENV);
   console.log(`Server is running on http://localhost:${PORT}`); // Start the Express server and log a message on successful start
 });

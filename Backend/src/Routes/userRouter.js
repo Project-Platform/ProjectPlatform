@@ -3,7 +3,7 @@ import Student from "../Models/student.js";
 
 const studentRouter = express.Router();
 
-studentRouter.get("/:username", async (req, res) => {
+studentRouter.get("/:username", async (req, res, next) => {
   try {
     const studentUsername = req.params.username;
 
@@ -11,18 +11,17 @@ studentRouter.get("/:username", async (req, res) => {
     const student = await Student.findOne({ username: studentUsername });
 
     if (!student) {
-      return res.status(404).json({ message: "Student not found" });
+      return res.status(404).json({ message: "The requested user could not be found"});
     }
 
     res.status(200).json(student);
 
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal server error" });
+    next(error)
   }
 });
 
-studentRouter.post("/", async (req, res) => {
+studentRouter.post("/", async (req, res, next) => {
   try {
     // Assuming the request body contains the necessary data for creating a student profile
     const {
@@ -49,12 +48,16 @@ studentRouter.post("/", async (req, res) => {
 
     res.status(201).json(savedStudent);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal server error" });
+    if (error.name === "ValidationError") {
+      // Handle Mongoose validation errors
+      const validationErrors = Object.values(error.errors).map(err => err.message);
+      return res.status(400).json({ message: "Validation error", errors: validationErrors });
+    }
+    next(error)
   }
 });
 
-studentRouter.patch("/:username", async (req, res) => {
+studentRouter.patch("/:username", async (req, res, next) => {
   try {
     const studentUsername = req.params.username;
 
@@ -65,13 +68,17 @@ studentRouter.patch("/:username", async (req, res) => {
     );
 
     if (result.n === 0) {
-      return res.status(404).json({ message: "Student not found" });
+      return res.status(404).json({ message: "The requested user could not be found." });
     }
 
     res.status(200).json({ message: "Student profile data updated successfully" });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal server error" });
+    if (error.name === "ValidationError") {
+      // Handle Mongoose validation errors
+      const validationErrors = Object.values(error.errors).map((err) => err.message);
+      return res.status(400).json({ message: "Validation error", errors: validationErrors });
+    }
+    next(error);
   }
 });
 
