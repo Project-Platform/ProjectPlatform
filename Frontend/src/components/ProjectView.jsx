@@ -60,6 +60,25 @@ export default function ProjectView(props) {
   const togglePdfDisplay = () => {
     setShowPdf(!showPdf);
   };
+  //for pdf download
+  const downloadPdf = () => {
+    // Create a link element
+    const link = document.createElement("a");
+
+    // Set the link's properties
+    link.href = pdfData;
+    link.download = props.title || "defaultFileName.pdf"; // Use the passed filename or a default
+
+    // Append the link to the body
+    document.body.appendChild(link);
+    
+    // Trigger the download
+    link.click();
+
+    // Remove the link after downloading
+    document.body.removeChild(link);
+};
+
   
 
   return (
@@ -90,9 +109,13 @@ export default function ProjectView(props) {
         <br />
         <Link to={props.youtubeLink}>Youtube Link</Link>
         <br />
-        <Button onClick={togglePdfDisplay}>
+        <Button onClick={togglePdfDisplay} >
         {showPdf ? 'Hide PDF' : 'Show PDF'}
       </Button>
+      <Button onClick={downloadPdf} className="mx-2">
+    Download PDF
+    </Button>
+
         </div>
         
         <div className="flex flex-col items-center mt-4">
