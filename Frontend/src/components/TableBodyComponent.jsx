@@ -16,19 +16,21 @@ import { useNavigate } from "react-router-dom";
 
 import { getProjectById } from '../services/projectData';
 
-export default function TableBodyComponent({ tableRows,refreshProjects }) {
+export default function TableBodyComponent({ tableRows,refreshProjects, showAlert }) {
   const navigate = useNavigate();
   const handleClick = async (id) => {
     const project = await getProjectById(id);
     navigate(`/ProjectPage/${id}`, { state: project });
   };
-  const handleDelete = async (projectId) => {
+  const handleDelete = async (projectId,projectTitle) => {
     try {
       await deleteProjectById(projectId);
       console.log(`Project with id ${projectId} deleted.`);
       refreshProjects(); // This function should be passed from the parent component to refresh the project list.
+      showAlert(`Project ${projectTitle} deleted.`, 'success'); // Show alert on successful deletion
     } catch (error) {
       console.error("Error deleting project:", error);
+      showAlert('Error occurred while deleting project.', 'error'); // Show alert on error
     }
   };
 
@@ -70,7 +72,7 @@ export default function TableBodyComponent({ tableRows,refreshProjects }) {
             </td>
             <td className={classes}>
               <Tooltip content="Delete">
-                <IconButton variant="text" onClick={() => handleDelete(_id)}>
+                <IconButton variant="text" onClick={() => handleDelete(_id,title)}>
                 {/* <Button onClick={() => handleClick(_id)}> */}
                   {/* <ArrowTopRightOnSquareIcon onClick={() => handleClick(_id)} className="h-5 w-5" />
                    */}

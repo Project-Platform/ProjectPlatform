@@ -8,6 +8,7 @@ import {
   CardBody,
 } from "@material-tailwind/react";
 import Pagination from "../components/Pagination";
+import AlertBox from "../components/AlertBox";
 
 export default function MyProjects(props) {
   const [projects, setProjects] = useState([]); // useState, set projects to an empty array.
@@ -51,13 +52,25 @@ export default function MyProjects(props) {
 
   const MyProjectsCount = Math.ceil(projects.length / postPerPage);
 
+  //for alert to tell so and so project as been deleted.
+
+  const [alert, setAlert] = useState({ show: false, message: '', type: '' });
+
+    // Add a function to show the alert
+    const showAlert = (message, type) => {
+      setAlert({ show: true, message, type });
+      // Optionally, auto-hide the alert after some time
+      setTimeout(() => setAlert({ show: false, message: '', type: '' }), 5000);
+    };
+
   return (
     <Card className="h-full w-full">
+            {alert.show && <AlertBox type={alert.type} message={alert.message} onClose={() => setAlert({ show: false, message: '', type: '' })} />}
       <MyProjectsHeader />
       <CardBody className="overflow-scroll px-0">
         <table className="mt-4 w-full min-w-max table-auto text-left">
           <InitialRowOfTable />
-          <TableBodyComponent tableRows={currPosts} refreshProjects={refreshProjects} />
+          <TableBodyComponent tableRows={currPosts} refreshProjects={refreshProjects} showAlert={showAlert} />
         </table>
       </CardBody>
       <Pagination

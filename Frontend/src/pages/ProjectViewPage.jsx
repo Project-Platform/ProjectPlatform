@@ -7,7 +7,6 @@ import { getTrendingProjects } from "../services/projectData";
 import ProjectCard from "../components/ProjectCard";
 import { useParams } from 'react-router-dom';
 import { getProjectById } from '../services/projectData';
-// import typography from "@material-tailwind/react/theme/components/typography/typographyColors";
 import { Typography } from "@material-tailwind/react";
 export default function ProjectViewPage() {
 
@@ -37,6 +36,7 @@ export default function ProjectViewPage() {
           <ProjectCard
           className="mx-1 w-9/12 sm:w-6/12 lg:w-4/12"
             key={curr._id}
+            domain={curr.domain}
             name={curr.title}
             descp={curr.abstract}
             id={curr._id}
@@ -44,9 +44,6 @@ export default function ProjectViewPage() {
         );
       })}
       </div>
-
-      {/* for showing the similar Projects. */}
-      {/* <ProjectList name="Similar Projects" trendingProjects={response.similarProjects} /> */}
     </>
   );
 }
