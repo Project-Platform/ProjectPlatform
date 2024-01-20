@@ -5,8 +5,6 @@ import {
     ArrowTopRightOnSquareIcon,
   } from "@heroicons/react/24/outline";
 
-import { MdDelete } from "react-icons/md";
-
 import {
     Card,
     CardHeader,
