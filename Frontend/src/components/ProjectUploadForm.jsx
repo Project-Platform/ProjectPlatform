@@ -1,11 +1,9 @@
-// ProjectUploadForm.jsx
-
 import React, { useContext } from "react";
 import { TagsInput } from "react-tag-input-component";
 import { Button, Input, Textarea } from "@material-tailwind/react";
 import { SessionContext } from "../components/SessionProvider.jsx";
 
-const ProjectUploadForm = ({ projectData, setProjectData, handleFileChange, handleUploadProject, isFormValid, setMessage, handleInputChange }) => {
+const ProjectUploadForm = ({ projectData, handleFileChange, handleUploadProject, isFormValid, setMessage, handleInputChange }) => {
   const { user } = useContext(SessionContext);
   const getDefaultAuthor = () => (user && user.username ? [user.username] : []);
 
@@ -87,6 +85,7 @@ const ProjectUploadForm = ({ projectData, setProjectData, handleFileChange, hand
 };
 
 export default ProjectUploadForm;
+
 
 // import React, { useContext } from "react";
 // import { TagsInput } from "react-tag-input-component";

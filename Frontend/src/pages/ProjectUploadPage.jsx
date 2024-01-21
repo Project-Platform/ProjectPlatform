@@ -91,16 +91,16 @@ function ProjectUploadPage() {
   const [projectData, setProjectData] = useState(() => {
     const storedData = JSON.parse(localStorage.getItem("projectData"));
     const defaultAuthor = user ? [user.username] : [];
-    return storedData || { title: "", author: defaultAuthor, domain: [], abstract: "", docs: null };
+    return storedData || { title: "", author: user? [user.username] : [] , domain: [], abstract: "", docs: null };
   });
 
   const [message, setMessage] = useState(null);
 
-  useEffect(() => {
-    const storedData = JSON.parse(localStorage.getItem("projectData"));
-    const defaultAuthor = user ? [user.username] : [];
-    setProjectData(storedData || { title: "", author: defaultAuthor, domain: [], abstract: "", docs: null });
-  }, [user]);
+  // useEffect(() => {
+  //   const storedData = JSON.parse(localStorage.getItem("projectData"));
+  //   const defaultAuthor = user ? [user.username] : [];
+  //   setProjectData(storedData || { title: "", author: defaultAuthor, domain: [], abstract: "", docs: null });
+  // }, [user]);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -118,7 +118,8 @@ function ProjectUploadPage() {
       const newProject = await addProject(projectData);
       setMessage({ type: "success", message: "Project successfully uploaded." });
 
-      setProjectData({ title: "", author: [], domain: [], abstract: "", docs: null });
+      setProjectData({ title: "", author:user? [user.username] : [] , domain: [], abstract: "", docs: null });
+      localStorage.removeItem("projectData");
     } catch (error) {
       setMessage({ type: "error", message: "Project failed to upload." });
       console.error("Error uploading project:", error);
@@ -144,7 +145,6 @@ function ProjectUploadPage() {
         <section className="flex flex-col md:flex-row mx-auto p-2 md:p-4 shadow-md rounded-8 max-w-4xl">
           <ProjectUploadForm
             projectData={projectData}
-            setProjectData={setProjectData}
             handleInputChange={handleInputChange}
             handleFileChange={handleFileChange}
             handleUploadProject={handleUploadProject}
