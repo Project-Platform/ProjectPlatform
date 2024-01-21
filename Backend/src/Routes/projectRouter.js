@@ -34,11 +34,13 @@ projectRouter.post("/", authenticated,upload.single("docs"), async (req, res, ne
     } catch (error) {
       if (error.message === "Document must be present along with project data.") {
         // Handle the specific error you threw
+        console.error(error);
         return res.status(400).json({ message: error.message });
       }
 
       if (error.name === "ValidationError") {
         // Extract validation error messages
+        console.error(error);
         const validationErrors = Object.values(error.errors).map((err) => err.message);
         return res.status(400).json({ message: "Validation error", errors: validationErrors });
       }

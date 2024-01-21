@@ -50,6 +50,7 @@ studentRouter.post("/", async (req, res, next) => {
   } catch (error) {
     if (error.name === "ValidationError") {
       // Handle Mongoose validation errors
+      console.error(error);
       const validationErrors = Object.values(error.errors).map(err => err.message);
       return res.status(400).json({ message: "Validation error", errors: validationErrors });
     }
@@ -75,6 +76,7 @@ studentRouter.patch("/:username", async (req, res, next) => {
   } catch (error) {
     if (error.name === "ValidationError") {
       // Handle Mongoose validation errors
+      console.error(error);
       const validationErrors = Object.values(error.errors).map((err) => err.message);
       return res.status(400).json({ message: "Validation error", errors: validationErrors });
     }
