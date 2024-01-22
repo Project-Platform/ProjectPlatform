@@ -24,7 +24,7 @@ function HomePage() {
         if (!ignore) {
           setTrendingProjects(projects); // Assuming the response is an array of projects
         }
-      } catch (error) {
+      } catch (error) {//alrt
         console.error("Error fetching trending projects:", error);
       }
     };

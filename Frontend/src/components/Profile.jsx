@@ -33,7 +33,7 @@ export default function Profile() {
         linkedinProfile: linkedinProfile,
       });
       setIsNewUser(false); 
-    } catch (error) {
+    } catch (error) {//alrt
       console.error('Error fetching student data:', error);
     }
   };

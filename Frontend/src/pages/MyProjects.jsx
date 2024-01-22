@@ -28,7 +28,7 @@ export default function MyProjects(props) {
         if (!ignore) {
           setProjects(projects); // Assuming the response is an array of projects
         }
-      } catch (error) {
+      } catch (error) {//
         console.error("Error fetching trending projects:", error);
       }
     };

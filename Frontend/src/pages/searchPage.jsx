@@ -70,8 +70,9 @@ export function TestimonialCard() {
     try {
       const searchResults = await results(word, selectedTags);
       setDataProject(searchResults);
-    } catch (error) {
+    } catch (error) {//
       console.error("Error fetching search results:", error);
+
       // Handle the error as needed
     }
   };
