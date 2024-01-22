@@ -5,7 +5,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 
-const ProjectList = ({ trendingProjects }) => {
+const ProjectList = ({ trendingProjects,name }) => {
   return (
     <div>
       <div className="flex flex-wrap flex-col justify-center items-center bg-black">
@@ -19,8 +19,10 @@ const ProjectList = ({ trendingProjects }) => {
       <div className="mt-2 flex flex-row flex-wrap place-content-evenly">
         {trendingProjects.map((curr) => {
           return (
-            <ProjectCard
+            <ProjectCard 
+              className="m-5 mt-6 w-9/12 sm:w-5/12 xl:w-3/12"
               key={curr._id}
+              domain={curr.domain}
               name={curr.title}
               descp={curr.abstract}
               id={curr._id}

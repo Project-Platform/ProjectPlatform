@@ -17,40 +17,30 @@ export default function MyProjects(props) {
   const postPerPage = 6;
 
   //for pagination
+  const showMessage = (type, message) => {
+     setMessage({type,message});
+   };
+    
+  // Fetch projects
+  const fetchProjects = async () => {
+    try {
+      const projects = await getStudentProjects();
+      setProjects(projects);
+    } catch (error) {
+      console.error("Error fetching projects:", error);
+      showMessage("error", "Error fetching your projects.")
+    }
+  };
 
-  const [error, setError] = useState(null);
-
-  // use of useEffect
+  // useEffect for initial fetch
   useEffect(() => {
-    // Define a function to fetch trending projects
-    let ignore = false;
-    const StudentProjects = async () => {
-      try {
-        const projects = await getStudentProjects();
-        if (!ignore) {
-          setProjects(projects); // Assuming the response is an array of projects
-        }
-      } catch (error) {//
-        console.error("Error fetching trending projects:", error);
-        showAlertMessage("Error fetching trending projects:")
-      }
-    };
+    fetchProjects();
+  }, []);
 
-    // Call the function to fetch trending projects
-    StudentProjects();
-
-    const showAlertMessage = (message) => {
-      setMessage({ type: "error", message});
-    };
-
-    return () => {
-      ignore = true;
-    };
-  }, []); // The empty dependency array ensures that this effect runs only once on component mount
-
-  if (error) {
-    return <div>Error fetching projects: {error.message}</div>;
-  }
+  // Function to refresh projects
+  const refreshProjects = () => {
+    fetchProjects();
+  };
 
   const lastpostIndex = currPage * postPerPage;
   const firstpostIndex = lastpostIndex - postPerPage;
@@ -61,11 +51,12 @@ export default function MyProjects(props) {
 
   return (
     <Card className="h-full w-full">
+        {message && <AlertBox type={message.type} message={message.message} onClose={setMessage} />}
       <MyProjectsHeader />
       <CardBody className="overflow-scroll px-0">
         <table className="mt-4 w-full min-w-max table-auto text-left">
           <InitialRowOfTable />
-          <TableBodyComponent tableRows={currPosts} />
+          <TableBodyComponent tableRows={currPosts} refreshProjects={refreshProjects} showMessage={showMessage} />
         </table>
       </CardBody>
       <Pagination
@@ -73,8 +64,6 @@ export default function MyProjects(props) {
         currentPage={currPage}
         totalPages={MyProjectsCount}
       />
-
-      {/* <MyProjectsFooter /> */}
     </Card>
   );
 }
