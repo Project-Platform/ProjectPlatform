@@ -8,6 +8,7 @@ import {
   CardBody,
 } from "@material-tailwind/react";
 import Pagination from "../components/Pagination";
+import AlertBox from "../components/AlertBox";
 
 export default function MyProjects(props) {
   const [projects, setProjects] = useState([]); // useState, set projects to an empty array.
@@ -19,27 +20,26 @@ export default function MyProjects(props) {
   const [error, setError] = useState(null);
 
   // use of useEffect
+  // Fetch projects
+  const fetchProjects = async () => {
+    try {
+      const projects = await getStudentProjects();
+      setProjects(projects);
+    } catch (error) {
+      console.error("Error fetching projects:", error);
+      setError(error);
+    }
+  };
+
+  // useEffect for initial fetch
   useEffect(() => {
-    // Define a function to fetch trending projects
-    let ignore = false;
-    const StudentProjects = async () => {
-      try {
-        const projects = await getStudentProjects();
-        if (!ignore) {
-          setProjects(projects); // Assuming the response is an array of projects
-        }
-      } catch (error) {
-        console.error("Error fetching trending projects:", error);
-      }
-    };
+    fetchProjects();
+  }, []);
 
-    // Call the function to fetch trending projects
-    StudentProjects();
-
-    return () => {
-      ignore = true;
-    };
-  }, []); // The empty dependency array ensures that this effect runs only once on component mount
+  // Function to refresh projects
+  const refreshProjects = () => {
+    fetchProjects();
+  };
 
   if (error) {
     return <div>Error fetching projects: {error.message}</div>;
@@ -52,13 +52,25 @@ export default function MyProjects(props) {
 
   const MyProjectsCount = Math.ceil(projects.length / postPerPage);
 
+  //for alert to tell so and so project as been deleted.
+
+  const [alert, setAlert] = useState({ show: false, message: '', type: '' });
+
+    // Add a function to show the alert
+    const showAlert = (message, type) => {
+      setAlert({ show: true, message, type });
+      // Optionally, auto-hide the alert after some time
+      setTimeout(() => setAlert({ show: false, message: '', type: '' }), 5000);
+    };
+
   return (
     <Card className="h-full w-full">
+            {alert.show && <AlertBox type={alert.type} message={alert.message} onClose={() => setAlert({ show: false, message: '', type: '' })} />}
       <MyProjectsHeader />
       <CardBody className="overflow-scroll px-0">
         <table className="mt-4 w-full min-w-max table-auto text-left">
           <InitialRowOfTable />
-          <TableBodyComponent tableRows={currPosts} />
+          <TableBodyComponent tableRows={currPosts} refreshProjects={refreshProjects} showAlert={showAlert} />
         </table>
       </CardBody>
       <Pagination

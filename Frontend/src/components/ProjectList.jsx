@@ -44,7 +44,7 @@ import {
   Spinner,
 } from "@material-tailwind/react";
 
-const ProjectList = ({ trendingProjects, name }) => {
+const ProjectList = ({ trendingProjects,name }) => {
   return (
     <div>
       {/* ... (existing code) */}
