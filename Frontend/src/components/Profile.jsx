@@ -73,10 +73,6 @@ export default function Profile() {
 
   const showMessage = (message) => {
     setMessage(message);
-    // You may want to clear the message after a certain time
-    setTimeout(() => {
-      setMessage(null);
-    }, 5000); // 5000 milliseconds (5 seconds)
   };
 
   return (

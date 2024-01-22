@@ -3,6 +3,7 @@ import { getStudentProjects } from "../services/projectData";
 import TableBodyComponent from "../components/TableBodyComponent";
 import MyProjectsHeader from "../components/MyProjectsHeader";
 import InitialRowOfTable from "../components/InitialRowOfTable";
+import AlertBox from "../components/AlertBox";
 import {
   Card,
   CardBody,
@@ -10,6 +11,7 @@ import {
 import Pagination from "../components/Pagination";
 
 export default function MyProjects(props) {
+  const [message, setMessage] = useState(null);
   const [projects, setProjects] = useState([]); // useState, set projects to an empty array.
   const [currPage, setCurrPage] = useState(1);
   const postPerPage = 6;
@@ -30,11 +32,16 @@ export default function MyProjects(props) {
         }
       } catch (error) {//
         console.error("Error fetching trending projects:", error);
+        showAlertMessage("Error fetching trending projects:")
       }
     };
 
     // Call the function to fetch trending projects
     StudentProjects();
+
+    const showAlertMessage = (message) => {
+      setMessage({ type: "error", message});
+    };
 
     return () => {
       ignore = true;

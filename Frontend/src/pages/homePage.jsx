@@ -2,9 +2,10 @@ import Pagination from "../components/Pagination";
 import { getTrendingProjects } from "../services/projectData";
 import { useState, useEffect } from "react";
 import ProjectList from "../components/ProjectList";
-
+import AlertBox from "../components/AlertBox";
 
 function HomePage() {
+  const [message, setMessage] = useState(null);
   //useState,set trendingProjects to an empty array.you can change the value of the trendingProjects
   //  with the help of setTrendingProjects.
   const [trendingProjects, setTrendingProjects] = useState([]);
@@ -24,8 +25,9 @@ function HomePage() {
         if (!ignore) {
           setTrendingProjects(projects); // Assuming the response is an array of projects
         }
-      } catch (error) {//alrt
+      } catch (error) {
         console.error("Error fetching trending projects:", error);
+        showAlertMessage("Error fetching trending projects:");
       }
     };
 
@@ -43,6 +45,10 @@ function HomePage() {
   const trendingProjectsCount = Math.ceil(
     trendingProjects.length / postsPerPage
   );
+  
+  const showAlertMessage = (message) => {
+    setMessage({ type: "error", message});
+  };
 
   return (
     <div>

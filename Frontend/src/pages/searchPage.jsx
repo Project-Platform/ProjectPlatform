@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import results from "../utils/filterProjects";
 import { getProjectById } from "../services/projectData";
 import { useNavigate } from "react-router-dom";
+import AlertBox from "../components/AlertBox";
 import {
   Card,
   Button,
@@ -45,6 +46,7 @@ export function TestimonialCard() {
   const [open, setOpen] = useState(false);
   const [dataProject, setDataProject] = useState({});
   const [checkedItems, setCheckedItems] = useState([]);
+  const [message, setMessage] = useState(null);
 
   const updateViewportWidth = () => {
     setViewportWidth(document.documentElement.clientWidth);
@@ -70,9 +72,9 @@ export function TestimonialCard() {
     try {
       const searchResults = await results(word, selectedTags);
       setDataProject(searchResults);
-    } catch (error) {//
+    } catch (error) {
       console.error("Error fetching search results:", error);
-
+      showAlertMessage("Error fetching search results:");
       // Handle the error as needed
     }
   };
@@ -98,6 +100,9 @@ export function TestimonialCard() {
   const handleClick = async (id) => {
     const project = await getProjectById(id);
     navigate(`/ProjectPage/${id}`, { state: project });
+  };
+  const showAlertMessage = (message) => {
+    setMessage({ type: "error", message});
   };
 
   return (
