@@ -9,7 +9,6 @@ import {
   CardBody,
 } from "@material-tailwind/react";
 import Pagination from "../components/Pagination";
-import AlertBox from "../components/AlertBox";
 
 export default function MyProjects(props) {
   const [message, setMessage] = useState(null);
@@ -18,8 +17,8 @@ export default function MyProjects(props) {
   const postPerPage = 6;
 
   //for pagination
-  const showAlertMessage = (message) => {
-     setMessage({ type: "error", message});
+  const showMessage = (type, message) => {
+     setMessage({type,message});
    };
     
   // Fetch projects
@@ -29,7 +28,7 @@ export default function MyProjects(props) {
       setProjects(projects);
     } catch (error) {
       console.error("Error fetching projects:", error);
-      showAlertMessage("Error fetching your projects.")
+      showMessage("error", "Error fetching your projects.")
     }
   };
 
@@ -43,10 +42,6 @@ export default function MyProjects(props) {
     fetchProjects();
   };
 
-  if (error) {
-    return <div>Error fetching projects: {error.message}</div>;
-  }
-
   const lastpostIndex = currPage * postPerPage;
   const firstpostIndex = lastpostIndex - postPerPage;
 
@@ -54,25 +49,14 @@ export default function MyProjects(props) {
 
   const MyProjectsCount = Math.ceil(projects.length / postPerPage);
 
-  //for alert to tell so and so project as been deleted.
-
-  const [alert, setAlert] = useState({ show: false, message: '', type: '' });
-
-    // Add a function to show the alert
-    const showAlert = (message, type) => {
-      setAlert({ show: true, message, type });
-      // Optionally, auto-hide the alert after some time
-      setTimeout(() => setAlert({ show: false, message: '', type: '' }), 5000);
-    };
-
   return (
     <Card className="h-full w-full">
-            {alert.show && <AlertBox type={alert.type} message={alert.message} onClose={() => setAlert({ show: false, message: '', type: '' })} />}
+        {message && <AlertBox type={message.type} message={message.message} onClose={setMessage} />}
       <MyProjectsHeader />
       <CardBody className="overflow-scroll px-0">
         <table className="mt-4 w-full min-w-max table-auto text-left">
           <InitialRowOfTable />
-          <TableBodyComponent tableRows={currPosts} refreshProjects={refreshProjects} showAlert={showAlert} />
+          <TableBodyComponent tableRows={currPosts} refreshProjects={refreshProjects} showMessage={showMessage} />
         </table>
       </CardBody>
       <Pagination
@@ -80,8 +64,6 @@ export default function MyProjects(props) {
         currentPage={currPage}
         totalPages={MyProjectsCount}
       />
-
-      {/* <MyProjectsFooter /> */}
     </Card>
   );
 }

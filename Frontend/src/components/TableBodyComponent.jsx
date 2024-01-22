@@ -1,21 +1,10 @@
-import React from 'react';
 import { Typography, IconButton, Tooltip } from "@material-tailwind/react";
 import { TrashIcon } from "@heroicons/react/24/solid";
-import {
-  Card,
-  CardBody,
-  CardFooter,
-  
-  Button,
-} from "@material-tailwind/react";
 import { deleteProjectById } from '../services/projectData';
-
 import { useNavigate } from "react-router-dom";
-
-
 import { getProjectById } from '../services/projectData';
 
-export default function TableBodyComponent({ tableRows,refreshProjects, showAlert }) {
+export default function TableBodyComponent({ tableRows,refreshProjects, showMessage }) {
   const navigate = useNavigate();
   const handleClick = async (id) => {
     const project = await getProjectById(id);
@@ -26,10 +15,10 @@ export default function TableBodyComponent({ tableRows,refreshProjects, showAler
       await deleteProjectById(projectId);
       console.log(`Project with id ${projectId} deleted.`);
       refreshProjects(); // This function should be passed from the parent component to refresh the project list.
-      showAlert(`Project ${projectTitle} deleted.`, 'success'); // Show alert on successful deletion
+      showMessage('success', `Project ${projectTitle} deleted successfully.`); // Show alert on successful deletion
     } catch (error) {
       console.error("Error deleting project:", error);
-      showAlert('Error occurred while deleting project.', 'error'); // Show alert on error
+      showMessage('error', 'Error occurred while deleting project.'); // Show alert on error
     }
   };
 
@@ -72,11 +61,7 @@ export default function TableBodyComponent({ tableRows,refreshProjects, showAler
             <td className={classes}>
               <Tooltip content="Delete">
                 <IconButton variant="text" onClick={() => handleDelete(_id,title)}>
-                {/* <Button onClick={() => handleClick(_id)}> */}
-                  {/* <ArrowTopRightOnSquareIcon onClick={() => handleClick(_id)} className="h-5 w-5" />
-                   */}
                   <TrashIcon  className="h-5 w-6" />
-                  {/* </Button> */}
                 </IconButton>
               </Tooltip>
             </td>
