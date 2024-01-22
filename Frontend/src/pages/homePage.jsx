@@ -51,14 +51,15 @@ function HomePage() {
   };
 
   return (
-    <div>
-      <ProjectList trendingProjects={currentPosts} />
+    <>
+      {/* <Filters /> */}
+      <ProjectList name="Trending Projects" trendingProjects={currentPosts} />
       <Pagination
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
         totalPages={trendingProjectsCount}
       />
-    </div>
+    </>
   );
 }
 
