@@ -3,6 +3,7 @@ import { getStudentProjects } from "../services/projectData";
 import TableBodyComponent from "../components/TableBodyComponent";
 import MyProjectsHeader from "../components/MyProjectsHeader";
 import InitialRowOfTable from "../components/InitialRowOfTable";
+import AlertBox from "../components/AlertBox";
 import {
   Card,
   CardBody,
@@ -11,15 +12,16 @@ import Pagination from "../components/Pagination";
 import AlertBox from "../components/AlertBox";
 
 export default function MyProjects(props) {
+  const [message, setMessage] = useState(null);
   const [projects, setProjects] = useState([]); // useState, set projects to an empty array.
   const [currPage, setCurrPage] = useState(1);
   const postPerPage = 6;
 
   //for pagination
-
-  const [error, setError] = useState(null);
-
-  // use of useEffect
+  const showAlertMessage = (message) => {
+     setMessage({ type: "error", message});
+   };
+    
   // Fetch projects
   const fetchProjects = async () => {
     try {
@@ -27,7 +29,7 @@ export default function MyProjects(props) {
       setProjects(projects);
     } catch (error) {
       console.error("Error fetching projects:", error);
-      setError(error);
+      showAlertMessage("Error fetching your projects.")
     }
   };
 
