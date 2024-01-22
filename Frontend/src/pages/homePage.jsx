@@ -2,6 +2,7 @@ import Pagination from "../components/Pagination";
 import { getTrendingProjects } from "../services/projectData";
 import { useState, useEffect } from "react";
 import ProjectList from "../components/ProjectList";
+import Filters from "../components/FiltersHome";
 
 
 function HomePage() {
@@ -45,14 +46,15 @@ function HomePage() {
   );
 
   return (
-    <div>
-      <ProjectList trendingProjects={currentPosts} />
+    <>
+      {/* <Filters /> */}
+      <ProjectList name="Trending Projects" trendingProjects={currentPosts} />
       <Pagination
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
         totalPages={trendingProjectsCount}
       />
-    </div>
+    </>
   );
 }
 

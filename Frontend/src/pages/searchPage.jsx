@@ -12,6 +12,7 @@ import {
   ListItemPrefix,
   Typography,
   Drawer,
+  Spinner,
   Checkbox
 } from "@material-tailwind/react";
 const computerScienceTags = [
@@ -38,10 +39,11 @@ const computerScienceTags = [
 ];
 
 export function TestimonialCard() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const location = useLocation();
   const word = location.state || "";
   const [viewportWidth, setViewportWidth] = useState(document.documentElement.clientWidth);
+  const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [dataProject, setDataProject] = useState({});
   const [checkedItems, setCheckedItems] = useState([]);
@@ -57,7 +59,7 @@ export function TestimonialCard() {
       const closeDrawer = () => {
         setOpen(false);
       };
-  
+
     useEffect(() => {
       window.addEventListener('resize', updateViewportWidth);
   
@@ -65,14 +67,17 @@ export function TestimonialCard() {
         window.removeEventListener('resize', updateViewportWidth);
       };
     }, []);
-
+    
   const handleResults = async (selectedTags) => {
     try {
+      setLoading(true);
       const searchResults = await results(word, selectedTags);
       setDataProject(searchResults);
     } catch (error) {
       console.error("Error fetching search results:", error);
       // Handle the error as needed
+    }finally {
+      setLoading(false);
     }
   };
 
@@ -188,15 +193,16 @@ export function TestimonialCard() {
             Most relevant projects are:
           </h1>
         )}
+      {loading && <Spinner className="flex justify-center"/>}
       <div className="m-2 mt-8 p-4 w-[140 vh] grid grid-cols-1 md:grid-cols-2 gap-4 md:ml-72">
         {dataProject.ans && dataProject.ans.map((project, index) => (
-          <Card key={project._id} className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-20[rem] flex-row mb-6">
+          <Card key={project._id} className="grid grid-cols-1 md:grid-cols-1 gap-4 max-w-20[rem] flex-row mb-6">
             <CardBody>
               <Typography variant="h4" color="black" className="mb-4 uppercase">
                 {project.title}
               </Typography>
               <Typography color="blue-gray" className="font-semibold">
-                Domain: {project.domain.join(" , ")}
+                Domain: {project.domain.join(", ")}
               </Typography>
               <Typography color="blue-gray" className="mb-4">
                 {project.abstract.length > 270
