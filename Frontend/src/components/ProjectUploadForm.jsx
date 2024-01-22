@@ -7,7 +7,7 @@ import AlertBox from "../components/AlertBox";
 const ProjectUploadForm = ({ projectData, handleFileChange, handleUploadProject, isFormValid, setMessage, handleInputChange }) => {
   const { user } = useContext(SessionContext);
   const getDefaultAuthor = () => (user && user.username ? [user.username] : []);
-  const [message, setMessage] = useState(null);
+  
   const showAlertMessage = (message) => {
     setMessage({ type: "error", message});
   };
