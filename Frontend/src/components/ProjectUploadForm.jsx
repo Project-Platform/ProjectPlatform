@@ -84,7 +84,7 @@ const ProjectUploadForm = ({ projectData, handleFileChange, handleUploadProject,
       </div>
 
       <div className="flex flex-col justify-center items-center mx-auto col-span-2">
-        <Button className="mb-4" variant="filled" size="lg" type="submit">
+        <Button  variant="filled" size="lg" type="submit">
           Plagiarism Checker
         </Button>
         <br />
