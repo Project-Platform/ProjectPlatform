@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { TagsInput } from "react-tag-input-component";
-import { Button, Input, Textarea } from "@material-tailwind/react";
+import { Button, Input, Textarea, Spinner, Typography } from "@material-tailwind/react";
 import { addProject } from "../services/projectData";
 import AlertBox from "../components/AlertBox";
 
@@ -13,6 +13,7 @@ function ProjectUploadPage() {
     docs: null,
   });
   const [message, setMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // Retrieve data from local storage when the component mounts
@@ -33,13 +34,17 @@ function ProjectUploadPage() {
 
   const handleUploadProject = async () => {
     try {
-      console.log(projectData);
+      setLoading(true); // Set loading to true when starting the request
       localStorage.setItem("projectData", JSON.stringify(projectData));
       const newProject = await addProject(projectData);
       console.log("Project uploaded successfully:", newProject);
 
-      setMessage({type: "success", message: "Project successfully uploaded."});
-      
+      setMessage({ type: "success", message: "Project successfully uploaded." });
+    } catch (error) {
+      setMessage({ type: "error", message: "Project failed to upload." });
+      console.error("Error uploading project:", error);
+    } finally {
+      setLoading(false); // Set loading to false when the request is complete
       setProjectData({
         title: "",
         author: [],
@@ -47,9 +52,6 @@ function ProjectUploadPage() {
         abstract: "",
         docs: null,
       });
-    } catch (error) {
-      setMessage({ type: "error", message: "Project failed to upload." });
-      console.error("Error uploading project:", error);
     }
   };
 
@@ -63,20 +65,18 @@ function ProjectUploadPage() {
         />
       )}
       <div className="mt-10">
-        <h1 className="flex justify-center mt-3 mb-6 text-3xl md:text-5xl text-bold">
-          Project Upload
-        </h1>
+        <Typography variant="h1" color="black" className="flex justify-center mt-3 mb-6">Project Upload</Typography>
       </div>
       <div className="flex justify-center m-0 p-0">
         <section className="flex flex-col md:flex-row mx-auto p-2 md:p-4 shadow-md rounded-8 max-w-4xl">
+          {loading && <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75"><Spinner className="h-12 w-12"/></div>}
           <form
             onSubmit={(e) => {
               e.preventDefault();
               handleUploadProject();
             }}
             encType="multipart/form-data"
-            className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 text-left"
-          >
+            className={`grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 text-left ${loading ? 'opacity-50' : ''}`} >
             <div className="md:py-3 flex place-items-center pl-4 col-span-2 md:col-span-1 rounded-4 text-18 font-bold text-xl">
               Idea Title (100 characters):
             </div>
@@ -95,7 +95,7 @@ function ProjectUploadPage() {
             <TagsInput
               value={projectData.author}
               onChange={(value) => handleInputChange("author", value)}
-              name="Author"
+              name="Author" 
               placeHolder="Enter Author Name:"
             />
 
@@ -131,7 +131,7 @@ function ProjectUploadPage() {
             </div>
 
             <div className="flex flex-col justify-center items-center mx-auto col-span-2">
-              <Button className="mb-4" variant="filled" size="lg" type="submit">
+              <Button variant="filled" size="lg" type="submit">
                 Plagiarism Checker
               </Button>
               <br />
