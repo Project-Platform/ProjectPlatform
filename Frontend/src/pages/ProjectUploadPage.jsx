@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Button } from "@material-tailwind/react";
+import { Button, Dialog } from "@material-tailwind/react";
 import AlertBox from "../components/AlertBox";
 import ProjectUploadForm from "../components/ProjectUploadForm";
 import { addProject } from "../services/projectData";
+import { LongDialog } from "../components/showResult";
 import { SessionContext } from "../components/SessionProvider.jsx";
 
 function ProjectUploadPage() {
@@ -13,15 +14,24 @@ function ProjectUploadPage() {
     const defaultAuthor = user ? [user.username] : [];
     return storedData || { title: "", author: defaultAuthor, domain: [], abstract: "", docs: null };
   });
+  
+  
+  const [similarProjects, setSimilarProjects] = useState(null);
+  const [showDialog,setShowDialog] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const [message, setMessage] = useState(null);
 
-  // useEffect(() => {
-  //   const storedData = JSON.parse(localStorage.getItem("projectData"));
-  //   const defaultAuthor = user ? [user.username] : [];
-  //   setProjectData(storedData || { title: "", author: defaultAuthor, domain: [], abstract: "", docs: null });
-  // }, [user]);
+  const handlePlagiarismCheck = async () => {
+    try {
+      setShowDialog(true);
+      setOpen(true);
 
+    } catch (error){
+        console.error("Error in plagiarism check", error);
+      }
+};
+  
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     file && setProjectData({ ...projectData, docs: file });
@@ -41,10 +51,22 @@ function ProjectUploadPage() {
       setProjectData({ title: "", author:user?[user.username] : [] , domain: [], abstract: "", docs: null });
       localStorage.removeItem("projectData");
     } catch (error) {
-      setMessage({ type: "error", message: "Project failed to upload." });
+      console.log(error.response.data.similarProjects);
+      if(error.response.status===409){
+        setShowDialog(true);
+        setOpen(true);
+        setSimilarProjects(error.response.data.similarProjects);
+      }
+      else{
+        setMessage({ type: "error", message: "Project failed to upload." });
+      }
       console.error("Error uploading project:", error);
     }
   };
+ 
+ 
+  const handleOpen = () => setOpen(!open);
+
 
   const isFormValid = () => {
     const requiredFields = ["title", "author", "domain", "abstract", "docs"];
@@ -72,6 +94,15 @@ function ProjectUploadPage() {
             isFormValid={isFormValid}
             setMessage={setMessage}
           />
+           {showDialog && (
+              <LongDialog
+                isOpen={showDialog}
+                onClose={() => setShowDialog(false)}
+                similarProjects={similarProjects}
+                open={open}
+                handleOpen={handleOpen}
+                />
+            )}
         </section>
       </div>
     </>
