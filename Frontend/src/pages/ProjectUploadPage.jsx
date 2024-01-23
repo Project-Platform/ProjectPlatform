@@ -1,7 +1,8 @@
 import React, { useState,useEffect } from "react";
 import { TagsInput } from "react-tag-input-component";
-import { Button, Input, Textarea } from "@material-tailwind/react";
+import { Button, Input, Textarea, Dialog } from "@material-tailwind/react";
 import { addProject } from "../services/projectData";
+import { LongDialog } from "../components/showResult";
 
 function ProjectUploadPage() {
   const [projectData, setProjectData] = useState({
@@ -11,6 +12,10 @@ function ProjectUploadPage() {
     abstract: "",
     docs: null,
   });
+
+  const [similarProjects, setSimilarProjects] = useState(null);
+  const [showDialog,setShowDialog] = useState(false);
+  const [open, setOpen] = useState(false);
   
   useEffect(() => {
     // Retrieve data from local storage when the component mounts
@@ -23,6 +28,17 @@ function ProjectUploadPage() {
   const handleInputChange = (field, value) => {
     setProjectData((prevData) => ({ ...prevData, [field]: value }));
   };
+  
+  
+  const handlePlagiarismCheck = async () => {
+    try {
+      setShowDialog(true);
+      setOpen(true);
+
+    } catch (error){
+        console.error("Error in plagiarism check", error);
+      }
+};
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -44,9 +60,19 @@ function ProjectUploadPage() {
         docs: null,
       });
     } catch (error) {
+      console.log(error.response.data.similarProjects);
+      if(error.response.status===409){
+      setShowDialog(true);
+      setOpen(true);
+      setSimilarProjects(error.response.data.similarProjects);
+      }
       console.error("Error uploading project:", error);
     }
   };
+ 
+ 
+  const handleOpen = () => setOpen(!open);
+
 
   return (
     <>
@@ -64,7 +90,7 @@ function ProjectUploadPage() {
             }}
             encType="multipart/form-data"
             className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 justify-center"
-          >
+            >
             <div className="col-span-2 md:col-span-1 p-2 md:p-4 rounded-4 text-18 font-bold text-xl">
               Idea Title (100 characters):
             </div>
@@ -75,7 +101,7 @@ function ProjectUploadPage() {
               }}
               value={projectData.title}
               containerProps={{ className: "place-self-center" }}
-            />
+              />
 
             <div className="col-span-2 md:col-span-1 p-2 md:p-6 rounded-4 text-18 font-bold text-xl">
               Author(s) Username:
@@ -95,7 +121,7 @@ function ProjectUploadPage() {
               onChange={(value) => handleInputChange("domain", value)}
               name="Domain"
               placeHolder="Enter Domain:"
-            />
+              />
 
             <div className="col-span-2 md:col-span-1 p-2 md:p-12 rounded-4 text-18 font-bold text-xl content-center">
               Abstract (1500 characters):
@@ -119,13 +145,24 @@ function ProjectUploadPage() {
             </div>
 
             <div className="mx-auto col-span-2">
-              <Button className="mb-4" variant="filled" size="lg" type="submit">
-                Plagiarism Checker
+              <Button className="mb-4" variant="filled" size="lg" type="submit" onClick={handlePlagiarismCheck} > 
+              Plagiarism Checker
               </Button>
               <br />
-              <Button variant="filled" size="lg" type="submit">
+              <Button variant="filled" size="lg" type="submit" onClick={handleUploadProject}>
                 Upload Project
               </Button>
+
+              {showDialog && (
+          <LongDialog
+            isOpen={showDialog}
+            onClose={() => setShowDialog(false)}
+            similarProjects={similarProjects}
+            open={open}
+            handleOpen={handleOpen}
+            />
+            )}
+
             </div>
           </form>
         </section>

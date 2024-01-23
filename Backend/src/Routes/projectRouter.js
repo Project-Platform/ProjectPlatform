@@ -3,6 +3,8 @@ import Project from "../Models/project.js";
 import generateEmbeddings from "../utils/embeddings.js";
 import multer from "multer";
 import { authenticated } from "../Middleware/auth.js";
+import semanticSearch from "../utils/semanticSearch.js";
+
 const upload = multer({ storage: multer.memoryStorage() });
 
 const projectRouter = express.Router();
@@ -24,12 +26,22 @@ projectRouter.post("/", authenticated, upload.single("docs"), async (req, res) =
     const newProject = new Project(req.body);
     newProject["embeddings"] = await generateEmbeddings(newProject);
     newProject["docs"] = req.file.buffer;
+    const queryEmbedding = newProject.embeddings;
+    const semanticSearchResults = await semanticSearch(queryEmbedding);
+
+    // Filter high-scoring projects with a score greater than 0.9
+    const highScoreResults = semanticSearchResults.filter(result => result.score > 0.9);
+    console.log("Errors being checked");
+
+    if(highScoreResults != 0){
+      return res.status(409).json({similarProjects:highScoreResults,message:"Too many similar projects"});
+    }
     const savedProject = await newProject.save();
 
-    res.status(201).json(savedProject);
+    return res.status(201).json(savedProject);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Internal Server Error" });
+    res.status(500).json({ message: "Upload a project first" });
   }
 });
 

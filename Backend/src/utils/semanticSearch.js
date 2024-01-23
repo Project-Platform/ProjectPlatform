@@ -1,5 +1,5 @@
 // Import the Project model from the "../Models/project" module.
-import Project from "../Models/project";
+import Project from "../Models/project.js";
 
 // Async function for semantic search using vector indexing.
 const semanticSearch = async (queryEmbedding) => {
