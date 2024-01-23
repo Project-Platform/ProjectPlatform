@@ -14,28 +14,9 @@ const projectSchema = new Schema({
     required: true,
   },
 
-  // Mentor's ID, a reference to the 'mentors' collection
-  mentorId: {
-    type: String,
-    ref: "mentors", // Reference to the 'mentors' collection
-    required: true,
-    default: "tempMentor",
-    select: false,
-  },
-
-  // University's ID, a reference to the 'univs' collection
-  universityId: {
-    type: String,
-    ref: "univs", // Reference to the 'univs' collection
-    required: true,
-    default: "tempUnivesity",
-    select: false,
-  },
-
   // Author(s) of the project, an array of strings, a reference to the 'students' collection
   author: {
     type: [String],
-    ref: "students", // Reference to the 'students' collection
     required: true,
   },
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
 import { createStudent, getStudentByUsername, updateStudent } from '../services/studentData';
 import { SessionContext } from './SessionProvider';
+import AlertBox from '../components/AlertBox';
 
 export default function Profile() {
   const session = React.useContext(SessionContext);
@@ -13,6 +14,7 @@ export default function Profile() {
   });
   const [isEditMode, setIsEditMode] = useState(false);
   const [isNewUser, setIsNewUser] = useState(true);
+  const [message, setMessage] = useState(null);
 
   useEffect(() => {
     if (session.user) {
@@ -31,13 +33,12 @@ export default function Profile() {
         linkedinProfile: linkedinProfile,
       });
       setIsNewUser(false); 
-    } catch (error) {
+    } catch (error) {//alrt
       console.error('Error fetching student data:', error);
     }
   };
-
   const handleInputChange = (field, value) => {
-    setProfileData({ ...profileData, [field]: value });
+    setProfileData((prevData) => ({ ...prevData, [field]: value }));
   };
 
   const handleSaveProfile = async () => {
@@ -45,16 +46,12 @@ export default function Profile() {
       console.group(profileData);
       const createdStudent = await createStudent(profileData);
       console.log('Student created:', createdStudent);
-      setProfileData({
-        name: '',
-        universityName: '',
-        githubUsername: '',
-        linkedinProfile: '',
-      });
       setIsEditMode(false);
       setIsNewUser(false);
+      showMessage({ type: "success", message: "Profile successfully saved." });
     } catch (error) {
       console.error('Error saving profile:', error);
+      showMessage({ type: "error", message: "Failed to save profile." });
     }
   };
 
@@ -67,13 +64,23 @@ export default function Profile() {
       const updatedStudent = await updateStudent(profileData);
       console.log('Student updated:', updatedStudent);
       setIsEditMode(false);
+      showMessage({ type: "success", message: "Profile successfully updated." });
     } catch (error) {
       console.error('Error updating profile:', error);
+      showMessage({ type: "error", message: "Failed to update profile." });
     }
   };
 
+  const showMessage = (message) => {
+    setMessage(message);
+  };
+
   return (
-    <Card color="transparent" shadow={false} className="mt-10 place-items-center">
+    <>
+      {message && (
+        <AlertBox type={message.type} message={message.message} onClose={() => setMessage(null)} />
+      )}
+    <Card color="transparent" shadow={false} className="mt-10 place-items-center mb-10">
       <Typography variant="h4" color="blue-gray">
         My Profile
       </Typography>
@@ -92,7 +99,7 @@ export default function Profile() {
             autoComplete="name"
             onChange={(e) => handleInputChange('name', e.target.value)}
             value={profileData.name}
-            disabled={!isEditMode}
+            disabled={!isEditMode && !isNewUser}
           />
           <Typography variant="h6" color="blue-gray" className="-mb-3">
             Your University Name
@@ -104,7 +111,7 @@ export default function Profile() {
             autoComplete="organization"
             onChange={(e) => handleInputChange('universityName', e.target.value)}
             value={profileData.universityName}
-            disabled={!isEditMode}
+            disabled={!isEditMode && !isNewUser}
           />
 
           <Typography variant="h6" color="blue-gray" className="-mb-3">
@@ -117,7 +124,7 @@ export default function Profile() {
             autoComplete="username"
             onChange={(e) => handleInputChange('githubUsername', e.target.value)}
             value={profileData.githubUsername}
-            disabled={!isEditMode}
+            disabled={!isEditMode && !isNewUser}
           />
 
           <Typography variant="h6" color="blue-gray" className="-mb-3">
@@ -130,7 +137,7 @@ export default function Profile() {
             autoComplete="username"
             onChange={(e) => handleInputChange('linkedinProfile', e.target.value)}
             value={profileData.linkedinProfile}
-            disabled={!isEditMode}
+            disabled={!isEditMode && !isNewUser}
           />
         </div>
         {isNewUser ? (
@@ -139,9 +146,11 @@ export default function Profile() {
           </Button>
         ) : (
           <>
-            <Button className="mt-6" fullWidth onClick={handleEditProfile}>
-              EDIT.
-            </Button>
+          {!isEditMode && (
+              <Button className="mt-6" fullWidth onClick={handleEditProfile}>
+                EDIT.
+              </Button>
+            )}
             {isEditMode && (
               <Button className="mt-6" fullWidth onClick={handleUpdateProfile}>
                 UPDATE.
@@ -151,5 +160,6 @@ export default function Profile() {
         )}
       </form>
     </Card>
+    </>
   );
 }
