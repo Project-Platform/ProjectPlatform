@@ -14,6 +14,7 @@ function ProjectUploadPage() {
   });
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
+  
 
   useEffect(() => {
     // Retrieve data from local storage when the component mounts
@@ -69,7 +70,7 @@ function ProjectUploadPage() {
       </div>
       <div className="flex justify-center m-0 p-0">
         <section className="flex flex-col md:flex-row mx-auto p-2 md:p-4 shadow-md rounded-8 max-w-4xl">
-          {loading && <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75"><Spinner className="h-12 w-12"/></div>}
+          {loading ? <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75"><Spinner className="h-12 w-12"/></div>:
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -139,7 +140,7 @@ function ProjectUploadPage() {
                 Upload Project
               </Button>
             </div>
-          </form>
+          </form> }
         </section>
       </div>
     </>
