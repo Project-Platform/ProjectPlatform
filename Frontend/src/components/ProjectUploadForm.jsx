@@ -6,6 +6,7 @@ import { SessionContext } from "../components/SessionProvider.jsx";
 const ProjectUploadForm = ({ projectData, handleFileChange, handleUploadProject, isFormValid, setMessage, handleInputChange }) => {
   const { user } = useContext(SessionContext);
   const getDefaultAuthor = () => (user && user.username ? [user.username] : []);
+  
   const showAlertMessage = (message) => {
     setMessage({ type: "error", message});
   };
@@ -83,7 +84,7 @@ const ProjectUploadForm = ({ projectData, handleFileChange, handleUploadProject,
       </div>
 
       <div className="flex flex-col justify-center items-center mx-auto col-span-2">
-        <Button className="mb-4" variant="filled" size="lg" type="submit">
+        <Button  variant="filled" size="lg" type="submit">
           Plagiarism Checker
         </Button>
         <br />
