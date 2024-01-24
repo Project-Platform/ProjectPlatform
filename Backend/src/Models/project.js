@@ -18,6 +18,7 @@ const projectSchema = new Schema({
   author: {
     type: [String],
     required: true,
+    select: false,
   },
 
   // Abstract of the project, a required string field
@@ -28,10 +29,12 @@ const projectSchema = new Schema({
 
   githubLink: {
     type: String,
+    select: false,
   },
 
   youtubeLink: {
     type: String,
+    select: false,
   },
 
   // Document's ID, a reference to the 'docs' collection
@@ -46,6 +49,7 @@ const projectSchema = new Schema({
     type: Date,
     required: false,
     default: new Date(), // Default value set to the current year
+    select: false,
   },
 
   // Embeddings of the project, an array of numbers, required
@@ -58,6 +62,7 @@ const projectSchema = new Schema({
     type: Number,
     required: true,
     default: 0,
+    select: false,
   },
 });
 
