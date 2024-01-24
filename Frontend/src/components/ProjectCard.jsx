@@ -14,12 +14,17 @@ export function ProjectCard(props) {
   return (
     <Card className={cardClass}>
       <CardBody className="h-full">
-        <Typography variant="h5" color="blue-gray" className="h-17">
+        <Typography variant="h4" color="black" className="h-17">
           {props.name}
         </Typography>
-        {props.domain.map((curr, index) => {
-          return <ChipPills key={index} name={curr} />;
-        })}
+        {props.domain.map((curr,index) => {
+        return (
+          <ChipPills 
+            key={index} 
+            name={curr}
+          />
+        );
+      })}
         <Typography>{props.descp.slice(0, 270) + " ...."}</Typography>
       </CardBody>
       <CardFooter className="pt-0">

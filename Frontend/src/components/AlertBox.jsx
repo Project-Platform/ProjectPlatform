@@ -15,7 +15,9 @@ const AlertBox = ({ type, message, onClose}) => {
     onClose(null)
   }
 
+
   useEffect(() => {
+    window.scrollTo({ top: 0 });
     // Automatically hide the alert after a certain duration (e.g., 5 seconds)
     const timeout = setTimeout(() => {
       closeAlertBox()
@@ -27,12 +29,12 @@ const AlertBox = ({ type, message, onClose}) => {
   return (
     <>
       {isVisible && (
-        <div className="flex justify-center mt-2">
+        <div className=" flex justify-center">
           <Alert
             variant="gradient"
             color={color}
             onClose={closeAlertBox}
-            className="flex justify-center w-80"
+            className="flex justify-center w-80 absolute mt-4"
           >
             {message}
           </Alert>

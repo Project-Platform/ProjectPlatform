@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Button, Dialog } from "@material-tailwind/react";
+import { useState, useEffect, useContext } from "react";
+import { Button, Dialog, Spinner } from "@material-tailwind/react";
 import AlertBox from "../components/AlertBox";
 import ProjectUploadForm from "../components/ProjectUploadForm";
 import { addProject } from "../services/projectData";
@@ -8,6 +8,7 @@ import { SessionContext } from "../components/SessionProvider.jsx";
 
 function ProjectUploadPage() {
   const { user } = useContext(SessionContext);
+  const [loading, setLoading] = useState(false);
 
   const [projectData, setProjectData] = useState(() => {
     const storedData = JSON.parse(localStorage.getItem("projectData"));
@@ -45,9 +46,9 @@ function ProjectUploadPage() {
 
   const handleUploadProject = async () => {
     try {
+      setLoading(true); // Set loading to true when starting the request
       const newProject = await addProject(projectData);
       setMessage({ type: "success", message: "Project successfully uploaded." });
-
       setProjectData({ title: "", author:user?[user.username] : [] , domain: [], abstract: "", docs: null });
       localStorage.removeItem("projectData");
     } catch (error) {
@@ -61,8 +62,10 @@ function ProjectUploadPage() {
         setMessage({ type: "error", message: "Project failed to upload." });
       }
       console.error("Error uploading project:", error);
-    }
-  };
+    } finally {
+      setLoading(false); // Set loading to false when the request is complete
+    };
+  }
  
  
   const handleOpen = () => setOpen(!open);
@@ -86,6 +89,9 @@ function ProjectUploadPage() {
       </div>
       <div className="flex justify-center m-0 p-0">
         <section className="flex flex-col md:flex-row mx-auto p-2 md:p-4 shadow-md rounded-8 max-w-4xl">
+          {loading ? 
+          <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75"><Spinner className="h-12 w-12"/></div>:
+          <>
           <ProjectUploadForm
             projectData={projectData}
             handleInputChange={handleInputChange}
@@ -103,6 +109,7 @@ function ProjectUploadPage() {
                 handleOpen={handleOpen}
                 />
             )}
+            </>}
         </section>
       </div>
     </>
