@@ -13,10 +13,8 @@ import {
   ListItemPrefix,
   Typography,
   Drawer,
-  Spinner,
   Checkbox
 } from "@material-tailwind/react";
-import ProjectCard from "../components/ProjectCard";
 const computerScienceTags = [
   "3D Printing",
   "Artificial Intelligence",
@@ -41,11 +39,10 @@ const computerScienceTags = [
 ];
 
 export function TestimonialCard() {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
   const location = useLocation();
   const word = location.state || "";
   const [viewportWidth, setViewportWidth] = useState(document.documentElement.clientWidth);
-  const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [dataProject, setDataProject] = useState({});
   const [checkedItems, setCheckedItems] = useState([]);
@@ -62,7 +59,7 @@ export function TestimonialCard() {
       const closeDrawer = () => {
         setOpen(false);
       };
-
+  
     useEffect(() => {
       window.addEventListener('resize', updateViewportWidth);
   
@@ -70,18 +67,15 @@ export function TestimonialCard() {
         window.removeEventListener('resize', updateViewportWidth);
       };
     }, []);
-    
+
   const handleResults = async (selectedTags) => {
     try {
-      setLoading(true);
       const searchResults = await results(word, selectedTags);
       setDataProject(searchResults);
     } catch (error) {
       console.error("Error fetching search results:", error);
       showAlertMessage("Error fetching search results:");
       // Handle the error as needed
-    }finally {
-      setLoading(false);
     }
   };
 
@@ -112,7 +106,7 @@ export function TestimonialCard() {
   };
 
   return (
-    <div className="flex flex-col">
+    <div >
       {viewportWidth <= 640 ? (
         <div>
           <div className='flex justify-center mt-8'>
@@ -194,25 +188,37 @@ export function TestimonialCard() {
       </List>
     </Card>
         </div>
-      )} 
-      <div>
+      )}
       {dataProject.projectNo === 0 && (
           <h1 className="m-4 flex items-center justify-center ">
             Most relevant projects are:
           </h1>
         )}
-      {loading && <Spinner className="flex justify-center"/>}
-      <div className="mt-8 p-4 grid grid-cols-1 m-2 ml-2 sm:grid-cols-1 gap-4 ml-72 md:grid-cols-2 gap-4 ml-72">
+      <div className="m-2 mt-8 p-4 w-[140 vh] grid grid-cols-1 md:grid-cols-2 gap-4 md:ml-72">
         {dataProject.ans && dataProject.ans.map((project, index) => (
-          <ProjectCard className="grid grid-cols-1 md:grid-cols-1 gap-4 max-w-20[rem] flex-row mb-6"
-          key={project._id}
-              domain={project.domain}
-              name={project.title}
-              descp={project.abstract}
-              id={project._id}
-              />
+          <Card key={project._id} className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-20[rem] flex-row mb-6">
+            <CardBody>
+              <Typography variant="h4" color="black" className="mb-4 uppercase">
+                {project.title}
+              </Typography>
+              <Typography color="blue-gray" className="font-semibold">
+                Domain: {project.domain.join(" , ")}
+              </Typography>
+              <Typography color="blue-gray" className="mb-4">
+                {project.abstract.length > 270
+                  ? project.showFullDescription
+                    ? project.abstract
+                    : project.abstract.slice(0, 270) + " ...."
+                  : project.abstract}
+              </Typography>
+              <a className="inline-block">
+                <Button onClick={() => handleClick(project._id)}>
+                  Read More
+                </Button>
+              </a>
+            </CardBody>
+          </Card>
         ))}
-      </div>
       </div>
     </div>
   );
