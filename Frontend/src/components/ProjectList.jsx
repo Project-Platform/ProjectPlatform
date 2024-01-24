@@ -3,11 +3,13 @@ import React from "react";
 import Filters from "./FiltersHome";
 import {
   Typography,
+  Spinner,
 } from "@material-tailwind/react";
 
 const ProjectList = ({ trendingProjects,name }) => {
   return (
     <div>
+      {/* ... (existing code) */}
       <div className="flex flex-wrap flex-col justify-center items-center bg-black">
         <Typography variant="h1" color="white" className="m-10 mt-28 text-center">PROJECT PLATFORM</Typography>
         <div className="ml-5 mr-5 mb-20 mt-12 flex justify-center items-center">
@@ -16,6 +18,9 @@ const ProjectList = ({ trendingProjects,name }) => {
       </div>
       <Filters></Filters>
       <Typography variant="h4" color="black" className="flex justify-center mt-6 underline">Trending Projects</Typography>
+
+      {trendingProjects.length === 0 && <Spinner className="ml-auto mr-auto mt-40"/>} {/* Display loading paragraph only when projects are being fetched */}
+      
       <div className="mt-2 flex flex-row flex-wrap place-content-evenly">
         {trendingProjects.map((curr) => {
           return (
