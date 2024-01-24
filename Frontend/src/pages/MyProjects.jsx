@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { getStudentProjects } from "../services/projectData";
 import TableBodyComponent from "../components/TableBodyComponent";
 import MyProjectsHeader from "../components/MyProjectsHeader";
+import AlertBox from "../components/AlertBox";
 import {
   Card,
   CardBody,
@@ -14,9 +15,9 @@ import {
   ChevronUpDownIcon,
 } from "@heroicons/react/24/outline";
 import Pagination from "../components/Pagination";
-import AlertBox from "../components/AlertBox";
 
 export default function MyProjects(props) {
+  const [message, setMessage] = useState(null);
   const [projects, setProjects] = useState([]); // useState, set projects to an empty array.
   const [currPage, setCurrPage] = useState(1);
   const [loading, setLoading] = useState(true); // Set initial loading state to true
@@ -24,10 +25,10 @@ export default function MyProjects(props) {
   const postPerPage = 6;
 
   //for pagination
-
-  const [error, setError] = useState(null);
-
-  // use of useEffect
+  const showMessage = (type, message) => {
+     setMessage({type,message});
+   };
+    
   // Fetch projects
   const fetchProjects = async () => {
     try {
@@ -37,8 +38,8 @@ export default function MyProjects(props) {
         setLoading(false); 
     } catch (error) {
       console.error("Error fetching projects:", error);
-      setError(error);
       setLoading(false); // Set loading to false on error
+      showMessage("error", "Error fetching your projects.")
     }
   };
   
@@ -53,32 +54,18 @@ export default function MyProjects(props) {
     fetchProjects();
   };
 
-  if (error) {
-    return <div>Error fetching projects: {error.message}</div>;
-  }
-
   const lastpostIndex = currPage * postPerPage;
   const firstpostIndex = lastpostIndex - postPerPage;
 
   const currPosts = projects.slice(firstpostIndex, lastpostIndex);
 
   const MyProjectsCount = Math.ceil(projects.length / postPerPage);
+  const TABLE_HEAD = ["Projects", "Authors", "Domain", "Date", "Delete"];
+  const arrayToRender = [1, 2, 3, 4, 5, 6];
 
-  //for alert to tell so and so project as been deleted.
-
-  const [alert, setAlert] = useState({ show: false, message: '', type: '' });
-
-    // Add a function to show the alert
-    const showAlert = (message, type) => {
-      setAlert({ show: true, message, type });
-      // Optionally, auto-hide the alert after some time
-      setTimeout(() => setAlert({ show: false, message: '', type: '' }), 5000);
-    };
-    const TABLE_HEAD = ["Projects", "Authors", "Domain", "Date", "Delete"];
-    const arrayToRender = [1, 2, 3, 4, 5, 6];
   return (
     <Card className="h-full w-full">
-            {alert.show && <AlertBox type={alert.type} message={alert.message} onClose={() => setAlert({ show: false, message: '', type: '' })} />}
+        {message && <AlertBox type={message.type} message={message.message} onClose={setMessage} />}
       <MyProjectsHeader />
       <CardBody className="overflow-scroll px-0">
         <table className="mt-4 w-full min-w-max table-fixed text-left">
@@ -177,8 +164,6 @@ export default function MyProjects(props) {
         currentPage={currPage}
         totalPages={MyProjectsCount}
       />
-
-      {/* <MyProjectsFooter /> */}
     </Card>
   );
 }

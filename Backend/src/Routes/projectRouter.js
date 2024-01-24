@@ -28,6 +28,15 @@ projectRouter.post("/", authenticated,upload.single("docs"), async (req, res, ne
         throw new Error("Document must be present along with project data.");
       }
       newProject["docs"] = req.file.buffer;
+      const queryEmbedding = newProject.embeddings;
+      const semanticSearchResults = await semanticSearch(queryEmbedding);
+
+      // Filter high-scoring projects with a score greater than 0.9
+      const highScoreResults = semanticSearchResults.filter(result => result.score > 0.9);
+      
+      if(highScoreResults != 0){
+        return res.status(409).json({similarProjects:highScoreResults,message:"Too many similar projects"});
+      }
       const savedProject = await newProject.save();
 
       res.status(201).json(savedProject);
