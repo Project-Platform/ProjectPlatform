@@ -11,10 +11,15 @@ import { authenticated } from "./Middleware/auth.js"; // Import authentication m
 import {connectToDatabase} from "./Config/dbConfig.js";
 import {configureSession} from"./Config/sessionConfig.js";
 import passport from "passport";
+import cors from "cors";
+import compression from "compression";
 
 dotenv.config(); // Load environment variables from .env file
 // Create an Express application
 const app = express();
+
+app.use(cors({credentials:true, origin:["http://localhost:5173"]}));
+app.use(compression())
 
 // Retrieve MongoDB connection URI from environment variables
 const url = process.env.MONGODB_URL;
