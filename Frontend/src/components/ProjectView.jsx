@@ -88,7 +88,7 @@ export default function ProjectView(props) {
   };
 
   return (
-    <div className="min-h-svh mt-4">
+    <div className="mt-4">
       {alert.show && <AlertBox type="success" message={alert.message} onClose={() => setAlert({ show: false, message: '' })} />}
       <h1 className="font-semibold flex flex-wrap place-content-center text-xl sm:text-2xl md:text-3xl lg:text-4xl underline underline-offset-auto">
         {props.title}
