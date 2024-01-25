@@ -5,6 +5,8 @@ import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import "react-pdf/dist/esm/Page/TextLayer.css";
 import { Button } from "@material-tailwind/react";
 import AlertBox from "./AlertBox";
+import { FaGithub } from "react-icons/fa";
+import { FaYoutube } from "react-icons/fa";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -85,8 +87,14 @@ export default function ProjectView(props) {
   };
 
   return (
-    <div className="min-h-svh mt-4">
-      {alert.show && <AlertBox type="success" message={alert.message} onClose={() => setAlert({ show: false, message: '' })} />}
+    <div className="mt-4">
+      {alert.show && (
+        <AlertBox
+          type="success"
+          message={alert.message}
+          onClose={() => setAlert({ show: false, message: "" })}
+        />
+      )}
       <h1 className="font-semibold flex flex-wrap place-content-center text-xl sm:text-2xl md:text-3xl lg:text-4xl underline underline-offset-auto">
         {props.title}
       </h1>
@@ -107,10 +115,21 @@ export default function ProjectView(props) {
       <p className="p-5 mx-4 sm:mx-10 md:mx-20 lg:mx-40 xl:mx-60 text-xl">
         {props.abstract}
       </p>
-      <div className="ml-[17vw] mt-[1vw]">
-        <Link to={props.githubLink}>GitHub Link</Link>
-        <br />
-        <Link to={props.youtubeLink}>Youtube Link</Link>
+      <div className="p-5 mx-4 sm:mx-10 md:mx-20 lg:mx-40 xl:mx-60 mt-[1vw]">
+        <div className="flex gap-2">
+          <div className="flex gap-2">
+            Github Repository
+            <Link to={props.githubLink}>
+              <FaGithub className="w-7 h-7 mx-1" />{" "}
+            </Link>
+          </div>
+          <div className="flex gap-2">
+            Youtube Video
+            <Link to={props.youtubeLink}>
+              <FaYoutube className="w-7 h-7 mx-1" />
+            </Link>
+          </div>
+        </div>
         <br />
         <Button onClick={togglePdfDisplay}>
           {showPdf ? "Hide PDF" : "Show PDF"}

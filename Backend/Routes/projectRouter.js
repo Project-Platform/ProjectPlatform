@@ -79,7 +79,7 @@ projectRouter.get("/:id", async (req, res, next) => {
   try {
     const projectId = req.params.id;
     const project = await Project.findById(projectId).select(
-      "+docs +embeddings"
+      "+docs +embeddings +author +views +date +githubLink +youtubeLink"
     );
     const similarProjects = await semanticSearch(project.embeddings);
     const topSimilarProjects = similarProjects.slice(1, 7);
@@ -91,7 +91,7 @@ projectRouter.get("/:id", async (req, res, next) => {
     // Update views when a project is accessed
     project.views += 1;
     await project.save();
-
+    project.set("embeddings", undefined);
     res
       .status(200)
       .json({ project: project, similarProjects: topSimilarProjects });
@@ -105,7 +105,9 @@ projectRouter.get("/student/:username",authenticated, async (req, res, next) => 
       const studentUsername = req.params.username;
 
       // Find the projects where the given student is an author
-      const projects = await Project.find({ author: studentUsername });
+      const projects = await Project.find({ author: studentUsername }).select(
+        "+author +date"
+      );
       res.status(200).json(projects);
     } catch (error) {
       next(error);

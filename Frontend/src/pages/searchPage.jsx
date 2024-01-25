@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import results from "../utils/filterProjects";
-import { getProjectById } from "../services/projectData";
 import { useNavigate } from "react-router-dom";
 import AlertBox from "../components/AlertBox";
 import {
@@ -104,8 +103,7 @@ export function TestimonialCard() {
   }, [word, checkedItems]);
 
   const handleClick = async (id) => {
-    const project = await getProjectById(id);
-    navigate(`/ProjectPage/${id}`, { state: project });
+    navigate(`/ProjectPage/${id}`, { state: id });
   };
   const showAlertMessage = (message) => {
     setMessage({ type: "error", message});
@@ -197,12 +195,13 @@ export function TestimonialCard() {
       )} 
       <div>
       {dataProject.projectNo === 0 && (
-          <h1 className="m-4 flex items-center justify-center ">
-            Most relevant projects are:
-          </h1>
+          <h1 className="m-4 flex items-center justify-center font-bold text-2xl">
+          No projects found for the chosen set of filters. These are some relevant projects that may interest you.
+        </h1>
+        
         )}
       {loading && <Spinner className="flex justify-center"/>}
-      <div className="mt-8 p-4 grid grid-cols-1 m-2 ml-2 sm:grid-cols-1 gap-4 ml-72 md:grid-cols-2 gap-4 ml-72">
+      <div className="mt-8 p-4 grid grid-cols-1 m-2 sm:grid-cols-1 gap-4 ml-72 md:grid-cols-2">
         {dataProject.ans && dataProject.ans.map((project, index) => (
           <ProjectCard className="grid grid-cols-1 md:grid-cols-1 gap-4 max-w-20[rem] flex-row mb-6"
           key={project._id}

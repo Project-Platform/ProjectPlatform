@@ -13,7 +13,7 @@ function ProjectUploadPage() {
   const [projectData, setProjectData] = useState(() => {
     const storedData = JSON.parse(localStorage.getItem("projectData"));
     const defaultAuthor = user ? [user.username] : [];
-    return storedData || { title: "", author: defaultAuthor, domain: [], abstract: "", docs: null };
+    return storedData || { title: "", author: defaultAuthor, domain: [], abstract: "",youtubeLink:"",githubLink:"", docs: null };
   });
   
   
@@ -64,7 +64,8 @@ function ProjectUploadPage() {
       console.error("Error uploading project:", error);
     } finally {
       setLoading(false); // Set loading to false when the request is complete
-  };
+    };
+  }
  
  
   const handleOpen = () => setOpen(!open);
@@ -82,20 +83,43 @@ function ProjectUploadPage() {
 
   return (
     <>
-      {message && <AlertBox type={message.type} message={message.message} onClose={setMessage} />}
+      {message && (
+        <AlertBox
+          type={message.type}
+          message={message.message}
+          onClose={setMessage}
+        />
+      )}
+      {showDialog && (
+        <LongDialog
+          isOpen={showDialog}
+          onClose={() => setShowDialog(false)}
+          similarProjects={similarProjects}
+          open={open}
+          handleOpen={handleOpen}
+        />
+      )}
       <div className="mt-10">
-        <h1 className="flex justify-center mt-3 mb-6 text-3xl md:text-5xl text-bold">Project Upload</h1>
+        <h1 className="flex justify-center mt-3 mb-6 text-3xl md:text-5xl text-bold">
+          Project Upload
+        </h1>
       </div>
       <div className="flex justify-center m-0 p-0">
         <section className="flex flex-col md:flex-row mx-auto p-2 md:p-4 shadow-md rounded-8 max-w-4xl">
-          <ProjectUploadForm
-            projectData={projectData}
-            handleInputChange={handleInputChange}
-            handleFileChange={handleFileChange}
-            handleUploadProject={handleUploadProject}
-            isFormValid={isFormValid}
-            setMessage={setMessage}
-          />
+          {loading ? (
+            <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75">
+              <Spinner className="h-12 w-12" />
+            </div>
+          ) : (
+              <ProjectUploadForm
+                projectData={projectData}
+                handleInputChange={handleInputChange}
+                handleFileChange={handleFileChange}
+                handleUploadProject={handleUploadProject}
+                isFormValid={isFormValid}
+                setMessage={setMessage}
+              />
+          )}
         </section>
       </div>
     </>
