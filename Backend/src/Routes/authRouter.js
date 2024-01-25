@@ -1,5 +1,7 @@
 import express from "express";
 import passport from "passport";
+import dotenv from "dotenv";
+dotenv.config();
 
 const authRouter = express.Router();
 
@@ -32,10 +34,12 @@ authRouter.get("/github", passport.authenticate("github"));
 authRouter.get(
   "/github/callback",
   passport.authenticate("github", {
-    failureRedirect: "http://localhost:5173/login",
+    failureRedirect: process.env.CLIENT_URL
+      ? `${process.env.CLIENT_URL}/login`
+      : "http://localhost:5173/login",
   }),
   (req, res) => {
-    res.redirect("http://localhost:5173/");
+    res.redirect(process.env.CLIENT_URL || "http://localhost:5173/");
   }
 );
 
@@ -47,10 +51,12 @@ authRouter.get("/google", passport.authenticate("google"));
 authRouter.get(
   "/google/callback",
   passport.authenticate("google", {
-    failureRedirect: "http://localhost:5173/login",
+    failureRedirect: process.env.CLIENT_URL
+      ? `${process.env.CLIENT_URL}/login`
+      : "http://localhost:5173/login",
   }),
   (req, res) => {
-    res.redirect("http://localhost:5173/");
+    res.redirect(process.env.CLIENT_URL || "http://localhost:5173/");
   }
 );
 

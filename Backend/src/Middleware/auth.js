@@ -11,5 +11,9 @@ export function authenticated(req, res, next) {
   }
 
   // If not authenticated, you may redirect to the login page or handle it accordingly
-  return res.redirect("http://localhost:5173/login");
+  return res.redirect(
+    process.env.CLIENT_URL
+      ? `${process.env.CLIENT_URL}/login`
+      : "http://localhost:5173/login"
+  );
 }
