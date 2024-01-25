@@ -2,14 +2,13 @@ import React from 'react';
 import { Card, CardBody } from '@material-tailwind/react';
 
 const ResultCard = ({ project }) => (
-  <Card borderWidth="6">
+  <Card>
     <CardBody>
         <strong>Title: </strong>{project.title}<br/>
         <strong>Author(s): </strong> {project.author.join(', ')}<br/>
         <strong>Domain: </strong>{project.domain.join(', ')}<br/>
         <strong>Abstract: </strong>{truncateText(project.abstract, 270)}<br/>
         <strong>Similarity Score: </strong>{Math.round((project.score)*100)}/100<br/>
-      {/* Add more properties as needed */}
     </CardBody>
   </Card>
 );
