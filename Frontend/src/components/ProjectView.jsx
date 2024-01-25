@@ -5,6 +5,8 @@ import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import "react-pdf/dist/esm/Page/TextLayer.css";
 import { Button } from "@material-tailwind/react";
 import AlertBox from "./AlertBox";
+import { FaGithub } from "react-icons/fa";
+import { FaYoutube } from "react-icons/fa";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -79,6 +81,7 @@ export default function ProjectView(props) {
 
     // Remove the link after downloading
     document.body.removeChild(link);
+    
 
     // Show download alert
     setAlert({ show: true, message: `Downloading '${props.title}' PDF.` });
@@ -108,9 +111,14 @@ export default function ProjectView(props) {
         {props.abstract}
       </p>
       <div className="ml-[17vw] mt-[1vw]">
-        <Link to={props.githubLink}>GitHub Link</Link>
-        <br />
-        <Link to={props.youtubeLink}>Youtube Link</Link>
+        <p className="flex ">Github Repository   
+        <Link to={props.githubLink}><FaGithub className="w-7 h-7 mx-1" /> </Link>
+        
+      
+       <p className="flex mx-5">Youtube Video
+        <Link to={props.youtubeLink}><FaYoutube className="w-7 h-7 mx-1" /></Link>
+        </p>
+        </p>
         <br />
         <Button onClick={togglePdfDisplay}>
           {showPdf ? "Hide PDF" : "Show PDF"}
