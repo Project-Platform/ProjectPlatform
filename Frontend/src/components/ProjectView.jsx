@@ -81,7 +81,6 @@ export default function ProjectView(props) {
 
     // Remove the link after downloading
     document.body.removeChild(link);
-    
 
     // Show download alert
     setAlert({ show: true, message: `Downloading '${props.title}' PDF.` });
@@ -89,7 +88,13 @@ export default function ProjectView(props) {
 
   return (
     <div className="mt-4">
-      {alert.show && <AlertBox type="success" message={alert.message} onClose={() => setAlert({ show: false, message: '' })} />}
+      {alert.show && (
+        <AlertBox
+          type="success"
+          message={alert.message}
+          onClose={() => setAlert({ show: false, message: "" })}
+        />
+      )}
       <h1 className="font-semibold flex flex-wrap place-content-center text-xl sm:text-2xl md:text-3xl lg:text-4xl underline underline-offset-auto">
         {props.title}
       </h1>
@@ -110,15 +115,21 @@ export default function ProjectView(props) {
       <p className="p-5 mx-4 sm:mx-10 md:mx-20 lg:mx-40 xl:mx-60 text-xl">
         {props.abstract}
       </p>
-      <div className="ml-[17vw] mt-[1vw]">
-        <p className="flex ">Github Repository   
-        <Link to={props.githubLink}><FaGithub className="w-7 h-7 mx-1" /> </Link>
-        
-      
-       <p className="flex mx-5">Youtube Video
-        <Link to={props.youtubeLink}><FaYoutube className="w-7 h-7 mx-1" /></Link>
-        </p>
-        </p>
+      <div className="p-5 mx-4 sm:mx-10 md:mx-20 lg:mx-40 xl:mx-60 mt-[1vw]">
+        <div className="flex gap-2">
+          <div className="flex gap-2">
+            Github Repository
+            <Link to={props.githubLink}>
+              <FaGithub className="w-7 h-7 mx-1" />{" "}
+            </Link>
+          </div>
+          <div className="flex gap-2">
+            Youtube Video
+            <Link to={props.youtubeLink}>
+              <FaYoutube className="w-7 h-7 mx-1" />
+            </Link>
+          </div>
+        </div>
         <br />
         <Button onClick={togglePdfDisplay}>
           {showPdf ? "Hide PDF" : "Show PDF"}

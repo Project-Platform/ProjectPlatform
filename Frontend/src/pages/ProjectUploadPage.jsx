@@ -13,7 +13,7 @@ function ProjectUploadPage() {
   const [projectData, setProjectData] = useState(() => {
     const storedData = JSON.parse(localStorage.getItem("projectData"));
     const defaultAuthor = user ? [user.username] : [];
-    return storedData || { title: "", author: defaultAuthor, domain: [], abstract: "", docs: null };
+    return storedData || { title: "", author: defaultAuthor, domain: [], abstract: "",youtubeLink:"",githubLink:"", docs: null };
   });
   
   
