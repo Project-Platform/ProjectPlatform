@@ -11,6 +11,9 @@ import ResultCard from './resultCard';
  
 export function LongDialog(props) {
 
+// onBeforeOpen = (open) => {
+//   args.maxHeight = '300px';
+// };
 // const truncateText = (text, maxLength) => {
 //   if (text.length > maxLength) {
 //     return text.substring(0, maxLength) + '...';
@@ -23,12 +26,12 @@ export function LongDialog(props) {
     <>
       <Dialog open={props.open} handler={props.handleOpen}>
         <DialogHeader>Plagiarism Check Results: </DialogHeader>
-        <DialogBody className="h-[42rem]">
+        <DialogBody className="max-h-96 overflow-auto">
           <Typography className="font-normal mt-4 mb-4">
                   <>
                   <strong>
                   Your project matches with the following project(s).<br/>
-                  Review your project and try again.<br/>
+                  Review your project and try uploading again.<br/>
                   </strong>
                   <ul>
                     {props.similarProjects.map((project, index) => (
@@ -42,12 +45,12 @@ export function LongDialog(props) {
           </Typography>
         </DialogBody>
         <DialogFooter className="space-x-2">
-          <Button variant="text" color="blue-gray" onClick={props.onClose}>
+          <Button variant="text" color="red" onClick={props.onClose}>
             Close
           </Button>
-          <Button variant="gradient" color="green" onClick={props.handleClose}>
+          {/* <Button variant="gradient" color="green" onClick={props.handleClose}>
             Proceed
-          </Button>
+          </Button> */}
         </DialogFooter>
       </Dialog>
     </>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardBody } from '@material-tailwind/react';
 
 const ResultCard = ({ project }) => (
-  <Card borderWidth="6">
+  <Card>
     <CardBody>
         <strong>Title: </strong>{project.title}<br/>
         <strong>Author(s): </strong> {project.author.join(', ')}<br/>

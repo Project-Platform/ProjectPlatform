@@ -85,7 +85,7 @@ function ProjectUploadPage() {
         <h1 className="flex justify-center mt-3 mb-6 text-3xl md:text-5xl text-bold">Project Upload</h1>
       </div>
       <div className="flex justify-center m-0 p-0">
-        <section className="flex flex-col md:flex-row mx-auto p-2 md:p-4 shadow-md rounded-8 max-w-4xl">
+        <section className="flex flex-col md:flex-row mx-auto p-2 md:p-4 shadow-md rounded-8 max-w-4xl min-h-full mb-20">
           <ProjectUploadForm
             projectData={projectData}
             handleInputChange={handleInputChange}
