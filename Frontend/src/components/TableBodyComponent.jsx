@@ -2,7 +2,7 @@ import { Typography, IconButton, Tooltip } from "@material-tailwind/react";
 import { TrashIcon } from "@heroicons/react/24/solid";
 import { deleteProjectById } from '../services/projectData';
 import { useNavigate } from "react-router-dom";
-
+import { getProjectById } from '../services/projectData';
 
 export default function TableBodyComponent({ tableRows,refreshProjects, showMessage }) {
   const navigate = useNavigate();
@@ -40,6 +40,8 @@ export default function TableBodyComponent({ tableRows,refreshProjects, showMess
                   <Typography variant="small" color="blue-gray" className="font-normal cursor-pointer" onClick={() => handleClick(_id)}>
                     {title}
                   </Typography>
+                </div>
+              </div>
             </td>
             <td className={classes}>
               <div className="flex flex-col">
