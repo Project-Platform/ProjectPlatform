@@ -91,11 +91,6 @@ const ProjectUploadForm = ({ projectData, handleFileChange, handleUploadProject,
         <Button variant="filled" size="lg" type="submit">
           Upload Project
         </Button>
-
-
-
-
-
       </div>
     </form>
   );

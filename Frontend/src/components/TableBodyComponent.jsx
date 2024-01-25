@@ -2,7 +2,7 @@ import { Typography, IconButton, Tooltip } from "@material-tailwind/react";
 import { ChevronUpDownIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { deleteProjectById, getProjectById } from '../services/projectData';
 import { useNavigate } from "react-router-dom";
-import { getProjectById } from '../services/projectData';
+
 
 const TABLE_HEAD = ["Projects", "Authors", "Domain", "Date", "Delete"];
 
@@ -108,8 +108,6 @@ export default function TableBodyComponent({ tableRows,refreshProjects, showMess
                       newDate.getMonth() + 1
                     }/${newDate.getFullYear()}`}
                   </Typography>
-                </div>
-              </div>
             </td>
             <td className={classes}>
               <div className="flex flex-col">

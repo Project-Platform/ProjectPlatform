@@ -155,7 +155,7 @@ export default function MyProjects(props) {
       ))}
               </tbody> 
               </>) :
-              <TableBodyComponent tableRows={currPosts} refreshProjects={refreshProjects} showAlert={showAlert}/>
+              <TableBodyComponent tableRows={currPosts} refreshProjects={refreshProjects} showMessage={showMessage}/>
               }
         </table>
       </CardBody>

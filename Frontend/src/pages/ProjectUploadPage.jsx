@@ -88,7 +88,6 @@ function ProjectUploadPage() {
       </div>
       <div className="flex justify-center m-0 p-0">
         <section className="flex flex-col md:flex-row mx-auto p-2 md:p-4 shadow-md rounded-8 max-w-4xl">
-          {loading ? <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75"><Spinner className="h-12 w-12"/></div>:
           <ProjectUploadForm
             projectData={projectData}
             handleInputChange={handleInputChange}
@@ -97,19 +96,11 @@ function ProjectUploadPage() {
             isFormValid={isFormValid}
             setMessage={setMessage}
           />
-           {showDialog && (
-              <LongDialog
-                isOpen={showDialog}
-                onClose={() => setShowDialog(false)}
-                similarProjects={similarProjects}
-                open={open}
-                handleOpen={handleOpen}
-                />
-            )}}
         </section>
       </div>
     </>
   );
+}
 }
 
 export default ProjectUploadPage;
