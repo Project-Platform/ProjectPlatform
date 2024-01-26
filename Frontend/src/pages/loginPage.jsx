@@ -4,8 +4,10 @@ import {
   CardBody,
   Typography,
 } from "@material-tailwind/react";
+import { getServerUrl } from "../utils/serverUrl";
 
 export function LoginPage() {
+  const serverUrl = getServerUrl();
   return (
     <div className="flex justify-center items-center h-[80vh]">
       <Card className="w-96">
@@ -21,7 +23,7 @@ export function LoginPage() {
         <CardBody className="flex flex-col gap-4">
           <Typography
             as="a"
-            href="/api/auth/google"
+            href={`${serverUrl}/api/auth/google`}
             className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-sm py-3.5 px-7 rounded-lg border border-blue-gray-500 text-blue-gray-500 hover:opacity-75 focus:ring focus:ring-blue-gray-200 active:opacity-[0.85] w-full flex place-content-center gap-3 mt-3"
           >
             <img
@@ -33,7 +35,7 @@ export function LoginPage() {
           </Typography>
           <Typography
             as="a"
-            href="/api/auth/github"
+            href={`${serverUrl}/api/auth/github`}
             className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-sm py-3.5 px-7 rounded-lg border border-blue-gray-500 text-blue-gray-500 hover:opacity-75 focus:ring focus:ring-blue-gray-200 active:opacity-[0.85] w-full flex place-content-center gap-3 mt-3"
           >
             <img

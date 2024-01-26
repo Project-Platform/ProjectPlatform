@@ -11,14 +11,6 @@ import ResultCard from './resultCard';
  
 export function LongDialog(props) {
 
-// const truncateText = (text, maxLength) => {
-//   if (text.length > maxLength) {
-//     return text.substring(0, maxLength) + '...';
-//   }
-//   return text;
-// };
-
- 
   return (
     <>
       <Dialog open={props.open} handler={props.handleOpen}>
@@ -30,15 +22,10 @@ export function LongDialog(props) {
                   Your project matches with the following project(s).<br/>
                   Review your project and try uploading again.<br/>
                   </strong>
-                  <ul>
                     {props.similarProjects.map((project, index) => (
-                      <li key={index}>
-                        <ResultCard project={project} />
-                        </li>
+                        <ResultCard key={project._id} project={project} />
                     ))}
-                  </ul>
                 </>
-          
           </Typography>
         </DialogBody>
         <DialogFooter className="space-x-2">

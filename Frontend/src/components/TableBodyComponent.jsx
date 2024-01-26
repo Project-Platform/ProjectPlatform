@@ -71,5 +71,3 @@ export default function TableBodyComponent({ tableRows,refreshProjects, showMess
     </tbody>
   );
 }
-
-// export default TableBodyComponent;

@@ -3,28 +3,41 @@ import { TagsInput } from "react-tag-input-component";
 import { Button, Input, Textarea } from "@material-tailwind/react";
 import { SessionContext } from "../components/SessionProvider.jsx";
 
-const ProjectUploadForm = ({ projectData, handleFileChange, handleUploadProject, isFormValid, setMessage, handleInputChange }) => {
+const ProjectUploadForm = ({
+  projectData,
+  handleFileChange,
+  handleUploadProject,
+  isFormValid,
+  setMessage,
+  handleInputChange,
+}) => {
   const { user } = useContext(SessionContext);
   const getDefaultAuthor = () => (user && user.username ? [user.username] : []);
-  const showAlertMessage = (message) => {
-    setMessage({ type: "error", message});
-  };
 
+  const showAlertMessage = (message) => {
+    setMessage({ type: "error", message });
+  };
 
   return (
     <form
       onSubmit={(e) => {
-      e.preventDefault();
-      console.log(projectData.author);
-      if (!projectData.author || !projectData.author.includes(user.username)) {
-      showAlertMessage("Please enter your username in the Author field.");
-      return;
-    }
-    if (isFormValid()) {
-       handleUploadProject();
-    } else {
-      setMessage({ type: "error", message: "Please fill in all required fields." });
-    }
+        e.preventDefault();
+        console.log(projectData.author);
+        if (
+          !projectData.author ||
+          !projectData.author.includes(user.username)
+        ) {
+          showAlertMessage("Please enter your username in the Author field.");
+          return;
+        }
+        if (isFormValid()) {
+          handleUploadProject();
+        } else {
+          setMessage({
+            type: "error",
+            message: "Please fill in all required fields.",
+          });
+        }
       }}
       encType="multipart/form-data"
       className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 text-left"
@@ -41,7 +54,7 @@ const ProjectUploadForm = ({ projectData, handleFileChange, handleUploadProject,
 
       <div className="md:py-3 flex place-items-center pl-4 col-span-2 md:col-span-1 rounded-4 text-18 font-bold text-xl">
         Author(s) Username:
-        <br/>
+        <br />
         (Your username - First part of your respective email Id)
       </div>
       <TagsInput
@@ -71,6 +84,26 @@ const ProjectUploadForm = ({ projectData, handleFileChange, handleUploadProject,
       />
 
       <div className="md:py-3 flex place-items-center pl-4 col-span-2 md:col-span-1 rounded-4 text-18 font-bold text-xl">
+        Youtube Video Link:
+      </div>
+      <Input
+        label="Youtube Video Link"
+        onChange={(e) => handleInputChange("youtubeLink", e.target.value)}
+        value={projectData.youtubeLink}
+        containerProps={{ className: "place-self-center" }}
+      />
+
+      <div className="md:py-3 flex place-items-center pl-4 col-span-2 md:col-span-1 rounded-4 text-18 font-bold text-xl">
+        Github Repository Link:
+      </div>
+      <Input
+        label="Github Repository Link"
+        onChange={(e) => handleInputChange("githubLink", e.target.value)}
+        value={projectData.githubLink}
+        containerProps={{ className: "place-self-center" }}
+      />
+
+      <div className="md:py-3 flex place-items-center pl-4 col-span-2 md:col-span-1 rounded-4 text-18 font-bold text-xl">
         Document (PDF or word format, up to 500Kb):
       </div>
       <div className="flex place-items-center col-span-2 md:col-span-1 rounded-4 text-18 font-bold text-xl">
@@ -92,4 +125,3 @@ const ProjectUploadForm = ({ projectData, handleFileChange, handleUploadProject,
 };
 
 export default ProjectUploadForm;
-
