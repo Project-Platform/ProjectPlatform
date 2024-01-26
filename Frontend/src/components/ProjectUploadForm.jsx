@@ -117,10 +117,6 @@ const ProjectUploadForm = ({
 
       <div className="flex flex-col justify-center items-center mx-auto col-span-2">
         <Button variant="filled" size="lg" type="submit">
-          Plagiarism Checker
-        </Button>
-        <br />
-        <Button variant="filled" size="lg" type="submit">
           Upload Project
         </Button>
       </div>

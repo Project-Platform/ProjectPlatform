@@ -9,7 +9,6 @@ const ResultCard = ({ project }) => (
         <strong>Domain: </strong>{project.domain.join(', ')}<br/>
         <strong>Abstract: </strong>{truncateText(project.abstract, 270)}<br/>
         <strong>Similarity Score: </strong>{Math.round((project.score)*100)}/100<br/>
-      {/* Add more properties as needed */}
     </CardBody>
   </Card>
 );
