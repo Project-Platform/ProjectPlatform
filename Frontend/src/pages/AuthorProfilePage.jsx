@@ -10,7 +10,8 @@ function AuthorProfilePage() {
   useEffect(() => {
     const fetchAuthorData = async () => {
       try {
-        const data = await getStudentByUsername();
+        console.log(username)
+        const data = await getStudentByUsername(username);
         setAuthorData(data);
       } catch (error) {
         console.error('Error fetching author data:', error);
@@ -27,9 +28,9 @@ function AuthorProfilePage() {
         <AuthorProfile
           username={authorData.username}
           name={authorData.name}
-          university={authorData.university}
+          university={authorData.universityName}
           githubUsername={authorData.githubUsername}
-          linkedInUsername={authorData.linkedInUsername}
+          linkedInUsername={authorData.linkedinProfile}
         />
       )}
     </div>
