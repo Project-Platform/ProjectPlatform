@@ -23,7 +23,6 @@ function AuthorProfilePage() {
 
   return (
     <div>
-      <h1>Author Profile Page</h1>
       {authorData && (
         <AuthorProfile
           username={authorData.username}
@@ -31,6 +30,7 @@ function AuthorProfilePage() {
           university={authorData.universityName}
           githubUsername={authorData.githubUsername}
           linkedInUsername={authorData.linkedinProfile}
+          email={authorData.email}
         />
       )}
     </div>
