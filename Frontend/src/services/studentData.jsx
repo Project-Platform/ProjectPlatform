@@ -2,18 +2,39 @@ import axios from "axios";
 import { getSession } from "./authData";
 import { getServerUrl } from "../utils/serverUrl";
 
-const getStudentByUsername = async () => {
+// const getStudentByUsername = async () => {
+//   const session = await getSession();
+//   const serverUrl = getServerUrl();
+//   if (session.user) {
+//     const response = await axios.get(
+//       `${serverUrl}/api/students/${session.user.username}`,
+//       { withCredentials: true }
+//     );
+//     return response.data;
+//   }
+//   return undefined;
+// };
+const getStudentByUsername = async (username = "") => {
   const session = await getSession();
   const serverUrl = getServerUrl();
-  if (session.user) {
+  
+  if (username) {
+    const response = await axios.get(
+      `${serverUrl}/api/students/${username}`,
+      { withCredentials: true }
+    );
+    return response.data;
+  } else if (session.user) {
     const response = await axios.get(
       `${serverUrl}/api/students/${session.user.username}`,
       { withCredentials: true }
     );
     return response.data;
   }
+
   return undefined;
 };
+
 
 const createStudent = async (data) => {
   const session = await getSession();
