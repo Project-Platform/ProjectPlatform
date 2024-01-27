@@ -5,16 +5,28 @@ const studentSchema = new Schema({
   // Full name of the student, a required string field
   name: {
     type: String,
-    required: true,
+    required: false,
   },
-
   // Unique username for the student, a required string field
   username: {
     type: String,
     unique: true,
     required: true,
   },
+  provider: {
+    type: String,
+    required: true,
+  },
 
+  providerId: {
+    type: String,
+    required: true,
+  },
+
+  avatar: {
+    type: String,
+    required: true,
+  },
   // Email of the student, a required string field
   email: {
     type: String,
@@ -25,7 +37,7 @@ const studentSchema = new Schema({
   // University's Name, a reference to the 'univ' collection
   universityName: {
     type: String,
-    required: true,
+    required: false,
   },
 
   githubUsername: {
@@ -39,4 +51,4 @@ const studentSchema = new Schema({
 });
 
 // Export the user schema for use in creating a model
-export default model("Student", studentSchema);
+export default model("students", studentSchema);
