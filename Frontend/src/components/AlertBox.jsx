@@ -30,7 +30,7 @@ const AlertBox = ({ type, message, onClose}) => {
   }, []);
 
   return (
-    <>
+    <div className="mb-24">
       {isVisible && (
         <div className=" flex justify-center">
           <Alert
@@ -43,7 +43,7 @@ const AlertBox = ({ type, message, onClose}) => {
           </Alert>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

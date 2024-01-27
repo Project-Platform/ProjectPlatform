@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Input, Button, Typography } from "@material-tailwind/react";
+import { Card, Input, Button, Typography, Spinner } from "@material-tailwind/react";
 import { createStudent, getStudentByUsername, updateStudent } from '../services/studentData';
 import { SessionContext } from './SessionProvider';
 import AlertBox from '../components/AlertBox';
@@ -15,6 +15,7 @@ export default function Profile() {
   const [isEditMode, setIsEditMode] = useState(false);
   const [isNewUser, setIsNewUser] = useState(true);
   const [message, setMessage] = useState(null);
+  const [isUpdatingProfile, setIsUpdatingProfile] = useState(false);
 
   useEffect(() => {
     if (session.user) {
@@ -71,12 +72,15 @@ export default function Profile() {
 
   const handleUpdateProfile = async () => {
     try {
+      setIsUpdatingProfile(true);
       const updatedStudent = await updateStudent(profileData);
       console.log('Student updated:', updatedStudent);
+      setIsUpdatingProfile(false);
       setIsEditMode(false);
       showMessage({ type: "success", message: "Profile successfully updated." });
     } catch (error) {
       console.error('Error updating profile:', error);
+      setIsUpdatingProfile(false);
       showMessage({ type: "error", message: "Failed to update profile." });
     }
   };
@@ -84,17 +88,17 @@ export default function Profile() {
   const showMessage = (message) => {
     setMessage(message);
   };
-
   return (
-    <>
+    <div>
+    {isUpdatingProfile ? <div className='flex justify-center items-center h-screen'><Spinner className='h-12 w-12'/></div> : <div>
       {message && (
         <AlertBox type={message.type} message={message.message} onClose={() => setMessage(null)} />
       )}
     <Card color="transparent" shadow={false} className="mt-10 place-items-center mb-10">
-      <Typography variant="h4" color="blue-gray">
+      <Typography variant="h1" color="blue-gray">
         My Profile
       </Typography>
-      <Typography color="gray" className="mt-1 font-normal">
+      <Typography variant="h6" color="gray" className="mt-1 font-normal">
         Your Profile Details!
       </Typography>
       <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
@@ -170,6 +174,7 @@ export default function Profile() {
         )}
       </form>
     </Card>
-    </>
+    </div>}
+    </div>
   );
 }

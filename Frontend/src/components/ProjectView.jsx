@@ -3,7 +3,7 @@ import { Document, Page, pdfjs } from "react-pdf";
 import { useState, useEffect } from "react";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import "react-pdf/dist/esm/Page/TextLayer.css";
-import { Button } from "@material-tailwind/react";
+import { Button, Spinner } from "@material-tailwind/react";
 import AlertBox from "./AlertBox";
 import { FaGithub } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
@@ -22,6 +22,7 @@ export default function ProjectView(props) {
   const [currentPage, setCurrentPage] = useState(1);
   // State to toggle PDF visibility
   const [showPdf, setShowPdf] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const loadPdfData = async () => {
     try {
@@ -33,6 +34,9 @@ export default function ProjectView(props) {
       setPdfData(pdfUrl);
     } catch (error) {
       console.error("Error loading PDF data:", error);
+    }finally {
+      // Set loading to false once the PDF data is loaded (whether successful or not)
+      setIsLoading(false);
     }
   };
 
@@ -85,8 +89,14 @@ export default function ProjectView(props) {
     // Show download alert
     setAlert({ show: true, message: `Downloading '${props.title}' PDF.` });
   };
-
-  return (
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Spinner className="h-12 w-12" />
+      </div>
+    );
+  }else{
+    return (
     <div className="mt-4">
       {alert.show && (
         <AlertBox
@@ -173,5 +183,5 @@ export default function ProjectView(props) {
       </div>
       {/* </div> */}
     </div>
-  );
+  );}
 }
