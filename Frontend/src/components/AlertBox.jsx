@@ -30,20 +30,20 @@ const AlertBox = ({ type, message, onClose}) => {
   }, []);
 
   return (
-    <div className="mb-24">
+    <>
       {isVisible && (
         <div className=" flex justify-center">
           <Alert
             variant="gradient"
             color={color}
             onClose={closeAlertBox}
-            className="flex justify-center min-w-80 max-w-lg absolute mt-4"
+            className="flex justify-center min-w-80 max-w-lg absolute mt-4 z-50"
           >
             {message}
           </Alert>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

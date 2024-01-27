@@ -21,7 +21,7 @@ const ProjectList = ({ trendingProjects,name }) => {
 
       {trendingProjects.length === 0 && <Spinner className="ml-auto mr-auto mt-40"/>} {/* Display loading paragraph only when projects are being fetched */}
       
-      <div className="mt-2 flex flex-row flex-wrap place-content-evenly">
+      <div className="mt-2 flex flex-row flex-wrap place-content-center">
         {trendingProjects.map((curr) => {
           return (
             <ProjectCard 

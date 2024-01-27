@@ -7,18 +7,17 @@ import searchRouter from "./Routes/searchRouter.js";
 import studentRouter from "./Routes/userRouter.js";
 import authRouter from "./Routes/authRouter.js";
 import configurePassport from "./Config/passportConfig.js";
-import { authenticated } from "./Middleware/auth.js"; // Import authentication middleware
 import {connectToDatabase} from "./Config/dbConfig.js";
 import {configureSession} from"./Config/sessionConfig.js";
 import passport from "passport";
-import cors from "cors";
 import compression from "compression";
+import path from "path";
+import { fileURLToPath } from "url";
 
 dotenv.config(); // Load environment variables from .env file
 // Create an Express application
 const app = express();
 
-app.use(cors({credentials:true, origin:["http://localhost:5173"]}));
 app.use(compression())
 
 // Retrieve MongoDB connection URI from environment variables
@@ -51,9 +50,20 @@ app.use("/api/auth", authRouter); // Route for authentication-related endpoints
 app.use("/api/projects", projectRouter); // Route for project-related endpoints
 
 // Route for student-related endpoints with authentication middleware
-app.use("/api/students", authenticated, studentRouter);
+app.use("/api/students", studentRouter);
 
 app.use("/api/search", searchRouter); // Route for search-related endpoints
+
+if (process.env.NODE_ENV === "production"){
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
+
+  app.use(express.static(path.join(__dirname, "./dist")));
+  
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "./dist", "index.html"));
+  });
+}
 
 app.use((err, req, res, next) => {
   console.error(err); // Log the error for debugging
