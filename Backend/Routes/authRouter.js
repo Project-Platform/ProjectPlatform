@@ -34,9 +34,10 @@ authRouter.get("/github", passport.authenticate("github"));
 authRouter.get(
   "/github/callback",
   passport.authenticate("github", {
-    failureRedirect: process.env.CLIENT_URL
-      ? `${process.env.CLIENT_URL}/login`
-      : "http://localhost:5173/login",
+    failureRedirect:
+      process.env.NODE_ENV === "production"
+        ? "/login"
+        : "http://localhost:5173/login",
   }),
   (req, res) => {
     const { provider } = req.user;
@@ -44,12 +45,14 @@ authRouter.get(
     // Check if the provider is GitHub
     if (provider === "github") {
       // Redirect to home page on success
-      res.redirect(process.env.CLIENT_URL || "http://localhost:5173/");
+      res.redirect(
+        process.env.NODE_ENV === "production" ? "/" : "http://localhost:5173/"
+      );
     } else {
       // Redirect with query parameter to indicate an existing user
       res.redirect(
-        process.env.CLIENT_URL
-          ? `${process.env.CLIENT_URL}/?existingUser=true`
+        process.env.NODE_ENV === "production"
+          ? `/?existingUser=true`
           : "http://localhost:5173/?existingUser=true"
       );
     }
@@ -64,22 +67,22 @@ authRouter.get("/google", passport.authenticate("google"));
 authRouter.get(
   "/google/callback",
   passport.authenticate("google", {
-    failureRedirect: process.env.CLIENT_URL
-      ? `${process.env.CLIENT_URL}/login`
+    failureRedirect: process.env.NODE_ENV==="production"
+      ? '/login'
       : "http://localhost:5173/login",
   }),
   (req, res) => {
     const { provider } = req.user;
 
-    // Check if the provider is GitHub
+    // Check if the provider is Google
     if (provider === "google") {
       // Redirect to home page on success
-      res.redirect(process.env.CLIENT_URL || "http://localhost:5173/");
+      res.redirect(process.env.NODE_ENV==="production" ? "/" : "http://localhost:5173/");
     } else {
       // Redirect with query parameter to indicate an existing user
       res.redirect(
-        process.env.CLIENT_URL
-          ? `${process.env.CLIENT_URL}/?existingUser=true`
+        process.env.NODE_ENV === "production"
+          ? `/?existingUser=true`
           : "http://localhost:5173/?existingUser=true"
       );
     }

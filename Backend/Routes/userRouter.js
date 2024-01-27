@@ -1,5 +1,6 @@
 import express from "express";
 import Student from "../Models/student.js";
+import { authenticated } from "../Middleware/auth.js";
 
 const studentRouter = express.Router();
 
@@ -21,7 +22,7 @@ studentRouter.get("/:username", async (req, res, next) => {
   }
 });
 
-studentRouter.post("/", async (req, res, next) => {
+studentRouter.post("/", authenticated, async (req, res, next) => {
   try {
     // Assuming the request body contains the necessary data for creating a student profile
     const {
@@ -58,7 +59,7 @@ studentRouter.post("/", async (req, res, next) => {
   }
 });
 
-studentRouter.patch("/:username", async (req, res, next) => {
+studentRouter.patch("/:username", authenticated, async (req, res, next) => {
   try {
     const studentUsername = req.params.username;
 

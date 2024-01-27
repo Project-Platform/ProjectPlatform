@@ -29,8 +29,8 @@ export default function configurePassport() {
         clientSecret: process.env.GITHUB_SECRET,
 
         // Callback URL where GitHub will redirect after authentication
-        callbackURL: process.env.CLIENT_URL
-          ? `${process.env.CLIENT_URL}/api/auth/github/callback`
+        callbackURL: process.env.SERVER_URL
+          ? `${process.env.SERVER_URL}/api/auth/github/callback`
           : "http://localhost:3000/api/auth/github/callback",
 
         // Requested access scope (user:email for email access)
@@ -85,8 +85,8 @@ export default function configurePassport() {
         clientSecret: process.env.GOOGLE_SECRET,
 
         // Callback URL where Google will redirect after authentication
-        callbackURL: process.env.CLIENT_URL
-          ? `${process.env.CLIENT_URL}/api/auth/google/callback`
+        callbackURL: process.env.SERVER_URL
+          ? `${process.env.SERVER_URL}/api/auth/google/callback`
           : "http://localhost:3000/api/auth/google/callback",
 
         // Requested access scope (email for email access)

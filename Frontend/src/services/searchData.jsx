@@ -1,11 +1,7 @@
 import axios from "axios";
-import { getServerUrl } from "../utils/serverUrl";
 
 const searchResult = async (word) => {
-  const serverUrl = getServerUrl();
-  const response = await axios.get(`${serverUrl}/api/search/${word}`, {
-    withCredentials: true,
-  });
+  const response = await axios.get(`/api/search/${word}`);
   return response.data;
 };
 export { searchResult };
