@@ -199,7 +199,7 @@ export function TestimonialCard() {
           No projects found for the chosen set of filters. These are some relevant projects that may interest you.
         </h1>
         )}
-      {loading && <Spinner className="flex justify-center"/>}
+      {loading && <div className="flex items-center justify-center"><Spinner className="h-10 w-10 mt-80 mb-80"/></div>}
       <div className="mt-8 p-4 grid grid-cols-1 m-2 gap-4 lg:grid-cols-2">
         {dataProject.ans && dataProject.ans.map((project, index) => (
           <ProjectCard className="grid grid-cols-1 md:grid-cols-1 gap-4 max-w-20[rem] flex-row mb-6"

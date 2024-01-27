@@ -16,7 +16,6 @@ function ProjectUploadPage() {
     return storedData || { title: "", author: defaultAuthor, domain: [], abstract: "",youtubeLink:"",githubLink:"", docs: null };
   });
   
-  
   const [similarProjects, setSimilarProjects] = useState(null);
   const [showDialog,setShowDialog] = useState(false);
   const [open, setOpen] = useState(false);
