@@ -25,6 +25,17 @@ export default function Profile() {
   const fetchStudentData = async () => {
     try {
       const { name, universityName, githubUsername, linkedinProfile } = await getStudentByUsername();
+      if (
+        name ||
+        universityName ||
+        githubUsername ||
+        linkedinProfile 
+      ) {
+        // Data exists for the user
+        setIsNewUser(false);
+      }
+      console.log(isNewUser);
+      console.log(name, universityName, githubUsername, linkedinProfile)
       setProfileData({
         ...profileData,
         name: name,
@@ -32,7 +43,6 @@ export default function Profile() {
         githubUsername: githubUsername,
         linkedinProfile: linkedinProfile,
       });
-      setIsNewUser(false); 
     } catch (error) {//alrt
       console.error('Error fetching student data:', error);
     }
@@ -44,7 +54,7 @@ export default function Profile() {
   const handleSaveProfile = async () => {
     try {
       console.group(profileData);
-      const createdStudent = await createStudent(profileData);
+      const createdStudent = await updateStudent(profileData);
       console.log('Student created:', createdStudent);
       setIsEditMode(false);
       setIsNewUser(false);

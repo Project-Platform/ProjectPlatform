@@ -39,7 +39,20 @@ authRouter.get(
       : "http://localhost:5173/login",
   }),
   (req, res) => {
-    res.redirect(process.env.CLIENT_URL || "http://localhost:5173/");
+    const { provider } = req.user;
+
+    // Check if the provider is GitHub
+    if (provider === "github") {
+      // Redirect to home page on success
+      res.redirect(process.env.CLIENT_URL || "http://localhost:5173/");
+    } else {
+      // Redirect with query parameter to indicate an existing user
+      res.redirect(
+        process.env.CLIENT_URL
+          ? `${process.env.CLIENT_URL}/?existingUser=true`
+          : "http://localhost:5173/?existingUser=true"
+      );
+    }
   }
 );
 
@@ -56,7 +69,20 @@ authRouter.get(
       : "http://localhost:5173/login",
   }),
   (req, res) => {
-    res.redirect(process.env.CLIENT_URL || "http://localhost:5173/");
+    const { provider } = req.user;
+
+    // Check if the provider is GitHub
+    if (provider === "google") {
+      // Redirect to home page on success
+      res.redirect(process.env.CLIENT_URL || "http://localhost:5173/");
+    } else {
+      // Redirect with query parameter to indicate an existing user
+      res.redirect(
+        process.env.CLIENT_URL
+          ? `${process.env.CLIENT_URL}/?existingUser=true`
+          : "http://localhost:5173/?existingUser=true"
+      );
+    }
   }
 );
 

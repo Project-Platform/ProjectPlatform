@@ -3,9 +3,12 @@ import { Alert } from "@material-tailwind/react";
 
 const AlertBox = ({ type, message, onClose}) => {
   const [isVisible, setIsVisible] = useState(true);
-    let color
-  if (type=="success"){
+  let color;
+  if (type==="success"){
     color = "green"
+  }
+  else if (type==="info"){
+    color = "blue"
   }
   else{
     color = "red"
@@ -34,7 +37,7 @@ const AlertBox = ({ type, message, onClose}) => {
             variant="gradient"
             color={color}
             onClose={closeAlertBox}
-            className="flex justify-center w-80 absolute mt-4"
+            className="flex justify-center min-w-80 max-w-lg absolute mt-4"
           >
             {message}
           </Alert>

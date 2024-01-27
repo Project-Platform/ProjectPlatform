@@ -3,6 +3,7 @@ import { getTrendingProjects } from "../services/projectData";
 import { useState, useEffect } from "react";
 import ProjectList from "../components/ProjectList";
 import AlertBox from "../components/AlertBox";
+import { useSearchParams } from "react-router-dom";
 
 function HomePage() {
   const [message, setMessage] = useState(null);
@@ -14,6 +15,25 @@ function HomePage() {
   const [currentPage, setCurrentPage] = useState(1);
   // this is for the implementation of the plagiarism
   const postsPerPage = 6;
+  let [searchParams, setSearchParams] = useSearchParams();
+
+
+  useEffect(() => {
+    // Check if the "existingUser" param is present
+    if (searchParams.get("existingUser")) {
+      setMessage({
+        type: "info",
+        message:
+          "It seems your email was previously used with a different provider. We have gone ahead and logged you in using that.",
+      });
+
+      // Remove the "existingUser" param from the URL
+      setSearchParams((prevSearchParams) => {
+        prevSearchParams.delete("existingUser");
+        return prevSearchParams;
+      });
+    }
+  }, [searchParams]);
 
   // use of useEffect
   useEffect(() => {
@@ -52,7 +72,13 @@ function HomePage() {
 
   return (
     <>
-      {/* <Filters /> */}
+      {message && (
+        <AlertBox
+          type={message.type}
+          message={message.message}
+          onClose={() => setMessage(null)}
+        />
+      )}
       <ProjectList name="Trending Projects" trendingProjects={currentPosts} />
       <Pagination
         setCurrentPage={setCurrentPage}
