@@ -66,7 +66,7 @@ export default function ProjectView(props) {
   };
 
   //confirmation alert for pdf download
-  const [alert, setAlert] = useState({ show: false, message: "" });
+  const [message, setMessage] = useState(null);
 
   //for pdf download
   const downloadPdf = () => {
@@ -87,7 +87,7 @@ export default function ProjectView(props) {
     document.body.removeChild(link);
 
     // Show download alert
-    setAlert({ show: true, message: `Downloading '${props.title}' PDF.` });
+    setMessage({ type: "info", message: `Downloading '${props.title}' PDF.` });
   };
   if (isLoading) {
     return (
@@ -98,11 +98,11 @@ export default function ProjectView(props) {
   }else{
     return (
     <div className="mt-4">
-      {alert.show && (
+      {message && (
         <AlertBox
-          type="success"
-          message={alert.message}
-          onClose={() => setAlert({ show: false, message: "" })}
+          type={message.type}
+          message={message.message}
+          onClose={setMessage}
         />
       )}
       <h1 className="font-semibold flex flex-wrap place-content-center text-xl sm:text-2xl md:text-3xl lg:text-4xl underline underline-offset-auto">

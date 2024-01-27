@@ -46,6 +46,17 @@ function ProjectUploadPage() {
   const handleUploadProject = async () => {
     try {
       setLoading(true); // Set loading to true when starting the request
+
+      const usernameToMaintainAtIndexZero = user.username;
+      const { author } = projectData;
+
+      projectData.author = [
+        usernameToMaintainAtIndexZero,
+        ...author.filter(
+          (username) => username !== usernameToMaintainAtIndexZero
+        ),
+      ];
+      
       const newProject = await addProject(projectData);
       setMessage({ type: "success", message: "Project successfully uploaded." });
       setProjectData({ title: "", author:user?[user.username] : [] , domain: [], abstract: "", docs: null });
