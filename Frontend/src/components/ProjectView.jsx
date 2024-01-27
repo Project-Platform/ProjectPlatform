@@ -99,7 +99,10 @@ export default function ProjectView(props) {
         {props.title}
       </h1>
       <h2 className="font-medium text-base sm:text-lg ml-4 sm:ml-8 md:ml-12 lg:ml-[17vw] mt-2 sm:mt-4 md:mt-[1vw]">
-        Authors: {arrayElementsWithSpaces}
+        Authors:
+        <Link to={`/profile/${props.author[0]}`} className="text-blue-500">
+       {arrayElementsWithSpaces}
+       </Link>
       </h2>
       <h2 className="font-medium text-base sm:text-lg ml-4 sm:ml-8 md:ml-12 lg:ml-[17vw] mt-2">
         Date:{" "}
