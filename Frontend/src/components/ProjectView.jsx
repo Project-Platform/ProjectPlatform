@@ -130,18 +130,22 @@ export default function ProjectView(props) {
       </p>
       <div className="p-5 mx-4 sm:mx-10 md:mx-20 lg:mx-40 xl:mx-60 mt-[1vw]">
         <div className="flex gap-2">
+          { props.githubLink &&
           <div className="flex gap-2">
             Github Repository
             <Link to={props.githubLink}>
               <FaGithub className="w-7 h-7 mx-1" />{" "}
             </Link>
           </div>
+  }
+     { props.youtubeLink &&
           <div className="flex gap-2">
             Youtube Video
             <Link to={props.youtubeLink}>
               <FaYoutube className="w-7 h-7 mx-1" />
             </Link>
           </div>
+  }
         </div>
         <br />
         <Button onClick={togglePdfDisplay}>
