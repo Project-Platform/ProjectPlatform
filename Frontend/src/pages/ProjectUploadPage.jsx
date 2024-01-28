@@ -13,15 +13,25 @@ function ProjectUploadPage() {
   const [projectData, setProjectData] = useState(() => {
     const storedData = JSON.parse(localStorage.getItem("projectData"));
     const defaultAuthor = user ? [user.username] : [];
-    return storedData || { title: "", author: defaultAuthor, domain: [], abstract: "",youtubeLink:"",githubLink:"", docs: null };
+    return (
+      storedData || {
+        title: "",
+        author: defaultAuthor,
+        domain: [],
+        abstract: "",
+        youtubeLink: "",
+        githubLink: "",
+        docs: null,
+      }
+    );
   });
-  
+
   const [similarProjects, setSimilarProjects] = useState(null);
-  const [showDialog,setShowDialog] = useState(false);
+  const [showDialog, setShowDialog] = useState(false);
   const [open, setOpen] = useState(false);
 
   const [message, setMessage] = useState(null);
-  
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     file && setProjectData({ ...projectData, docs: file });
@@ -46,36 +56,43 @@ function ProjectUploadPage() {
           (username) => username !== usernameToMaintainAtIndexZero
         ),
       ];
-      
+
       const newProject = await addProject(projectData);
-      setMessage({ type: "success", message: "Project successfully uploaded." });
-      setProjectData({ title: "", author:user?[user.username] : [] , domain: [], abstract: "", docs: null });
+      setMessage({
+        type: "success",
+        message: "Project successfully uploaded.",
+      });
+      setProjectData({
+        title: "",
+        author: user ? [user.username] : [],
+        domain: [],
+        abstract: "",
+        docs: null,
+      });
       localStorage.removeItem("projectData");
     } catch (error) {
       console.log(error.response.data.similarProjects);
-      if(error.response.status===409){
+      if (error.response.status === 409) {
         setShowDialog(true);
         setOpen(true);
         setSimilarProjects(error.response.data.similarProjects);
-      }
-      else{
+      } else {
         setMessage({ type: "error", message: "Project failed to upload." });
       }
       console.error("Error uploading project:", error);
     } finally {
       setLoading(false); // Set loading to false when the request is complete
-    };
-  }
- 
- 
-  const handleOpen = () => setOpen(!open);
+    }
+  };
 
+  const handleOpen = () => setOpen(!open);
 
   const isFormValid = () => {
     const requiredFields = ["title", "author", "domain", "abstract", "docs"];
     const allFieldsFilled = requiredFields.every((field) => projectData[field]);
     const loggedInUser = user && user.username;
-    const userIsAuthor = loggedInUser && projectData.author.includes(loggedInUser);
+    const userIsAuthor =
+      loggedInUser && projectData.author.includes(loggedInUser);
 
     return allFieldsFilled && userIsAuthor;
   };
@@ -105,13 +122,17 @@ function ProjectUploadPage() {
         </h1>
       </div>
       <div className="flex justify-center">
-        <section className="flex flex-col md:flex-row mx-auto p-2 md:p-4 shadow-md rounded-8 max-w-4xl relative mt-2">
-          <Typography className="absolute -top-5 left-5" variant="h6">Fields marked as <span className="text-red-600">*</span> are mandatory</Typography>
-          {loading ? (
+        <section className="flex flex-col md:flex-row mx-auto shadow-md rounded-8 max-w-4xl mt-2">
+          {true ? (
             <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75">
               <Spinner className="h-12 w-12" />
             </div>
           ) : (
+            <>
+              <Typography className="absolute " variant="h6">
+                Fields marked as <span className="text-red-600">*</span> are
+                mandatory
+              </Typography>
               <ProjectUploadForm
                 projectData={projectData}
                 handleInputChange={handleInputChange}
@@ -120,12 +141,12 @@ function ProjectUploadPage() {
                 isFormValid={isFormValid}
                 setMessage={setMessage}
               />
+            </>
           )}
         </section>
       </div>
     </>
   );
 }
-
 
 export default ProjectUploadPage;

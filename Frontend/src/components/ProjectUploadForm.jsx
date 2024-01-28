@@ -40,7 +40,7 @@ const ProjectUploadForm = ({
         }
       }}
       encType="multipart/form-data"
-      className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 text-left"
+      className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 text-left pt-4 m-2 md:m-4"
     >
       <div className="md:py-3 flex place-items-center pl-4 col-span-2 md:col-span-1 rounded-4 text-18 font-bold text-xl">
         <Typography color="red" variant="h5" className="relative bottom-1">
