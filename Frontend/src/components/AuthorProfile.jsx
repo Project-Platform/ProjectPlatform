@@ -1,5 +1,7 @@
 import { Card, Typography } from "@material-tailwind/react";
 import { Link } from 'react-router-dom';
+import { FaGithub } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
 
 function AuthorProfile({ username, name, university, githubUsername, linkedInUsername, email }) {
   return (
@@ -28,13 +30,13 @@ function AuthorProfile({ username, name, university, githubUsername, linkedInUse
             </Typography>
           )}
           {githubUsername && (
-            <Typography variant="h6" color="blue-gray" className="-mb-3">
-              GitHub: <Link to={`https://github.com/${githubUsername}`} className="text-blue-500">{githubUsername}</Link>
+            <Typography variant="h6" color="blue-gray" className="-mb-3 flex gap-2">
+              GitHub <FaGithub className="w-7 h-7 mx-1" />{" "}: <Link to={`https://github.com/${githubUsername}`} className="text-blue-500">{githubUsername}</Link>
             </Typography>
           )}
           {linkedInUsername && (
-            <Typography variant="h6" color="blue-gray" className="-mb-3">
-              LinkedIn: <Link to={`https://linkedin.com/in/${linkedInUsername}`} className="text-blue-500">{linkedInUsername}</Link>
+            <Typography variant="h6" color="blue-gray" className="-mb-3 flex gap">
+              LinkedIn <FaLinkedin className="w-7 h-7 mx-1" />{" "}: {linkedInUsername}
             </Typography>
           )}
         </div>
