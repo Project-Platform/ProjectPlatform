@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { TagsInput } from "react-tag-input-component";
 import { Button, Input, Textarea } from "@material-tailwind/react";
 import { SessionContext } from "../components/SessionProvider.jsx";

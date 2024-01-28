@@ -1,5 +1,5 @@
-import { useState, useEffect, useContext } from "react";
-import { Button, Dialog, Spinner } from "@material-tailwind/react";
+import { useState, useContext } from "react";
+import { Spinner } from "@material-tailwind/react";
 import AlertBox from "../components/AlertBox";
 import ProjectUploadForm from "../components/ProjectUploadForm";
 import { addProject } from "../services/projectData";
@@ -21,16 +21,6 @@ function ProjectUploadPage() {
   const [open, setOpen] = useState(false);
 
   const [message, setMessage] = useState(null);
-
-  const handlePlagiarismCheck = async () => {
-    try {
-      setShowDialog(true);
-      setOpen(true);
-
-    } catch (error){
-        console.error("Error in plagiarism check", error);
-      }
-};
   
   const handleFileChange = (e) => {
     const file = e.target.files[0];
