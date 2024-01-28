@@ -1,5 +1,4 @@
 import ProjectCard from "./ProjectCard";
-import React from "react";
 import Filters from "./FiltersHome";
 import {
   Typography,

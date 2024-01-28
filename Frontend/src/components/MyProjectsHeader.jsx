@@ -1,28 +1,11 @@
-import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
-import {
-  MagnifyingGlassIcon,
-  ChevronUpDownIcon,
-  ArrowTopRightOnSquareIcon,
-} from "@heroicons/react/24/outline";
+import { UserPlusIcon } from "@heroicons/react/24/solid";
 
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import {
-  Card,
   CardHeader,
-  Input,
   Typography,
   Button,
-  CardBody,
-  Chip,
-  CardFooter,
-  Tabs,
-  TabsHeader,
-  Tab,
-  Avatar,
-  IconButton,
-  Tooltip,
 } from "@material-tailwind/react";
 
 export default function MyProjectsHeader() {

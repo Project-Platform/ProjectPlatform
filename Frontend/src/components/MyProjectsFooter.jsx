@@ -1,18 +1,7 @@
 import {
-    Card,
-    CardHeader,
-    Input,
     Typography,
     Button,
-    CardBody,
-    Chip,
     CardFooter,
-    Tabs,
-    TabsHeader,
-    Tab,
-    Avatar,
-    IconButton,
-    Tooltip,
   } from "@material-tailwind/react";
 
 

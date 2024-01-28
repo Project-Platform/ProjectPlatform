@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { createStudent, getStudentByUsername, updateStudent } from '../services/studentData';
+import { getStudentByUsername } from '../services/studentData';
 import AuthorProfile from '../components/AuthorProfile';
 
 function AuthorProfilePage() {

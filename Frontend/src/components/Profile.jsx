@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Input, Button, Typography, Spinner } from "@material-tailwind/react";
-import { createStudent, getStudentByUsername, updateStudent } from '../services/studentData';
+import { getStudentByUsername, updateStudent } from '../services/studentData';
 import { SessionContext } from './SessionProvider';
 import AlertBox from '../components/AlertBox';
 
@@ -96,7 +96,7 @@ export default function Profile() {
       {message && (
         <AlertBox type={message.type} message={message.message} onClose={() => setMessage(null)} />
       )}
-    <Card color="transparent" shadow={false} className="mt-10 place-items-center mb-10">
+    <Card color="transparent" shadow={false} className="mt-2 place-items-center mb-2">
       <Typography variant="h1" color="blue-gray">
         My Profile
       </Typography>

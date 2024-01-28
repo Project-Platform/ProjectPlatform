@@ -1,26 +1,6 @@
-import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
-import {
-    MagnifyingGlassIcon,
-    ChevronUpDownIcon,
-    ArrowTopRightOnSquareIcon,
-  } from "@heroicons/react/24/outline";
+import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
 
-import {
-    Card,
-    CardHeader,
-    Input,
-    Typography,
-    Button,
-    CardBody,
-    Chip,
-    CardFooter,
-    Tabs,
-    TabsHeader,
-    Tab,
-    Avatar,
-    IconButton,
-    Tooltip,
-  } from "@material-tailwind/react";
+import { Typography } from "@material-tailwind/react";
 
 export default function InitialRowOfTable(){
 
@@ -51,6 +31,4 @@ return (
     </tr>
   </thead>
 );
-
-
 }
