@@ -5,7 +5,11 @@ import multer from "multer";
 import { authenticated } from "../Middleware/auth.js";
 import semanticSearch from "../utils/semanticSearch.js";
 
-const upload = multer({ storage: multer.memoryStorage() });
+const upload = multer({
+   storage: multer.memoryStorage() , 
+   limits: {
+    fileSize: 1024 * 500
+}});
 
 const projectRouter = express.Router();
 

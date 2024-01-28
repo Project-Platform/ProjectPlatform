@@ -6,6 +6,7 @@ const projectSchema = new Schema({
   title: {
     type: String,
     required: true,
+    maxLength: 100,
   },
 
   // Domain(s) of the project, an array of strings, required
@@ -25,6 +26,7 @@ const projectSchema = new Schema({
   abstract: {
     type: String,
     required: true,
+    maxLength: 1500,
   },
 
   githubLink: {
