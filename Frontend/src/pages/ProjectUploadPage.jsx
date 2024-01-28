@@ -123,7 +123,7 @@ function ProjectUploadPage() {
       </div>
       <div className="flex justify-center">
         <section className="flex flex-col md:flex-row mx-auto shadow-md rounded-8 max-w-4xl mt-2">
-          {true ? (
+          {loading ? (
             <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75">
               <Spinner className="h-12 w-12" />
             </div>
