@@ -24,6 +24,7 @@ export const configureSession = () => {
     }),
     cookie: {
       secure: process.env.NODE_ENV === "production", // Set to true in production, false in other environments
+      proxy: process.env.NODE_ENV === "production",
     },
   });
 };

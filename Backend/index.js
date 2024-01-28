@@ -18,6 +18,8 @@ dotenv.config(); // Load environment variables from .env file
 // Create an Express application
 const app = express();
 
+app.set('trust proxy', 1);
+
 app.use(compression())
 
 // Retrieve MongoDB connection URI from environment variables
