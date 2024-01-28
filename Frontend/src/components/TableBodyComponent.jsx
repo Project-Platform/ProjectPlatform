@@ -51,7 +51,7 @@ export default function TableBodyComponent({ tableRows,refreshProjects, showMess
               </div>
             </td>
             <td className={classes}>
-              <div onClick={() => handleClick(_id)} className="w-max cursor-pointer">{domain.join(' ')}</div>
+              <div onClick={() => handleClick(_id)} className="w-max cursor-pointer">{domain.join(', ')}</div>
             </td>
             <td className={classes}>
               <Typography variant="small" color="blue-gray" className="font-normal cursor-pointer" onClick={() => handleClick(_id)}>

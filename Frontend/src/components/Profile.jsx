@@ -16,6 +16,7 @@ export default function Profile() {
   const [isNewUser, setIsNewUser] = useState(true);
   const [message, setMessage] = useState(null);
   const [isUpdatingProfile, setIsUpdatingProfile] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (session.user) {
@@ -25,13 +26,9 @@ export default function Profile() {
 
   const fetchStudentData = async () => {
     try {
+      setLoading(true);
       const { name, universityName, githubUsername, linkedinProfile } = await getStudentByUsername();
-      if (
-        name ||
-        universityName ||
-        githubUsername ||
-        linkedinProfile 
-      ) {
+      if (name || universityName || githubUsername || linkedinProfile) {
         // Data exists for the user
         setIsNewUser(false);
       }
@@ -44,8 +41,10 @@ export default function Profile() {
         githubUsername: githubUsername,
         linkedinProfile: linkedinProfile,
       });
-    } catch (error) {//alrt
+    } catch (error) {
       console.error('Error fetching student data:', error);
+    } finally {
+      setLoading(false); // Set loading to false whether the request succeeds or fails
     }
   };
   const handleInputChange = (field, value) => {
@@ -88,6 +87,9 @@ export default function Profile() {
   const showMessage = (message) => {
     setMessage(message);
   };
+  if(loading){
+    return <div className='flex justify-center items-center h-screen'><Spinner className='h-12 w-12'/></div>
+  }
   return (
     <div>
     {isUpdatingProfile ? <div className='flex justify-center items-center h-screen'><Spinner className='h-12 w-12'/></div> : <div>

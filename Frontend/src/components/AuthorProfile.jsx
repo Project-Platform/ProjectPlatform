@@ -10,31 +10,58 @@ function AuthorProfile({ username, name, university, githubUsername, linkedInUse
       <Typography color="gray" className="mt-1 font-normal">
         {username} Profile Details!
       </Typography>
-      <div className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
-        <div className="mb-1 flex flex-col gap-6">
+      <div className="grid grid-cols-2 gap-6 mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
+        <div className="flex flex-col gap-6">
           {name && (
-            <Typography variant="h6" color="blue-gray" className="-mb-3">
-              Name: {name}
+            <Typography variant="h6" color="blue-gray">
+              Name:
             </Typography>
           )}
           {university && (
-            <Typography variant="h6" color="blue-gray" className="-mb-3">
-              University Name: {university}
+            <Typography variant="h6" color="blue-gray">
+              University Name:
             </Typography>
           )}
           {email && (
-            <Typography variant="h6" color="blue-gray" className="-mb-3">
-              Email Id: {email}
+            <Typography variant="h6" color="blue-gray">
+              Email Id:
             </Typography>
           )}
           {githubUsername && (
-            <Typography variant="h6" color="blue-gray" className="-mb-3">
-              GitHub: <Link to={`https://github.com/${githubUsername}`} className="text-blue-500">{githubUsername}</Link>
+            <Typography variant="h6" color="blue-gray">
+              GitHub:
             </Typography>
           )}
           {linkedInUsername && (
-            <Typography variant="h6" color="blue-gray" className="-mb-3">
-              LinkedIn: <Link to={`https://linkedin.com/in/${linkedInUsername}`} className="text-blue-500">{linkedInUsername}</Link>
+            <Typography variant="h6" color="blue-gray">
+              LinkedIn:
+            </Typography>
+          )}
+        </div>
+        <div className="flex flex-col gap-6">
+          {name && (
+            <Typography variant="h6" color="blue-gray">
+              {name}
+            </Typography>
+          )}
+          {university && (
+            <Typography variant="h6" color="blue-gray">
+              {university}
+            </Typography>
+          )}
+          {email && (
+            <Typography variant="h6" color="blue-gray">
+              {email}
+            </Typography>
+          )}
+          {githubUsername && (
+            <Typography variant="h6" color="blue-gray">
+              <Link to={`https://github.com/${githubUsername}`} className="text-blue-500">{githubUsername}</Link>
+            </Typography>
+          )}
+          {linkedInUsername && (
+            <Typography variant="h6" color="blue-gray">
+              <Link to={`https://linkedin.com/in/${linkedInUsername}`} className="text-blue-500">{linkedInUsername}</Link>
             </Typography>
           )}
         </div>
