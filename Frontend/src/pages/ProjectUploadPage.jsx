@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { Spinner } from "@material-tailwind/react";
+import { Spinner, Typography } from "@material-tailwind/react";
 import AlertBox from "../components/AlertBox";
 import ProjectUploadForm from "../components/ProjectUploadForm";
 import { addProject } from "../services/projectData";
@@ -104,8 +104,9 @@ function ProjectUploadPage() {
           Project Upload
         </h1>
       </div>
-      <div className="flex justify-center m-0 p-0">
-        <section className="flex flex-col md:flex-row mx-auto p-2 md:p-4 shadow-md rounded-8 max-w-4xl">
+      <div className="flex justify-center">
+        <section className="flex flex-col md:flex-row mx-auto p-2 md:p-4 shadow-md rounded-8 max-w-4xl relative mt-2">
+          <Typography className="absolute -top-5 left-5" variant="h6">Fields marked as <span className="text-red-600">*</span> are mandatory</Typography>
           {loading ? (
             <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75">
               <Spinner className="h-12 w-12" />

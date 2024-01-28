@@ -30,12 +30,12 @@ function AuthorProfile({ username, name, university, githubUsername, linkedInUse
             </Typography>
           )}
           {githubUsername && (
-            <Typography variant="h6" color="blue-gray">
+            <Typography variant="h6" color="blue-gray" className="flex gap-1">
               GitHub <FaGithub className="w-7 h-7 mx-1" /> :
             </Typography>
           )}
           {linkedInUsername && (
-            <Typography variant="h6" color="blue-gray">
+            <Typography variant="h6" color="blue-gray" className="flex gap-1">
               LinkedIn <FaLinkedin className="w-7 h-7 mx-1" /> :
             </Typography>
           )}

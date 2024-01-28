@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { TagsInput } from "react-tag-input-component";
-import { Button, Input, Textarea } from "@material-tailwind/react";
+import { Button, Input, Textarea, Typography } from "@material-tailwind/react";
 import { SessionContext } from "../components/SessionProvider.jsx";
 
 const ProjectUploadForm = ({
@@ -43,7 +43,10 @@ const ProjectUploadForm = ({
       className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 text-left"
     >
       <div className="md:py-3 flex place-items-center pl-4 col-span-2 md:col-span-1 rounded-4 text-18 font-bold text-xl">
-        Idea Title (100 characters):
+        <Typography color="red" variant="h5" className="relative bottom-1">
+          *
+        </Typography>
+        Idea Title (100 characters) :
       </div>
       <Input
         label="Title"
@@ -53,7 +56,10 @@ const ProjectUploadForm = ({
       />
 
       <div className="md:py-3 flex place-items-center pl-4 col-span-2 md:col-span-1 rounded-4 text-18 font-bold text-xl">
-        Author(s) Username:
+        <Typography color="red" variant="h5" className="relative bottom-8">
+          *
+        </Typography>
+        Author(s) Username :
         <br />
         (Your username - First part of your respective email Id)
       </div>
@@ -65,7 +71,10 @@ const ProjectUploadForm = ({
       />
 
       <div className="md:py-3 flex place-items-center pl-4 col-span-2 md:col-span-1 rounded-4 text-18 font-bold text-xl">
-        Domain (AIML, Blockchain, etc):
+        <Typography color="red" variant="h5" className="relative bottom-1">
+          *
+        </Typography>
+        Domain (AIML, Blockchain, etc) :
       </div>
       <TagsInput
         value={projectData.domain}
@@ -75,7 +84,10 @@ const ProjectUploadForm = ({
       />
 
       <div className="md:py-14 flex place-items-center pl-4 col-span-2 md:col-span-1 rounded-4 text-18 font-bold text-xl content-center">
-        Abstract (1500 characters):
+        <Typography color="red" variant="h5" className="relative bottom-1">
+          *
+        </Typography>
+        Abstract (1500 characters) :
       </div>
       <Textarea
         label="Abstract"
@@ -104,7 +116,10 @@ const ProjectUploadForm = ({
       />
 
       <div className="md:py-3 flex place-items-center pl-4 col-span-2 md:col-span-1 rounded-4 text-18 font-bold text-xl">
-        Document (PDF or word format, up to 500Kb):
+        <Typography color="red" variant="h5" className="relative bottom-4 sm:bottom-1 md:bottom-4">
+          *
+        </Typography>
+        Document (PDF or word format, up to 500Kb) :
       </div>
       <div className="flex place-items-center col-span-2 md:col-span-1 rounded-4 text-18 font-bold text-xl">
         <input
