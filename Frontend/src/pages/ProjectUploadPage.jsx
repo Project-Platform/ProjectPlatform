@@ -34,8 +34,33 @@ function ProjectUploadPage() {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    file && setProjectData({ ...projectData, docs: file });
+  
+    if (file) {
+      // Check the file size (in bytes)
+      const fileSizeInBytes = file.size;
+  
+      // Convert fileSize to KB
+      const fileSizeInKB = fileSizeInBytes / 1024;
+  
+      // Maximum allowed file size (500KB in this example)
+      const maxFileSizeKB = 500;
+  
+      // Check if the file size is within the limit
+      if (fileSizeInKB > maxFileSizeKB) {
+        setMessage({
+          type: "failure",
+          message: "File size exceeds the limit. Please select a smaller file.",
+        });
+        //clear the file input
+        e.target.value = null;
+        return;
+      }
+  
+      // Update projectData with the selected file
+      setProjectData({ ...projectData, docs: file });
+    }
   };
+  
 
   const handleInputChange = (field, value) => {
     const newData = { ...projectData, [field]: value };
