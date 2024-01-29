@@ -24,6 +24,18 @@ export default function Profile() {
     }
   }, [session.user]);
 
+  useEffect(() => {
+    // Load user profile data from local storage on component mount
+    const storedProfileData = localStorage.getItem('userProfile');
+
+    if (storedProfileData) {
+      const parsedProfileData = JSON.parse(storedProfileData);
+      setProfileData(parsedProfileData);
+      setIsNewUser(false);
+    }
+
+    setLoading(false); // Set loading to false once local storage is checked
+  }, []);
   const fetchStudentData = async () => {
     try {
       setLoading(true);
@@ -63,6 +75,8 @@ export default function Profile() {
       console.error('Error saving profile:', error);
       showMessage({ type: "error", message: "Failed to save profile." });
     }
+     // Save updated profile data to local storage
+     localStorage.setItem('userProfile', JSON.stringify(profileData));
   };
 
   const handleEditProfile = () => {
