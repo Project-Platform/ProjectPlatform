@@ -24,22 +24,21 @@ export default function Profile() {
     }
   }, [session.user]);
 
-  useEffect(() => {
-    // Load user profile data from local storage on component mount
-    const storedProfileData = localStorage.getItem('userProfile');
-
-    if (storedProfileData) {
-      const parsedProfileData = JSON.parse(storedProfileData);
-      setProfileData(parsedProfileData);
-      setIsNewUser(false);
-    }
-
-    setLoading(false); // Set loading to false once local storage is checked
-  }, []);
   const fetchStudentData = async () => {
     try {
       setLoading(true);
       const { name, universityName, githubUsername, linkedinProfile } = await getStudentByUsername();
+      const storeData = JSON.parse(localStorage.getItem("profileData"));
+      if(storeData){
+        setProfileData({
+          ...profileData,
+          name: storeData.name,
+          universityName: storeData.universityName,
+          githubUsername: storeData.githubUsername,
+          linkedinProfile: storeData.linkedinProfile,
+        });
+        }
+      else{
       if (name || universityName || githubUsername || linkedinProfile) {
         // Data exists for the user
         setIsNewUser(false);
@@ -52,7 +51,7 @@ export default function Profile() {
         universityName: universityName,
         githubUsername: githubUsername,
         linkedinProfile: linkedinProfile,
-      });
+      });}
     } catch (error) {
       console.error('Error fetching student data:', error);
     } finally {
@@ -60,7 +59,14 @@ export default function Profile() {
     }
   };
   const handleInputChange = (field, value) => {
-    setProfileData((prevData) => ({ ...prevData, [field]: value }));
+    setProfileData((prevData) => {
+      const updatedData = { ...prevData, [field]: value };
+  
+      // Save updated profile data to local storage
+      localStorage.setItem('profileData', JSON.stringify(updatedData));
+  
+      return updatedData;
+    });
   };
 
   const handleSaveProfile = async () => {
@@ -75,8 +81,7 @@ export default function Profile() {
       console.error('Error saving profile:', error);
       showMessage({ type: "error", message: "Failed to save profile." });
     }
-     // Save updated profile data to local storage
-     localStorage.setItem('userProfile', JSON.stringify(profileData));
+    localStorage.removeItem("profileData");
   };
 
   const handleEditProfile = () => {
@@ -96,6 +101,7 @@ export default function Profile() {
       setIsUpdatingProfile(false);
       showMessage({ type: "error", message: "Failed to update profile." });
     }
+    localStorage.removeItem("profileData");
   };
 
   const showMessage = (message) => {
