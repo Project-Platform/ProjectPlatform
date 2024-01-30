@@ -36,7 +36,6 @@ const ProjectUploadForm = ({
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        console.log(projectData.author);
         if (
           !projectData.author ||
           !projectData.author.includes(user.username)

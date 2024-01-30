@@ -10,7 +10,6 @@ function AuthorProfilePage() {
   useEffect(() => {
     const fetchAuthorData = async () => {
       try {
-        console.log(username)
         const data = await getStudentByUsername(username);
         setAuthorData(data);
       } catch (error) {

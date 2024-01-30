@@ -13,7 +13,6 @@ export default function TableBodyComponent({ tableRows,refreshProjects, showMess
   const handleDelete = async (projectId,projectTitle) => {
     try {
       await deleteProjectById(projectId);
-      console.log(`Project with id ${projectId} deleted.`);
       refreshProjects(); // This function should be passed from the parent component to refresh the project list.
       showMessage('success', `Project ${projectTitle} deleted successfully.`); // Show alert on successful deletion
     } catch (error) {

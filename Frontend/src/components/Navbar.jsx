@@ -23,16 +23,13 @@ export function StickyNavbar() {
   const [searchTerm, setSearchTerm] = React.useState("");
   const navigate = useNavigate();
   const { user, setUser } = React.useContext(SessionContext);
-  // console.log(session, status);
   const handleKeyPress = (event,word) => {
     if (event.key === "Enter") {
       // Call the async function
-      console.log(word);
       navigate(`/search/${word}`,{state: word});
     }
   };
   const handleClick = async (word) => {
-    console.log(word);  
     navigate(`/search/${word}`,{state: word});
   };
   React.useEffect(() => {

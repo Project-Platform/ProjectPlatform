@@ -52,7 +52,6 @@ const results = async (word, tags) => {
       projectNo=1;
       ans = data.filter((project) => searchDomain[0]["result"].includes(project._id));
     } else {
-      // console.log(`No matches found on the ${word} with these combination of tags ,but revelant projects are`);
 
       const searchAbstract = index.search({
         index: "abstract",
@@ -63,7 +62,6 @@ const results = async (word, tags) => {
       if (searchAbstract.length > 0) {
         ans = data.filter((project) => searchAbstract[0]["result"].includes(project._id));
       } else {
-        // console.log(`No matches found on the ${word} & ${tags}. but relevant projects are`);
         if(tags.length ==0 ){
           projectNo=1;
         }

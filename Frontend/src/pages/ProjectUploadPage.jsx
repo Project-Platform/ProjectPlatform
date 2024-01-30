@@ -96,7 +96,6 @@ function ProjectUploadPage() {
       });
       localStorage.removeItem("projectData");
     } catch (error) {
-      console.log(error.response.data.similarProjects);
       if (error.response.status === 409) {
         setShowDialog(true);
         setOpen(true);

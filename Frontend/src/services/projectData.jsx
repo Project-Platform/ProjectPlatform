@@ -21,14 +21,12 @@ const getTrendingProjects = async () => {
 const deleteProjectById = async (projectId) => {
   const response = await axios.delete(
     `/api/projects/${projectId}`);
-  console.log("Project deleted successfully:", response.data);
   return response.data;
 };
 
 const getStudentProjects = async () => {
   const session = await getSession();
   if (session.user) {
-    console.log(session.user.username);
     const response = await axios.get(
       `/api/projects/student/${session.user.username}`);
     return response.data;

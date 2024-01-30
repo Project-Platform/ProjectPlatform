@@ -36,7 +36,7 @@ projectRouter.post("/", authenticated,upload.single("docs"), async (req, res, ne
       const semanticSearchResults = await semanticSearch(queryEmbedding);
 
       // Filter high-scoring projects with a score greater than 0.9
-      const highScoreResults = semanticSearchResults.filter(result => result.score > 0.9);
+      const highScoreResults = semanticSearchResults.filter(result => result.score > 0.85);
       
       if(highScoreResults != 0){
         return res.status(409).json({similarProjects:highScoreResults,message:"Too many similar projects"});

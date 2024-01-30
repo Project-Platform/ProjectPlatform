@@ -43,8 +43,6 @@ export default function Profile() {
         // Data exists for the user
         setIsNewUser(false);
       }
-      console.log(isNewUser);
-      console.log(name, universityName, githubUsername, linkedinProfile)
       setProfileData({
         ...profileData,
         name: name,
@@ -71,9 +69,7 @@ export default function Profile() {
 
   const handleSaveProfile = async () => {
     try {
-      console.group(profileData);
       const createdStudent = await updateStudent(profileData);
-      console.log('Student created:', createdStudent);
       setIsEditMode(false);
       setIsNewUser(false);
       showMessage({ type: "success", message: "Profile successfully saved." });
@@ -92,7 +88,6 @@ export default function Profile() {
     try {
       setIsUpdatingProfile(true);
       const updatedStudent = await updateStudent(profileData);
-      console.log('Student updated:', updatedStudent);
       setIsUpdatingProfile(false);
       setIsEditMode(false);
       showMessage({ type: "success", message: "Profile successfully updated." });

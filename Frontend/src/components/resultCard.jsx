@@ -1,7 +1,7 @@
 import { Card, CardBody } from '@material-tailwind/react';
 
 const ResultCard = ({ project }) => (
-  <Card>
+  <Card className="my-1">
     <CardBody>
         <strong>Title: </strong>{project.title}<br/>
         <strong>Author(s): </strong> {project.author.join(', ')}<br/>
