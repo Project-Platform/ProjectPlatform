@@ -121,23 +121,23 @@ export default function Profile() {
       <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
         <div className="mb-1 flex flex-col gap-6">
           <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Your Name
+            Name
           </Typography>
           <Input
             size="lg"
             id="name"
-            placeholder="Your Name"
+            placeholder="Name"
             autoComplete="name"
             onChange={(e) => handleInputChange('name', e.target.value)}
             value={profileData.name}
             disabled={!isEditMode && !isNewUser}
           />
           <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Your University Name
+            University Name
           </Typography>
           <Input
             size="lg"
-            placeholder="Your University"
+            placeholder="University"
             id="university"
             autoComplete="organization"
             onChange={(e) => handleInputChange('universityName', e.target.value)}
@@ -146,7 +146,7 @@ export default function Profile() {
           />
 
           <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Your GitHub Username
+            GitHub Username
           </Typography>
           <Input
             size="lg"
@@ -159,7 +159,7 @@ export default function Profile() {
           />
 
           <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Your LinkedIn Username
+            LinkedIn Username
           </Typography>
           <Input
             size="lg"
@@ -173,18 +173,18 @@ export default function Profile() {
         </div>
         {isNewUser ? (
           <Button className="mt-6" fullWidth onClick={handleSaveProfile}>
-            SAVE.
+            SAVE
           </Button>
         ) : (
           <>
           {!isEditMode && (
               <Button className="mt-6" fullWidth onClick={handleEditProfile}>
-                EDIT.
+                EDIT
               </Button>
             )}
             {isEditMode && (
               <Button className="mt-6" fullWidth onClick={handleUpdateProfile}>
-                UPDATE.
+                UPDATE
               </Button>
             )}
           </>

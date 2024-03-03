@@ -7,10 +7,10 @@ function AuthorProfile({ username, name, university, githubUsername, linkedInUse
   return (
     <Card color="transparent" shadow={false} className="mt-10 place-items-center mb-10">
       <Typography variant="h4" color="blue-gray">
-        User Profile Details
+        Author Profile Details
       </Typography>
       <Typography color="gray" className="mt-1 font-normal">
-        {username} Profile Details!
+        {username}'s Profile Details!
       </Typography>
       <div className="grid grid-cols-2 gap-6 mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
         <div className="flex flex-col gap-6">
