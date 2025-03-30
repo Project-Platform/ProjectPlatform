@@ -15,9 +15,9 @@ class FeatureExtractor {
       let { pipeline } = await import("@xenova/transformers");
 
       // Create a new instance of the pipeline with the specified task, model, and options.
-      // The 'quantized' option is set to 'false', and the 'progress_callback' function is provided.
+      // The 'quantized' option is set to 'true', and the 'progress_callback' function is provided.
       this.instance = pipeline(this.task, this.model, {
-        quantized: false,
+        quantized: true,
         progress_callback,
       });
     }
